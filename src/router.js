@@ -3,8 +3,8 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import { connect } from 'react-redux';
 
 // Import pages.
-import SignIn from './containers/SignIn';
-import Main from './containers/Main';
+import SignIn from './containers/SignIn/SignIn';
+import Main from './containers/Main/Main';
 
 import ErrorPage404 from './containers/Pages/404';
 
@@ -22,6 +22,16 @@ const AppRouter = ({ isSignIn }) => {
   );
 };
 
+// Router after login.
+const PrivateRouter = () => {
+  return(
+    <Switch>
+      <Route exact path="/main" component={Main} />
+      <Route component={ErrorPage404}/>
+    </Switch>
+  );
+};
+
 // Private Router component
 const PrivateRouterComponent = ({ component: Component, isSignIn, ...rest }) => {
   return(
@@ -34,15 +44,6 @@ const PrivateRouterComponent = ({ component: Component, isSignIn, ...rest }) => 
               state: { from: props.location }
             }} />
     )}/>
-  );
-};
-
-// Router after login.
-const PrivateRouter = () => {
-  return(
-    <Switch>
-      <Route exact path="/main" component={Main} />
-    </Switch>
   );
 };
 
