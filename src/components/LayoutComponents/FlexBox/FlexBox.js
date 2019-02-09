@@ -3,24 +3,28 @@ import React from 'react';
 
 import './FlexBox.css';
 
-const FlexBox = ({ wrap, column, order, align, justify, children }) => {
-  let flexBoxclass = _changePropsToClass({ wrap, column, order, align, justify });
+const FlexBox = ({ wrap, column, align, justify, children }) => {
+  const flexBoxclass = _changePropsToClass({ wrap, column, align, justify });
 
   return(
-    <div className={flexBoxclass}>
+    // <div className={flexBoxclass}>
+    <div className='flex-box a'>
       {children ? {...children} : ''}
     </div>
   );
 };
 
-const _changePropsToClass = ({ wrap, column, order, align, justify }) => {
+const _changePropsToClass = ({ wrap, column, align, justify }) => {
   let className = 'flex-box';
 
-  className = className.concat(wrap ? ` ${wrap}` : '');
-  className = className.concat(column ? ` ${column}` : '');
-  className = className.concat(order ? ` ${order}` : '');
-  className = className.concat(align ? ` ${align}` : '');
-  className = className.concat(justify ? ` ${justify}` : '');
+  // flex-wrap
+  className = className.concat(wrap ? ` flex-box--flex-wrap--${wrap}` : '');
+  // flex-direction
+  className = className.concat(column ? ` flex-box--flex-direction--${column}` : '');
+  // align-items
+  className = className.concat(align ? ` flex-box--align-items--${align}` : '');
+  //jusitify-content
+  className = className.concat(justify ? ` flex-box--jusitify-content--${justify}` : '');
 
   return className;
 };

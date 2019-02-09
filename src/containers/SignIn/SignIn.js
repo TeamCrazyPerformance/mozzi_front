@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/Input';
-import SignInLayout from './../../components/LayoutComponents/SignInLayout/SignInLayout';
+// import SignInLayout from './../../components/LayoutComponents/SignInLayout/SignInLayout';
 
 import FlexBox from './../../components/LayoutComponents/FlexBox/FlexBox';
 
@@ -51,7 +51,12 @@ class SignIn extends Component {
 
   render() {
     return(
-      <SignInLayout>
+      <FlexBox
+        wrap="wrap"
+        column="column"
+        align="center"
+        justify="center"
+      >
         <div className="signin-component">
           <form onSubmit={this._handleSubmit}>
             <div>
@@ -87,7 +92,7 @@ class SignIn extends Component {
             </div>
           </form>
         </div>
-      </SignInLayout>
+      </FlexBox>
     );
   };
 };
