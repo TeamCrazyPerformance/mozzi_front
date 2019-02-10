@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/Input';
-// import SignInLayout from './../../components/LayoutComponents/SignInLayout/SignInLayout';
 
 import FlexBox from './../../components/LayoutComponents/FlexBox/FlexBox';
+import Box from './../../components/LayoutComponents/Box/Box';
 
 import * as authActions from '../../redux/auth/actions';
 
@@ -57,41 +57,35 @@ class SignIn extends Component {
         align="center"
         justify="center"
       >
-        <div className="signin-component">
+        <Box>
           <form onSubmit={this._handleSubmit}>
-            <div>
-              <TextField
-                className="signin-component__email-input-box"
-                label="Email"
-                type="email"
-                onChange={this._handleIdentityValue}
-                autoComplete="email"
-                placeholder="email"
-                required
-              />
-            </div>
-            <div>
-              <TextField
-                className="signin-component__password-input-box"
-                label="Password"
-                type="password"
-                placeholder="password"
-                onChange={this._handlePasswordValue}
-                required
-              />
-            </div>
-            <div>
-              <Button
-                className="signin-component__signin-button"
-                variant="contained"
-                color="primary"
-                type="submit"
-              >
-                Sign-in
-              </Button>
-            </div>
+            <TextField
+              className="signin-component__email-input-box"
+              label="Email"
+              type="email"
+              onChange={this._handleIdentityValue}
+              autoComplete="email"
+              placeholder="email"
+              required
+            />
+            <TextField
+              className="signin-component__password-input-box"
+              label="Password"
+              type="password"
+              placeholder="password"
+              onChange={this._handlePasswordValue}
+              required
+            />
+            <Button
+              className="signin-component__signin-button"
+              variant="contained"
+              color="primary"
+              type="submit"
+            >
+              Sign-in
+            </Button>
           </form>
-        </div>
+        </Box>
       </FlexBox>
     );
   };

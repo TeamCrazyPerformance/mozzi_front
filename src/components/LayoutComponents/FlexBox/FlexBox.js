@@ -7,8 +7,7 @@ const FlexBox = ({ wrap, column, align, justify, children }) => {
   const flexBoxclass = _changePropsToClass({ wrap, column, align, justify });
 
   return(
-    // <div className={flexBoxclass}>
-    <div className='flex-box a'>
+    <div className={flexBoxclass}>
       {children ? {...children} : ''}
     </div>
   );
