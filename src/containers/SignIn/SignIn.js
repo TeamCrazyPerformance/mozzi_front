@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/Input';
 
-import * as authActions from './../../redux/auth/actions';
+import FlexBox from './../../components/LayoutComponents/FlexBox/FlexBox';
+import Box from './../../components/LayoutComponents/Box/Box';
+
+import * as authActions from '../../redux/auth/actions';
 
 class SignIn extends Component {
   constructor(props) {
@@ -15,7 +19,7 @@ class SignIn extends Component {
     }
   };
 
-  handleIdentityValue = (event) => {
+  _handleIdentityValue = (event) => {
     // Handle input value.
     this.setState({
       ...this.state,
@@ -23,7 +27,7 @@ class SignIn extends Component {
     });
   };
 
-  handlePasswordValue = (event) => {
+  _handlePasswordValue = (event) => {
     // Handle input value.
     this.setState({
       ...this.state,
@@ -31,7 +35,7 @@ class SignIn extends Component {
     });
   };
 
-  handleSubmit = (event) => {
+  _handleSubmit = (event) => {
     // Prevent browers refresh.
     event.preventDefault();
 
@@ -47,30 +51,31 @@ class SignIn extends Component {
 
   render() {
     return(
-      <div className="signin-component">
-        <form onSubmit={this.handleSubmit}>
-          <div>
+      <FlexBox
+        wrap="wrap"
+        column="column"
+        align="center"
+        justify="center"
+      >
+        <Box>
+          <form onSubmit={this._handleSubmit}>
             <TextField
               className="signin-component__email-input-box"
               label="Email"
               type="email"
-              onChange={this.handleIdentityValue}
+              onChange={this._handleIdentityValue}
               autoComplete="email"
               placeholder="email"
               required
             />
-          </div>
-          <div>
             <TextField
               className="signin-component__password-input-box"
               label="Password"
               type="password"
               placeholder="password"
-              onChange={this.handlePasswordValue}
+              onChange={this._handlePasswordValue}
               required
             />
-          </div>
-          <div>
             <Button
               className="signin-component__signin-button"
               variant="contained"
@@ -79,15 +84,15 @@ class SignIn extends Component {
             >
               Sign-in
             </Button>
-          </div>
-        </form>
-      </div>
+          </form>
+        </Box>
+      </FlexBox>
     );
   };
 };
 
 // Map state to props.
-const mapStateToProps = (state) => {
+const _mapStateToProps = (state) => {
   const auth = state.Auth;
   return {
     isSignIn: auth.isSignIn,
@@ -99,9 +104,9 @@ const mapStateToProps = (state) => {
 };
 
 // Map dispatch to props.
-const mapDispatchToProps = (dispatch) => {
+const _mapDispatchToProps = (dispatch) => {
   return bindActionCreators(authActions, dispatch);
 };
 
 // Connect state and dispatch to SignIn props.
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(_mapStateToProps, _mapDispatchToProps)(SignIn);
