@@ -1,0 +1,33 @@
+.logo-component {
+
+}
+
+.logo-component--size-small {
+  width: 3rem;
+  height: 3rem;
+}
+
+.logo-component--size-medium {
+  width: 10rem;
+  height: 10rem;
+}
+
+.logo-component--size-large {
+  width: 20rem;
+  height: 20rem;
+}
+
+.logo-component--spin-true {
+  animation: logo-component-spin infinite 10s linear;
+}
+
+/* Logo spin animation */
+@keyframes logo-component-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.logo-component__logo-image {
+  width: 100%;
+  height: 100%;
+}

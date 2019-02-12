@@ -1,0 +1,28 @@
+.signin-form-component {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20rem;
+  padding-bottom: 5rem;
+}
+
+.signin-form-component__form,
+.signin-form-component__form__input-box-wrapper,
+.signin-form-component__form__button-box-wrapper {
+  width: 100%;
+}
+
+.signin-form-component__form__input-box-wrapper {
+  padding-bottom: 0.5rem;
+}
+
+.signin-form-component__form__button-box-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.signin-form-component__form__button-box-wrapper__button-wrapper {
+  display: inline-block;
+}

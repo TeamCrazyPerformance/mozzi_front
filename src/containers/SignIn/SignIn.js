@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/Input';
-
 import FlexBox from './../../components/LayoutComponents/FlexBox/FlexBox';
-import Box from './../../components/LayoutComponents/Box/Box';
+import SignInForm from './../../components/SignInForm/SignInForm';
+import Logo from './../../components/Logo/Logo';
 
 import * as authActions from '../../redux/auth/actions';
 
@@ -52,43 +51,30 @@ class SignIn extends Component {
   render() {
     return(
       <FlexBox
-        wrap="wrap"
-        column="column"
-        align="center"
-        justify="center"
+        wrap= "wrap"
+        column= "column"
+        align= "center"
+        justify= "center"
       >
-        <Box>
-          <form onSubmit={this._handleSubmit}>
-            <TextField
-              className="signin-component__email-input-box"
-              label="Email"
-              type="email"
-              onChange={this._handleIdentityValue}
-              autoComplete="email"
-              placeholder="email"
-              required
-            />
-            <TextField
-              className="signin-component__password-input-box"
-              label="Password"
-              type="password"
-              placeholder="password"
-              onChange={this._handlePasswordValue}
-              required
-            />
-            <Button
-              className="signin-component__signin-button"
-              variant="contained"
-              color="primary"
-              type="submit"
-            >
-              Sign-in
-            </Button>
-          </form>
-        </Box>
+        <Logo
+          size="large"
+          spin={true}
+        />
+        <SignInForm
+          handleSubmit={this._handleSubmit}
+          handleIdentityValue={this._handleIdentityValue}
+          handlePasswordVaule={this._handlePasswordValue}
+          signupUrl="/signup"
+        />
       </FlexBox>
     );
   };
+};
+
+// Check prop types.
+SignIn.propTypes = {
+  isSignIn: PropTypes.bool.isRequired,
+  loadingState: PropTypes.objectOf(PropTypes.bool),
 };
 
 // Map state to props.
