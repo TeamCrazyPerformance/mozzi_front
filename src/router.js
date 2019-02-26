@@ -20,7 +20,7 @@ const AppRouter = ({ isSignIn }) => {
       <Switch>
         <Route exact path="/" component={SignIn} />
         <Route exact path="/signin" component={SignIn} />
-        <PrivateRouterComponent isSignIn={isSignIn} path="/main" component={PrivateRouter} />
+        <PrivateRouterComponent isSignIn={isSignIn} component={PrivateRouter} />
         <Route component={ErrorPage404}/>
       </Switch>
     </Router>
