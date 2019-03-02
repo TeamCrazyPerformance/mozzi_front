@@ -59,12 +59,14 @@ const Header = ({ children }) => {
   const _handleProfileMenuClose = () => setAnchorEl(null);
   const _handleDrawerOpen = () => setOpen(true);
   const _handleDrawerClose = () => setOpen(false);
-  const _handleTitleChange = (title) => setTitle(title);
+  // const _handleTitleChange = (title) => setTitle(title);
 
   return (
     <div className="header">
-      <AppBar position="fixed">
-        <Toolbar disableGutters={!open}>
+
+      <div className="header__app-bar-wrapper">
+      <AppBar position="fixed" className="header__app-bar-wrapper__app-bar">
+        <Toolbar disableGutters={!open} className="header__app-bar-wrapper__app-bar__tool-bar">
           <IconButton
             color="inherit"
             aria-label="Open drawer"
@@ -73,9 +75,9 @@ const Header = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" noWrap>
-            {title}
+            {/* {title} */}
           </Typography>
-          <div>
+          <div className="header__app-bar-wrapper__app-bar__tool-bar__icon-button-wrapper">
             <IconButton
               aria-owns={Boolean(anchorEl) ? 'menu-appbar' : undefined}
               aria-haspopup="true"
@@ -104,6 +106,10 @@ const Header = ({ children }) => {
           </div>
         </Toolbar>
       </AppBar>
+      </div>
+
+
+      <div className="header__drawer-wrapper">
       <Drawer
         variant="persistent"
         anchor="left"
@@ -117,13 +123,18 @@ const Header = ({ children }) => {
         <Divider />
         <List>
           {drawerList.map(({ iconComponent, text, link }, index) => (
-            <ListItem component={Link} to={link} key={index} onClick={() => _handleTitleChange(text)} button>
+            // <ListItem component={Link} to={link} key={index} onClick={() => _handleTitleChange(text)} button>
+            <ListItem component={Link} to={link} key={index} button>
               <ListItemIcon>{iconComponent}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
       </Drawer>
+      </div>
+
+
+
       <div className="header__children-wrapper">
         {children}
       </div>
