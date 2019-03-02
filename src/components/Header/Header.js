@@ -53,21 +53,17 @@ const drawerList = [{
 const Header = ({ children }) => {
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-
-  const [count, setCounte] = useState(0);
+  const [title, setTitle] = useState('Main');
 
   const _handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const _handleProfileMenuClose = () => setAnchorEl(null);
   const _handleDrawerOpen = () => setOpen(true);
   const _handleDrawerClose = () => setOpen(false);
-
-  console.log(count);
+  const _handleTitleChange = (title) => setTitle(title);
 
   return (
     <div className="header">
-      <AppBar
-        position="fixed"
-      >
+      <AppBar position="fixed">
         <Toolbar disableGutters={!open}>
           <IconButton
             color="inherit"
@@ -77,14 +73,13 @@ const Header = ({ children }) => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" color="inherit" noWrap>
-            Persistent drawer
+            {title}
           </Typography>
           <div>
             <IconButton
               aria-owns={Boolean(anchorEl) ? 'menu-appbar' : undefined}
               aria-haspopup="true"
-              // onClick={_handleProfileMenuOpen}
-              onClick={() => setCounte(count + 1)}
+              onClick={_handleProfileMenuOpen}
               color="inherit"
             >
               <AccountCircle />
@@ -122,14 +117,16 @@ const Header = ({ children }) => {
         <Divider />
         <List>
           {drawerList.map(({ iconComponent, text, link }, index) => (
-            <ListItem component={Link} to={link} key={index} button>
+            <ListItem component={Link} to={link} key={index} onClick={() => _handleTitleChange(text)} button>
               <ListItemIcon>{iconComponent}</ListItemIcon>
               <ListItemText primary={text} />
             </ListItem>
           ))}
         </List>
       </Drawer>
-      {children}
+      <div className="header__children-wrapper">
+        {children}
+      </div>
     </div>
   );
 };
