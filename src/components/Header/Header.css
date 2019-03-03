@@ -1,0 +1,21 @@
+.header__app-bar-wrapper__app-bar__tool-bar__title {
+  flex-grow: 1;
+}
+
+.header__children-wrapper {
+  padding-top: 56px;
+}
+
+@media screen and (min-width:600px) {
+  .header__children-wrapper {
+      padding-top: 64px;
+  }
+}
+
+.header__drawer-wrapper__drawer {
+  z-index: 2;
+}
+
+.header__children-wrpper--hidden {
+  background: rgba(0, 0, 0, 0.3);
+}
