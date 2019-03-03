@@ -13,12 +13,9 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
 import MenuIcon from '@material-ui/icons/Menu';
 
 // Import material ui icons.
-import AccountCircle from '@material-ui/icons/AccountCircle';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Home from '@material-ui/icons/Home';
 import LaptopWindows from '@material-ui/icons/LaptopWindows';
@@ -52,90 +49,73 @@ const drawerList = [{
 
 const Header = ({ children }) => {
   const [open, setOpen] = useState(false);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [title, setTitle] = useState('Main');
+  const [backgroundHidden, setBackgroundHidden] = useState('hidden');
 
-  const _handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
-  const _handleProfileMenuClose = () => setAnchorEl(null);
-  const _handleDrawerOpen = () => setOpen(true);
-  const _handleDrawerClose = () => setOpen(false);
-  // const _handleTitleChange = (title) => setTitle(title);
+  const _handleDrawerOpen = () => {
+    setOpen(true);
+    setBackgroundHidden('visible');
+  };
+
+  const _handleDrawerClose = () => {
+    setOpen(false);
+    setBackgroundHidden('hidden');
+  };
 
   return (
     <div className="header">
 
       <div className="header__app-bar-wrapper">
-      <AppBar position="fixed" className="header__app-bar-wrapper__app-bar">
-        <Toolbar disableGutters={!open} className="header__app-bar-wrapper__app-bar__tool-bar">
-          <IconButton
-            color="inherit"
-            aria-label="Open drawer"
-            onClick={_handleDrawerOpen}
+        <AppBar
+          position="fixed"
+          className="header__app-bar-wrapper__app-bar"
+        >
+          <Toolbar
+            disableGutters={!open}
+            className="header__app-bar-wrapper__app-bar__tool-bar"
           >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" color="inherit" noWrap>
-            {/* {title} */}
-          </Typography>
-          <div className="header__app-bar-wrapper__app-bar__tool-bar__icon-button-wrapper">
             <IconButton
-              aria-owns={Boolean(anchorEl) ? 'menu-appbar' : undefined}
-              aria-haspopup="true"
-              onClick={_handleProfileMenuOpen}
               color="inherit"
+              aria-label="Open drawer"
+              className="header__app-bar-wrapper__app-bar__tool-bar__menu-icon-button"
+              onClick={_handleDrawerOpen}
             >
-              <AccountCircle />
+              <MenuIcon />
             </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorEl)}
-              onClose={_handleProfileMenuClose}
+            <Typography
+              variant="h6"
+              color="inherit"
+              className="header__app-bar-wrapper__app-bar__tool-bar__title"
+              noWrap
             >
-              <MenuItem>Profile</MenuItem>
-              <MenuItem>Logout</MenuItem>
-            </Menu>
-          </div>
-        </Toolbar>
-      </AppBar>
+              TCP WEB
+            </Typography>
+          </Toolbar>
+        </AppBar>
       </div>
-
-
       <div className="header__drawer-wrapper">
-      <Drawer
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <div>
-          <IconButton onClick={_handleDrawerClose}>
-            <ChevronLeftIcon />
-          </IconButton>
-        </div>
-        <Divider />
-        <List>
-          {drawerList.map(({ iconComponent, text, link }, index) => (
-            // <ListItem component={Link} to={link} key={index} onClick={() => _handleTitleChange(text)} button>
-            <ListItem component={Link} to={link} key={index} button>
-              <ListItemIcon>{iconComponent}</ListItemIcon>
-              <ListItemText primary={text} />
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
+        <Drawer
+          variant="persistent"
+          anchor="left"
+          className="header__drawer-wrapper__drawer"
+          open={open}
+        >
+          <div>
+            <IconButton onClick={_handleDrawerClose}>
+              <ChevronLeftIcon />
+            </IconButton>
+          </div>
+          <Divider />
+          <List>
+            {drawerList.map(({ iconComponent, text, link }, index) => (
+              <ListItem component={Link} to={link} key={index} button>
+                <ListItemIcon>{iconComponent}</ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
       </div>
-
-
-
-      <div className="header__children-wrapper">
+      <div className={`header__children-wrapper header__children-wrpper--${backgroundHidden}`}>
         {children}
       </div>
     </div>
