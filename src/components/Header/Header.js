@@ -51,23 +51,20 @@ const drawerList = [{
 }];
 
 const Header = ({ children }) => {
+  // Create state.
   const [open, setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
 
-  const [count, setCounte] = useState(0);
-
+  // Handle function.
   const _handleProfileMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const _handleProfileMenuClose = () => setAnchorEl(null);
   const _handleDrawerOpen = () => setOpen(true);
   const _handleDrawerClose = () => setOpen(false);
 
-  console.log(count);
-
   return (
     <div className="header">
-      <AppBar
-        position="fixed"
-      >
+      <div className="header__app-bar-wrapper">
+      <AppBar position="fixed">
         <Toolbar disableGutters={!open}>
           <IconButton
             color="inherit"
@@ -83,8 +80,7 @@ const Header = ({ children }) => {
             <IconButton
               aria-owns={Boolean(anchorEl) ? 'menu-appbar' : undefined}
               aria-haspopup="true"
-              // onClick={_handleProfileMenuOpen}
-              onClick={() => setCounte(count + 1)}
+              onClick={_handleProfileMenuOpen}
               color="inherit"
             >
               <AccountCircle />
@@ -109,6 +105,8 @@ const Header = ({ children }) => {
           </div>
         </Toolbar>
       </AppBar>
+      </div>
+      <div className="header__drawer-wrapper">
       <Drawer
         variant="persistent"
         anchor="left"
@@ -129,7 +127,10 @@ const Header = ({ children }) => {
           ))}
         </List>
       </Drawer>
-      {children}
+      </div>
+      <div className="header__children-wrapper">
+        {children}
+      </div>
     </div>
   );
 };
