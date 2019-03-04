@@ -1,21 +1,38 @@
-.header__app-bar-wrapper__app-bar__tool-bar__title {
-  flex-grow: 1;
+.app-bar-wrapper {
+  display: flex;
 }
 
-.header__children-wrapper {
-  padding-top: 56px;
+.app-bar-wrapper__app-bar {
+  margin-left: 240px;
 }
 
-@media screen and (min-width:600px) {
-  .header__children-wrapper {
-      padding-top: 64px;
+@media screen and (min-width:1280px) {
+  .app-bar-wrapper__app-bar {
+    width: calc( 100% - 240px );
   }
 }
 
-.header__drawer-wrapper__drawer {
-  z-index: 2;
+.app-bar-wrapper__app-bar__tool-bar__icon-button {
+  margin-right: 20px;
 }
 
-.header__children-wrpper--hidden {
-  background: rgba(0, 0, 0, 0.3);
+@media screen and (min-width:1280px) {
+  .app-bar-wrapper__app-bar__tool-bar__icon-button {
+    display: none;
+  }
+}
+
+@media screen and (min-width:1280px) {
+  .app-bar-wrapper__drawer-wrapper {
+    width: 240px;
+    flex-shrink: 0;
+  }
+}
+
+.drawer {
+  width: 240px;
+}
+
+.app-bar-wrapper__main {
+  flex-grow: 1;
 }

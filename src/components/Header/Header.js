@@ -1,126 +1,89 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
+import PropTypes from 'prop-types';
 
 import AppBar from '@material-ui/core/AppBar';
+import CssBaseline from '@material-ui/core/CssBaseline';
 import Drawer from '@material-ui/core/Drawer';
+import Hidden from '@material-ui/core/Hidden';
+import IconButton from '@material-ui/core/IconButton';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
-import IconButton from '@material-ui/core/IconButton';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-
-import MenuIcon from '@material-ui/icons/Menu';
 
 // Import material ui icons.
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import Home from '@material-ui/icons/Home';
-import LaptopWindows from '@material-ui/icons/LaptopWindows';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import People from '@material-ui/icons/People';
-import SupervisorAccount from '@material-ui/icons/SupervisorAccount';
+import MenuIcon from '@material-ui/icons/Menu';
 
-import './Header.css';
+import DrawerList from './../DrawerList/DrawerList';
 
-const drawerList = [{
-  iconComponent: <Home />,
-  text: 'Main',
-  link: '/main'
-}, {
-  iconComponent: <LaptopWindows />,
-  text: 'Project',
-  link: '/project'
-}, {
-  iconComponent: <LibraryBooks />,
-  text: 'Exam',
-  link: '/exam'
-}, {
-  iconComponent: <People />,
-  text: 'User management',
-  link: '/usermanagement'
-}, {
-  iconComponent: <SupervisorAccount />,
-  text: 'Admin',
-  link: '/admin'
-}];
 
-const Header = ({ children }) => {
-  // Create state.
-  const [open, setOpen] = useState(false);
-  const [backgroundHidden, setBackgroundHidden] = useState('hidden');
+const ResponsiveDrawer = (props) => {
+  const { container, children } = props;
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
 
-  const _handleDrawerOpen = () => {
-    setOpen(true);
-    setBackgroundHidden('visible');
-  };
-
-  const _handleDrawerClose = () => {
-    setOpen(false);
-    setBackgroundHidden('hidden');
-  };
+  const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
 
   return (
-    <div className="header">
-
-      <div className="header__app-bar-wrapper">
-        <AppBar
-          position="fixed"
-          className="header__app-bar-wrapper__app-bar"
-        >
-          <Toolbar
-            disableGutters={!open}
-            className="header__app-bar-wrapper__app-bar__tool-bar"
+    <div className="app-bar-wrapper">
+      <CssBaseline />
+      <AppBar position="fixed" className="app-bar-wrapper__app-bar">
+        <Toolbar className="app-bar-wrapper__app-bar__tool-bar">
+          <IconButton
+            color="inherit"
+            aria-label="Open drawer"
+            onClick={handleDrawerToggle}
+            className="app-bar-wrapper__app-bar__tool-bar__icon-button"
           >
-            <IconButton
-              color="inherit"
-              aria-label="Open drawer"
-              className="header__app-bar-wrapper__app-bar__tool-bar__menu-icon-button"
-              onClick={_handleDrawerOpen}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography
-              variant="h6"
-              color="inherit"
-              className="header__app-bar-wrapper__app-bar__tool-bar__title"
-              noWrap
-            >
-              TCP WEB
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </div>
-      <div className="header__drawer-wrapper">
-        <Drawer
-          variant="persistent"
-          anchor="left"
-          className="header__drawer-wrapper__drawer"
-          open={open}
+            <MenuIcon className="app-bar-wrapper__app-bar__tool-bar__icon-button__icon"/>
+          </IconButton>
+          <Typography
+            variant="h6"
+            color="inherit"
+            noWrap
+          >
+            TCP WEBBBBBBBBBBBBBBBBBBBBBB
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <nav className="app-bar-wrapper__drawer-wrapper">
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Hidden
+          className="app-bar-wrapper__drawer-wrapper__hidden--sm-up"
+          implementation="css"
+          smUp
         >
-          <div>
-            <IconButton onClick={_handleDrawerClose}>
-              <ChevronLeftIcon />
-            </IconButton>
-          </div>
-          <Divider />
-          <List>
-            {drawerList.map(({ iconComponent, text, link }, index) => (
-              <ListItem component={Link} to={link} key={index} button>
-                <ListItemIcon>{iconComponent}</ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
-        </Drawer>
-      </div>
-      <div className={`header__children-wrapper header__children-wrpper--${backgroundHidden}`}>
+          <Drawer
+            container={container}
+            variant="temporary"
+            anchor="left"
+            open={drawerOpen}
+            onClose={handleDrawerToggle}
+            className="app-bar-wrapper__drawer-wrapper__hidden--sm-up__drawer drawer"
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+          >
+            <DrawerList />
+          </Drawer>
+        </Hidden>
+        <Hidden
+          className="app-bar-wrapper__drawer-wrapper__hidden--xs-down"
+          implementation="css"
+          xsDown
+        >
+          <Drawer
+            className="app-bar-wrapper__drawer-wrapper__hidden--xs-down__drawer drawer"
+            variant="permanent"
+            open
+          >
+            <DrawerList />
+          </Drawer>
+        </Hidden>
+      </nav>
+      <main className="app-bar-wrapper__main">
+        <div className="app-bar-wrapper__main__tool-bar" />
         {children}
-      </div>
+      </main>
     </div>
   );
-};
+}
 
-export default Header;
+export default ResponsiveDrawer;
