@@ -13,9 +13,9 @@ import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 
 import DrawerList from './../DrawerList/DrawerList';
+import './Header.css';
 
-
-const ResponsiveDrawer = (props) => {
+const Header = (props) => {
   const { container, children } = props;
   const [drawerOpen, setDrawerOpen] = React.useState(false);
 
@@ -39,16 +39,16 @@ const ResponsiveDrawer = (props) => {
             color="inherit"
             noWrap
           >
-            TCP WEBBBBBBBBBBBBBBBBBBBBBB
+            TCP WEB PROJECT
           </Typography>
         </Toolbar>
       </AppBar>
       <nav className="app-bar-wrapper__drawer-wrapper">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        {/* Width is smaller than 1280px */}
         <Hidden
-          className="app-bar-wrapper__drawer-wrapper__hidden--sm-up"
+          className="app-bar-wrapper__drawer-wrapper__hidden--md-up"
           implementation="css"
-          smUp
+          mdUp
         >
           <Drawer
             container={container}
@@ -56,21 +56,21 @@ const ResponsiveDrawer = (props) => {
             anchor="left"
             open={drawerOpen}
             onClose={handleDrawerToggle}
-            className="app-bar-wrapper__drawer-wrapper__hidden--sm-up__drawer drawer"
-            ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
-            }}
+            className="app-bar-wrapper__drawer-wrapper__hidden--md-up__drawer drawer"
+            // Better open performance on mobile.
+            ModalProps={{ keepMounted: true }}
           >
             <DrawerList />
           </Drawer>
         </Hidden>
+        {/* Width is bigger then 1280px */}
         <Hidden
-          className="app-bar-wrapper__drawer-wrapper__hidden--xs-down"
+          className="app-bar-wrapper__drawer-wrapper__hidden--md-down"
           implementation="css"
-          xsDown
+          mdDown
         >
           <Drawer
-            className="app-bar-wrapper__drawer-wrapper__hidden--xs-down__drawer drawer"
+            className="app-bar-wrapper__drawer-wrapper__hidden--md-down__drawer drawer"
             variant="permanent"
             open
           >
@@ -79,11 +79,11 @@ const ResponsiveDrawer = (props) => {
         </Hidden>
       </nav>
       <main className="app-bar-wrapper__main">
-        <div className="app-bar-wrapper__main__tool-bar" />
+        {/* <div className="app-bar-wrapper__main__tool-bar" /> */}
         {children}
       </main>
     </div>
   );
 }
 
-export default ResponsiveDrawer;
+export default Header;
