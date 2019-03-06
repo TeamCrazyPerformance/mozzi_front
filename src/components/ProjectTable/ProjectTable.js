@@ -18,6 +18,7 @@ const ProjectTable = ({projects, page, rowsPerPage, handleChangePage, handleChan
       
       <TableBody>
         {projects.slice(page*rowsPerPage, (page+1)*rowsPerPage).map(project =>(
+          //cut project array to current page
             <TableRow id={project.id}>
               <TableCell>{project.name}</TableCell>
               <TableCell>{project.author}</TableCell>
@@ -26,6 +27,7 @@ const ProjectTable = ({projects, page, rowsPerPage, handleChangePage, handleChan
           )
         )}
         {emptyRows > 0 && (
+          //fill empty rows
           <TableRow style={{ height: 48 * emptyRows }}>
             <TableCell colSpan={3} />
           </TableRow>
@@ -37,7 +39,11 @@ const ProjectTable = ({projects, page, rowsPerPage, handleChangePage, handleChan
           <TablePagination
             page={page}
             rowsPerPage={rowsPerPage}
+            rowsPerPageOptions={[5,10]}
             count={projects.length}
+            SelectProps={{
+              native : true
+            }}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
