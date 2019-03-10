@@ -17,12 +17,13 @@ const ProjectTable = ({projects, page, rowsPerPage, handleChangePage, handleChan
     <Table>
       
       <TableBody>
-        {projects.slice(page*rowsPerPage, (page+1)*rowsPerPage).map(project =>(
-          //cut project array to current page
+        {projects.slice(page*rowsPerPage, (page+1)*rowsPerPage).map(project =>( //cut project array to current page
             <TableRow id={project.id}>
-              <TableCell>{project.name}</TableCell>
-              <TableCell>{project.author}</TableCell>
-              <TableCell>{project.date}</TableCell>
+              <Link to {"/"+project.id}>
+                <TableCell>{project.name}</TableCell>
+                <TableCell>{project.author}</TableCell>
+                <TableCell>{project.date}</TableCell>
+              </Link>
             </TableRow>
           )
         )}

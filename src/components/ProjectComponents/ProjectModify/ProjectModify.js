@@ -57,7 +57,6 @@ const ProjectModify = ({project, handleNameValue, handleSummaryValue, handleIsPu
             className="project-modify-component__form__member-list-wrapper__member-add-button"
             variant="contained"
             color="primary"
-            
           >
             +
           </Button>
