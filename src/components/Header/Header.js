@@ -63,7 +63,11 @@ const Header = (props) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const accountCircleMenuOpen = Boolean(anchorEl)
 
-  const handleDrawerToggle = () => setDrawerOpen(!drawerOpen);
+  // Drawer controller.
+  const handleDrawerToggleOpen = () => setDrawerOpen(true);
+  const handleDrawerToggleClose = () => setDrawerOpen(false);
+
+  // Account circle menu controller.
   const handleAccountCircleMenuOpen = event => setAnchorEl(event.currentTarget);
   const handleAccountCircleMenuClose = () => setAnchorEl(null);
 
@@ -75,7 +79,7 @@ const Header = (props) => {
           <IconButton
             color="inherit"
             aria-label="Open drawer"
-            onClick={handleDrawerToggle}
+            onClick={handleDrawerToggleOpen}
             className={`${classes.menuButton} app-bar-wrapper__app-bar__tool-bar__icon-button`}
           >
             <MenuIcon className={`app-bar-wrapper__app-bar__tool-bar__icon-button__icon`} />
@@ -128,7 +132,8 @@ const Header = (props) => {
             variant="temporary"
             anchor="left"
             open={drawerOpen}
-            onClose={handleDrawerToggle}
+            onClose={handleDrawerToggleOpen}
+            onClick={handleDrawerToggleClose}
             className={`${classes.drawerPaper} app-bar-wrapper__drawer-wrapper__hidden--md-up__drawer drawer-wrapper`}
             // Better open performance on mobile.
             ModalProps={{ keepMounted: true }}

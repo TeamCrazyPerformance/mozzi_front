@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,66 +9,49 @@ import Logo from './../../components/Logo/Logo';
 
 import * as authActions from '../../redux/auth/actions';
 
-class SignIn extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      identityValue: '',
-      passwordValue: ''
-    }
-  };
+const SignIn = (props) => {
+  const [identityValue, setIdentityValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
 
-  _handleIdentityValue = (event) => {
-    // Handle input value.
-    this.setState({
-      ...this.state,
-      identityValue: event.target.value
-    });
-  };
+  // Handle input value.
+  const _handleIdentityValue = event => setIdentityValue(event.target.value);
+  // Handle input value.
+  const _handlePasswordValue = event => setPasswordValue(event.target.value);
 
-  _handlePasswordValue = (event) => {
-    // Handle input value.
-    this.setState({
-      ...this.state,
-      passwordValue: event.target.value
-    });
-  };
-
-  _handleSubmit = (event) => {
+  const _handleSubmit = event => {
     // Prevent browers refresh.
     event.preventDefault();
 
-    const { postSignIn } = this.props;
+    const { postSignIn } = props;
+    // Create user information object.
     const userInformation = {
-      identity: this.state.identityValue,
-      password: this.state.passwordValue
+      identity: identityValue,
+      password: passwordValue
     };
 
     // Post sign in action.
     postSignIn({ userInformation });
   };
 
-  render() {
-    return(
-      <FlexBox
-        wrap= "wrap"
-        column= "column"
-        align= "center"
-        justify= "center"
-      >
-        <Logo
-          size="large"
-          spin={true}
-        />
-        <SignInForm
-          handleSubmit={this._handleSubmit}
-          handleIdentityValue={this._handleIdentityValue}
-          handlePasswordVaule={this._handlePasswordValue}
-          signupUrl="/signup"
-        />
-      </FlexBox>
-    );
-  };
+  return (
+    <FlexBox
+      wrap= "wrap"
+      column= "column"
+      align= "center"
+      justify= "center"
+    >
+      <Logo
+        size="large"
+        spin={true}
+      />
+      <SignInForm
+        handleSubmit={_handleSubmit}
+        handleIdentityValue={_handleIdentityValue}
+        handlePasswordVaule={_handlePasswordValue}
+        signupUrl="/signup"
+      />
+    </FlexBox>
+  );
 };
 
 // Check prop types.
@@ -83,8 +66,7 @@ const _mapStateToProps = (state) => {
   return {
     isSignIn: auth.isSignIn,
     loadingState: {
-      sigIn: auth.loadingState.sigIn,
-      signOut: auth.loadingState.signOut
+      sigIn: auth.loadingState.sigIn
     }
   };
 };
