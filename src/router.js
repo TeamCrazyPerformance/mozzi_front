@@ -49,6 +49,7 @@ const PrivateRouter = () => {
         <Route exact path="/admin/joinrequests" component={JoinRequests} />
         <Route exact path="/admin/users" component={Users} />
         <Route exact path="/admin/users/:userid" component={User} />
+        {/* 404 Error page */}
         <Route component={ErrorPage404}/>
       </Switch>
     </Header>
