@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,6 +17,12 @@ const Project = ({projects}) => {
   const _handleChangeRowsPerPage = event => {
     setRowsPerPage(event.target.value);
   };
+  
+  useEffect(()=>{
+    //when component did mount
+    //request project list
+    
+  });
   
   return(
     <ProjectTable
