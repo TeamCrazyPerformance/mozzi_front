@@ -123,14 +123,14 @@ const EnhancedTableHead = props => {
   );
 }
 
-EnhancedTableHead.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-  onRequestSort: PropTypes.func.isRequired,
-  onSelectAllClick: PropTypes.func.isRequired,
-  order: PropTypes.string.isRequired,
-  orderBy: PropTypes.string.isRequired,
-  rowCount: PropTypes.number.isRequired,
-};
+// EnhancedTableHead.propTypes = {
+//   numSelected: PropTypes.number.isRequired,
+//   onRequestSort: PropTypes.func.isRequired,
+//   onSelectAllClick: PropTypes.func.isRequired,
+//   order: PropTypes.string.isRequired,
+//   orderBy: PropTypes.string.isRequired,
+//   rowCount: PropTypes.number.isRequired,
+// };
 
 // const toolbarStyles = theme => ({
 //   root: {
@@ -334,7 +334,7 @@ const EnhancedTable = () => {
           <TableBody>
             {/* {stableSort(data, getSorting(order, orderBy))
               .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage) */}
-              {data.map(n => {
+              {data.map((student, index) => {
                 // const isSelected = this.isSelected(n.id);
                 return (
                   <TableRow
@@ -343,16 +343,16 @@ const EnhancedTable = () => {
                     role="checkbox"
                     // aria-checked={isSelected}
                     tabIndex={-1}
-                    key={n.id}
+                    key={index}
                     // selected={isSelected}
                   >
                     {/* <TableCell padding="checkbox">
                       <Checkbox checked={isSelected} />
                     </TableCell> */}
                     <TableCell component="th" scope="row" padding="none">
-                      {n.name}
+                      {student.name}
                     </TableCell>
-                    <TableCell align="right">{n.stdnumber}</TableCell>
+                    <TableCell align="right">{student.stdNumber}</TableCell>
                     <TableCell padding="checkbox">
                       <Fab size="small" color="primary" aria-label="Approve">
                         <Done />
@@ -373,18 +373,14 @@ const EnhancedTable = () => {
         </Table>
       </div>
       <TablePagination
-        // rowsPerPageOptions={[5, 10, 25]}
+        rowsPerPageOptions={[]}
         component="div"
         count={data.length}
         // rowsPerPage={rowsPerPage}
         rowsPerPage={count}
         page={page}
-        backIconButtonProps={{
-          'aria-label': 'Previous Page',
-        }}
-        nextIconButtonProps={{
-          'aria-label': 'Next Page',
-        }}
+        backIconButtonProps={{ 'aria-label': 'Previous Page' }}
+        nextIconButtonProps={{ 'aria-label': 'Next Page' }}
         // onChangePage={this.handleChangePage}
         // onChangeRowsPerPage={this.handleChangeRowsPerPage}
       />
@@ -393,9 +389,9 @@ const EnhancedTable = () => {
   // }
 }
 
-EnhancedTable.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
+// EnhancedTable.propTypes = {
+//   classes: PropTypes.object.isRequired,
+// };
 
 // export default withStyles(styles)(EnhancedTable);
 export default EnhancedTable;
