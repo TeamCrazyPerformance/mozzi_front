@@ -5,6 +5,8 @@ import { bindActionCreators } from 'redux';
 
 import ProjectTable from "../../components/ProjectComponents/ProjectTable/ProjectTable";
 
+import * as projectActions from "../../redux/project/actions"
+
 const Project = ({projects}) => {
   //declare state
   const [page, setPage] = useState(0);
@@ -20,8 +22,7 @@ const Project = ({projects}) => {
   
   useEffect(()=>{
     //when component did mount
-    //request project list
-    
+    projectActions.getProjects();
   });
   
   return(

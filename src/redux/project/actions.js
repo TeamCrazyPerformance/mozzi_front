@@ -1,8 +1,8 @@
 import * as actions from 'actionTypes'
 
-export const getProjectList = () => {
+export const getProjects = () => {
   return {
-    type: actions.GET_PROJECT_LIST
+    type: actions.GET_PROJECTS
   }
 };
 
