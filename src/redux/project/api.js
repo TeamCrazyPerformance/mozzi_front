@@ -3,8 +3,13 @@ import jwtDecode from "jwt-decode";
 
 
 export const getProjects = () =>{
-  // request projects
+  // request project list
   return fetchHelper.get('/project').then(response=>checkExpirity(response.token))
+};
+
+export const getProject= (projectId) => {
+  //request a project
+  return fetchHelper.get('/project/'+projectId).then(response=>checkExpirity(response.token))
 };
 
 export const postProject  = (newProject) => {

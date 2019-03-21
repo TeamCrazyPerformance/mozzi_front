@@ -2,9 +2,20 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-// Import pages.
+// Public component.
 import SignIn from './containers/SignIn/SignIn';
+
+// Private components.
+import Header from './components/Header/Header';
 import Main from './containers/Main/Main';
+import Project from './containers/Project/ProjectMain';
+import Exam from './containers/Exam/Exam';
+
+// Admin container components.
+import Admin from './containers/Admin/Admin';
+import JoinRequests from './containers/Admin/JoinRequests';
+import Users from './containers/Admin/Users';
+import User from './containers/Admin/User';
 
 import ErrorPage404 from './containers/Pages/404';
 
@@ -12,12 +23,12 @@ import ErrorPage404 from './containers/Pages/404';
 const AppRouter = ({ isSignIn }) => {
   return (
     <Router>
-        <Switch>
-          <Route exact path="/" component={SignIn} />
-          <Route exact path="/signin" component={SignIn} />
-          <PrivateRouterComponent exact isSignIn={isSignIn} path="/main" component={PrivateRouter} />
-          <Route component={ErrorPage404}/>
-        </Switch>
+      <Switch>
+        <Route exact path="/" component={SignIn} />
+        <Route exact path="/signin" component={SignIn} />
+        <PrivateRouterComponent isSignIn={isSignIn} component={PrivateRouter} />
+        <Route component={ErrorPage404}/>
+      </Switch>
     </Router>
   );
 };
@@ -25,10 +36,23 @@ const AppRouter = ({ isSignIn }) => {
 // Router after login.
 const PrivateRouter = () => {
   return(
-    <Switch>
-      <Route exact path="/main" component={Main} />
-      <Route component={ErrorPage404}/>
-    </Switch>
+    <Header>
+      <Switch>
+        {/* Main page */}
+        <Route exact path="/main" component={Main} />
+        {/* Project page */}
+        <Route exact path="/project" component={Project} />
+        {/* Exam page */}
+        <Route exact path="/exam" component={Exam} />
+        {/* Admin page */}
+        <Route exact path="/admin" component={Admin} />
+        <Route exact path="/admin/joinrequests" component={JoinRequests} />
+        <Route exact path="/admin/users" component={Users} />
+        <Route exact path="/admin/users/:userid" component={User} />
+        {/* 404 Error page */}
+        <Route component={ErrorPage404}/>
+      </Switch>
+    </Header>
   );
 };
 
@@ -37,8 +61,9 @@ const PrivateRouterComponent = ({ component: Component, isSignIn, ...rest }) => 
   return(
     <Route {...rest} render={props => (
         // Check is signin.
-        isSignIn === true
-          ? <Component {...props} />
+        // TODO chagne to true when test is end
+        isSignIn === false
+          ? <Component exact {...props} />
           : <Redirect to={{
               pathname: '/signin',
               state: { from: props.location }

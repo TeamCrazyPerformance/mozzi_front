@@ -27,6 +27,31 @@ const getProjects = function* () {
   })
 };
 
+const getProject = function* () {
+  yield takeEvery(actions.GET_PROJECT, function* () {
+    yield put({
+      type: actions.GET_PROJECT_PENDING
+    });
+    
+    const getProjectResponse = yield call(()=> {
+        return ProjectApi.getProject();
+      }
+    );
+    
+    if(getProjectResponse.success === true){
+      yield put({
+        type : actions.GET_PROJECT_SUCCESS,
+        project : getProjectResponse.project
+      })
+    }
+    else{
+      yield put({
+        type : actions.GET_PROJECT_FAILURE
+      })
+    }
+  })
+};
+
 const postProject= function* () {
   yield takeEvery(actions.POST_PROJECT, function* (newProject) {
     yield put({
@@ -96,7 +121,7 @@ const deleteProject = function* () {
   })
 };
 
-export default function* authSaga() {
+export default function* projectSaga() {
   yield all([
     fork(getProjects),
     fork(postProject),

@@ -1,9 +1,9 @@
-import * as actions from 'actionTypes'
+import * as actions from './actionTypes'
 
 export const getProjects = () => {
   return {
     type: actions.GET_PROJECTS
-  }
+  };
 };
 
 export const postProject = ({name, content, isPublic}) => {
@@ -12,7 +12,7 @@ export const postProject = ({name, content, isPublic}) => {
     name : name,
     content : content,
     isPublic : isPublic
-  }
+  };
 };
 
 export const modifyProject = ({projectId, name, content, stack, isPublic}) => {
@@ -23,19 +23,19 @@ export const modifyProject = ({projectId, name, content, stack, isPublic}) => {
     content : content,
     stack : stack,
     isPublic : isPublic
-  }
+  };
 };
 
 export const deleteProject = ({projectId}) => {
   return {
     type : actions.DELETE_PROJECT,
     projectId : projectId
-  }
+  };
 };
 
-export const getProjectView = ({projectId}) => {
+export const getProject = ({projectId}) => {
   return {
-    type : 'GET_PROJECT_VIEW',
+    type : 'GET_PROJECT',
     projectId : projectId
-  }
+  };
 };
