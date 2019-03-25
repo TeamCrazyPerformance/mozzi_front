@@ -1,9 +1,13 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
 import JoinRequestsTable from './../../components/JoinRequestsTable/JoinRequestsTable';
 
-const JoinRequests = () => {
+// import * as JoinRequestActions from './../../redux/admin/joinRequests/actions';
+
+const JoinRequests = (props) => {
   const [data, setData] = useState([
     {name: 'Kang', stdNumber: '16101340', userId: '001'},
     {name: 'Ji', stdNumber: '16101340', userId: '002'},
@@ -42,3 +46,28 @@ const JoinRequests = () => {
 }
 
 export default JoinRequests;
+
+// Check prop types.
+// JoinRequests.propTypes = {
+//   isSignIn: PropTypes.bool.isRequired,
+//   loadingState: PropTypes.objectOf(PropTypes.bool),
+// };
+
+// Map state to props.
+// const _mapStateToProps = (state) => {
+//   const auth = state.Auth;
+//   return {
+//     isSignIn: auth.isSignIn,
+//     loadingState: {
+//       sigIn: auth.loadingState.sigIn
+//     }
+//   };
+// };
+
+// Map dispatch to props.
+// const _mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators(JoinRequestActions, dispatch);
+// };
+
+// Connect state and dispatch to SignIn props.
+// export default connect(_mapStateToProps, _mapDispatchToProps)(JoinRequests);

@@ -7,7 +7,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
-import TableSortLabel from '@material-ui/core/TableSortLabel';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -28,17 +27,11 @@ const EnhancedTableHead = () => {
           <TableCell
             key={row.id}
             align="center"
-            padding="checkbox"
           >
-            <TableSortLabel>
-              {row.label}
-            </TableSortLabel>
+            {row.label}
           </TableCell>
         ))}
-        <TableCell
-          align="center"
-          // padding="checkbox"
-        >
+        <TableCell align="center">
           Approve/Reject
         </TableCell>
       </TableRow>
@@ -57,6 +50,9 @@ const JoinRequestTableStyles = theme => ({
   tableWrapper: {
     overflowX: 'auto',
   },
+  buttonPadding: {
+    paddingRight: 5
+  }
 });
 
 const JoinRequestTable = props => {
@@ -84,22 +80,13 @@ const JoinRequestTable = props => {
                     tabIndex={-1}
                     key={index}
                   >
-                    <TableCell
-                      component="th"
-                      scope="row"
-                      padding="checkbox"
-                      
-                      align="center"
-                    >
+                    <TableCell align="center">
                       {student.name}
                     </TableCell>
                     <TableCell align="center">
                       {student.stdNumber}
                     </TableCell>
-                    <TableCell 
-                      align="center"
-                      // padding="checkbox"
-                    >
+                    <TableCell align="center">
                       <Fab
                         size="small"
                         color="primary"
