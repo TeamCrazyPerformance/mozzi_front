@@ -1,56 +1,6 @@
-import { all, takeEvery, put, call, fork } from 'redux-saga/effects';
-import * as actions from './actionTypes';
-import * as ProjectApi from './api'
-
-const getProjects = function* () {
-  yield takeEvery(actions.GET_PROJECTS, function* () {
-    yield put({
-      type: actions.GET_PROJECTS_PENDING
-    });
-    
-    const getProjectsResponse = yield call(()=> {
-        return ProjectApi.getProjects();
-      }
-    );
-    
-    if(getProjectsResponse.success === true){
-      yield put({
-        type : actions.GET_PROJECTS_SUCCESS,
-        projects : getProjectsResponse.projects
-      })
-    }
-    else{
-      yield put({
-        type : actions.GET_PROJECTS_FAILURE
-      })
-    }
-  })
-};
-
-const getProject = function* () {
-  yield takeEvery(actions.GET_PROJECT, function* () {
-    yield put({
-      type: actions.GET_PROJECT_PENDING
-    });
-    
-    const getProjectResponse = yield call(()=> {
-        return ProjectApi.getProject();
-      }
-    );
-    
-    if(getProjectResponse.success === true){
-      yield put({
-        type : actions.GET_PROJECT_SUCCESS,
-        project : getProjectResponse.project
-      })
-    }
-    else{
-      yield put({
-        type : actions.GET_PROJECT_FAILURE
-      })
-    }
-  })
-};
+import { takeEvery, put, all, fork, call } from 'redux-saga/effects';
+import * as actions from "../projectManipultation/actionTypes";
+import * as ProjectManipulationApi from "../projectManipultation/api";
 
 const postProject= function* () {
   yield takeEvery(actions.POST_PROJECT, function* (newProject) {
@@ -59,7 +9,7 @@ const postProject= function* () {
     });
     
     const postProjectResponse = yield call(()=>{
-      return ProjectApi.postProject(newProject);
+      return ProjectManipulationApi.postProject(newProject);
     });
     
     if(postProjectResponse.success === true){
@@ -82,7 +32,7 @@ const modifyProject= function* () {
     });
     
     const modifyProjectResponse = yield call(()=>{
-      return ProjectApi.modifyProject(targetProject);
+      return ProjectManipulationApi.modifyProject(targetProject);
     });
     
     if(modifyProjectResponse.success === true){
@@ -105,7 +55,7 @@ const deleteProject = function* () {
     });
     
     const deleteProjectResponse = yield call(()=>{
-      return ProjectApi.deleteProject(projectId);
+      return ProjectManipulationApi.deleteProject(projectId);
     });
     
     if(deleteProjectResponse.success === true){
@@ -121,11 +71,10 @@ const deleteProject = function* () {
   })
 };
 
-export default function* projectSaga() {
+export default function* (){
   yield all([
-    fork(getProjects),
     fork(postProject),
     fork(modifyProject),
     fork(deleteProject)
-  ]);
+  ])
 }

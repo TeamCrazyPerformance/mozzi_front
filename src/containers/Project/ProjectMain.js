@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import ProjectTable from "../../components/ProjectComponents/ProjectTable/ProjectTable";
 
-import * as projectActions from "../../redux/project/actions"
+import * as projectMainActions from "../../redux/projectMain/actions"
 
 const ProjectMain = (props) => {
   //declare state
@@ -43,17 +43,17 @@ ProjectMain.propTypes = {
 
 
 const _mapStateToProps = (state) => {
-  const project = state.Project;
+  const projectMain = state.ProjectMain;
   return {
-    projects : project.projects,
+    projects : projectMain.projects,
     loadingState : {
-      getProjects : project.loadingState.getProjects
+      getProjects : projectMain.loadingState.getProjects
     }
   }
 };
 
 const _mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(projectActions, dispatch);
+  return bindActionCreators(projectMainActions, dispatch);
 };
 
 export default connect(_mapStateToProps, _mapDispatchToProps)(ProjectMain);

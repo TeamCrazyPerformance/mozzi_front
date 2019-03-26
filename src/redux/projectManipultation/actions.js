@@ -1,10 +1,4 @@
-import * as actions from './actionTypes'
-
-export const getProjects = () => {
-  return {
-    type: actions.GET_PROJECTS
-  };
-};
+import * as actions from "../projectManipultation/actionTypes";
 
 export const postProject = ({name, content, isPublic}) => {
   return {
@@ -29,13 +23,6 @@ export const modifyProject = ({projectId, name, content, stack, isPublic}) => {
 export const deleteProject = ({projectId}) => {
   return {
     type : actions.DELETE_PROJECT,
-    projectId : projectId
-  };
-};
-
-export const getProject = ({projectId}) => {
-  return {
-    type : 'GET_PROJECT',
     projectId : projectId
   };
 };

@@ -1,7 +1,9 @@
 import Auth from './auth/reducer';
-import Project from './project/reducer';
+import ProjectMain from './projectMain/reducer';
+import ProjectView from './projectView/reducer';
+import ProjectManipulation from './projectManipultation/reducer';
 
 // Combine all reducers.
 export default {
-  Auth, Project
+  Auth, ProjectMain, ProjectView, ProjectManipulation
 };

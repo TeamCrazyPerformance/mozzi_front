@@ -1,29 +1,17 @@
 
-//get project list action
-export const GET_PROJECTS = 'GET_PROJECTS';
-export const GET_PROJECTS_PENDING = 'GET_PROJECTS_PENDING';
-export const GET_PROJECTS_SUCCESS = 'GET_PROJECTS_SUCCESS';
-export const GET_PROJECTS_FAILURE = 'GET_PROJECTS_FAILURE';
-
-//get a project action
-export const GET_PROJECT = 'GET_PROJECT';
-export const GET_PROJECT_PENDING = 'GET_PROJECT_PENDING';
-export const GET_PROJECT_SUCCESS = 'GET_PROJECT_SUCCESS';
-export const GET_PROJECT_FAILURE = 'GET_PROJECT_FAILURE';
-
-//create(post) project action
+//create(post) projectMain action
 export const POST_PROJECT = 'POST_PROJECT';
 export const POST_PROJECT_PENDING = 'POST_PROJECT_PENDING';
 export const POST_PROJECT_SUCCESS = 'POST_PROJECT_SUCCESS';
 export const POST_PROJECT_FAILURE = 'POST_PROJECT_FAILURE';
 
-//modify project action
+//modify projectMain action
 export const MODIFY_PROJECT = 'MODIFY_PROJECT';
 export const MODIFY_PROJECT_PENDING = 'MODIFY_PROJECT_PENDING';
 export const MODIFY_PROJECT_SUCCESS = 'MODIFY_PROJECT_SUCCESS';
 export const MODIFY_PROJECT_FAILURE = 'MODIFY_PROJECT_FAILURE';
 
-//delete project action
+//delete projectMain action
 export const DELETE_PROJECT = 'DELETE_PROJECT';
 export const DELETE_PROJECT_PENDING = 'DELETE_PROJECT_PENDING';
 export const DELETE_PROJECT_SUCCESS = 'DELETE_PROJECT_SUCCESS';
