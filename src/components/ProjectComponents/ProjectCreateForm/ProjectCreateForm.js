@@ -6,10 +6,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Button from '@material-ui/core/Button';
 
 
-const ProjectCreate = ({isPublic, handleNameValue, handleSummaryValue, handleIsPublicValue}) => {
+const ProjectCreateForm = ({handleSubmit, handleNameValue, handleContentValue, handleIsPublicValue, isPublic}) => {
 	return(
 		<div className="project-create-component">
-			<form>
+			<form onSubmit={handleSubmit}>
 				<TextField
 					id="outlined-name"
 					label="Project Name"
@@ -20,12 +20,12 @@ const ProjectCreate = ({isPublic, handleNameValue, handleSummaryValue, handleIsP
 				
 				<TextField
 					id="outlined-multiline-static"
-					label="Project Summary"
+					label="Project Content"
 					margin="normal"
 					variant="outlined"
 					multiline="true"
 					rows = "4"
-					onChange={handleSummaryValue}
+					onChange={handleContentValue}
 				/>
 				
 				<div className="project-create-component__checkbox-wrapper">
@@ -45,16 +45,16 @@ const ProjectCreate = ({isPublic, handleNameValue, handleSummaryValue, handleIsP
 				>
 					완료
 				</Button>
-			
-			
+				
 			</form>
 		</div>
 	)
-}
-
-ProjectCreate.propTypes = {
-	handleNameValue : PropTypes.func.isRequired,
-	handleSummaryValue : PropTypes.func.isRequired
 };
 
-export default ProjectCreate;
+ProjectCreateForm.propTypes = {
+	handleNameValue : PropTypes.func.isRequired,
+	handleContentValue : PropTypes.func.isRequired,
+	handleIsPublicValue : PropTypes.func.isRequired
+};
+
+export default ProjectCreateForm;
