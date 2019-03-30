@@ -24,7 +24,7 @@ const postSignIn = function*() {
       // Set jwt to web browser local storage.
       yield call(() => jwtHelper.setJwt(getResult.jwt));
       yield put({
-        type: actions.POST_SIGN_IN_SUCCESS,
+        type: actions.POST_SIGN_IN_SUCCESS
       });
     } else {
       // SignIn failure.

@@ -61,8 +61,7 @@ const PrivateRouterComponent = ({ component: Component, isSignIn, ...rest }) => 
   return(
     <Route {...rest} render={props => (
         // Check is signin.
-        // TODO chagne to true when test is end
-        isSignIn === false
+        isSignIn === true
           ? <Component exact {...props} />
           : <Redirect to={{
               pathname: '/signin',

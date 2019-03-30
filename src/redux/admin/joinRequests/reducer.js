@@ -8,6 +8,8 @@ const joinRequestInitialState = {
     },
   ],
   page: 0,
+  count: 0,
+  total: 0,
   error: false,
   loadingState: {
     joinRequestList: false,
@@ -32,13 +34,29 @@ const joinRequestReducer = (state = joinRequestInitialState, action) => {
     case actions.GET_JOIN_REQUEST_LIST_SUCCESS: {
       return {
         ...state,
-        
+        joinRequestList: action.joinRequestList,
+        page: action.page,
+        count: action.count,
+        total: action.total,
+        error: false,
+        loadingState: {
+          ...state.loadingState,
+          joinRequestList: false
+        }
       };
     }
     case actions.GET_JOIN_REQUEST_LIST_FAILURE: {
       return {
         ...state,
-        
+        joinRequestList: [],
+        page: 0,
+        count: 0,
+        total: 0,
+        error: true,
+        loadingState: {
+          ...state.loadingState,
+          joinRequestList: false
+        }
       };
     }
     case actions.POST_JOIN_REQUEST_APPROVE_PENDING: {
@@ -54,18 +72,25 @@ const joinRequestReducer = (state = joinRequestInitialState, action) => {
     case actions.POST_JOIN_REQUEST_APPROVE_SUCCESS: {
       return {
         ...state,
-        
+        error: false,
+        loadingState: {
+          ...state.loadingState,
+          joinRequestApprove: false
+        }
       };
     }
     case actions.POST_JOIN_REQUEST_APPROVE_FAILURE: {
       return {
         ...state,
-        
+        error: true,
+        loadingState: {
+          ...state.loadingState,
+          joinRequestApprove: false
+        }
       };
     }
     case actions.POST_JOIN_REQUEST_REJECT_PENDING: {
       return {
-        ...state,
         ...state,
         error: false,
         loadingState: {
@@ -77,13 +102,21 @@ const joinRequestReducer = (state = joinRequestInitialState, action) => {
     case actions.POST_JOIN_REQUEST_REJECT_SUCCESS: {
       return {
         ...state,
-        
+        error: false,
+        loadingState: {
+          ...state.loadingState,
+          joinRequestReject: false
+        }
       };
     }
     case actions.POST_JOIN_REQUEST_REJECT_FAILURE: {
       return {
         ...state,
-        
+        error: true,
+        loadingState: {
+          ...state.loadingState,
+          joinRequestReject: false
+        }
       };
     }
     default:

@@ -5,35 +5,29 @@ import { bindActionCreators } from 'redux';
 
 import JoinRequestsTable from './../../components/JoinRequestsTable/JoinRequestsTable';
 
-// import * as JoinRequestActions from './../../redux/admin/joinRequests/actions';
+import * as JoinRequestActions from './../../redux/admin/joinRequests/actions';
 
 const JoinRequests = (props) => {
-  const [data, setData] = useState([
-    {name: 'Kang', stdNumber: '16101340', userId: '001'},
-    {name: 'Ji', stdNumber: '16101340', userId: '002'},
-    {name: 'Hoon', stdNumber: '16101340', userId: '003'},
-    {name: 'zzang', stdNumber: '16101340', userId: '004'},
-    {name: 'Lee', stdNumber: '16101340', userId: '005'},
-    {name: 'Song', stdNumber: '16101340', userId: '006'},
-    {name: 'Yeol', stdNumber: '16101340', userId: '007'},
-    {name: 'zzangzzang', stdNumber: '16101340', userId: '008'},
-    {name: 'man', stdNumber: '16101340', userId: '009'},
-    {name: 'gkgkgkgk', stdNumber: '16101340', userId: '010'},
-  ]);
+  const {
+    joinRequestList,
+    page,
+    count,
+    total,
+    error,
+    loadingState,
+    getJoinRequestList,
+    postJoinRequestApprove,
+    postJoinRequestReject } = props;
 
-  const [page, setPage] = useState(0);
-  const [count, setCount] = useState(10);
-  const [total, setTotal] = useState(300);
-
-  const handlePageChange = (event, newPage) => console.log(`page change: ${newPage}`);
-  const joinRequestApprove = (userId) => console.log(`${userId} approve`);
-  const joinRequestReject = (userId) => console.log(`${userId} reject`);
+  const handlePageChange = (event, newPage) => getJoinRequestList({ page: newPage });
+  const joinRequestApprove = (userId) => postJoinRequestApprove({ userId });
+  const joinRequestReject = (userId) => postJoinRequestReject({ userId });
 
   return (
     <div>
       <div>Join Request</div>
       <JoinRequestsTable
-        data={data}
+        data={joinRequestList}
         page={page}
         count={count}
         total={total}
@@ -45,29 +39,33 @@ const JoinRequests = (props) => {
   );
 }
 
-export default JoinRequests;
-
-// Check prop types.
 // JoinRequests.propTypes = {
-//   isSignIn: PropTypes.bool.isRequired,
-//   loadingState: PropTypes.objectOf(PropTypes.bool),
+//   joinRequestList,
+//   page,
+//   count,
+//   total,
+//   error,
+//   loadingState,
+//   getJoinRequestList,
+//   postJoinRequestApprove,
+//   postJoinRequestReject
 // };
 
-// Map state to props.
-// const _mapStateToProps = (state) => {
-//   const auth = state.Auth;
-//   return {
-//     isSignIn: auth.isSignIn,
-//     loadingState: {
-//       sigIn: auth.loadingState.sigIn
-//     }
-//   };
-// };
+const _mapStateToProps = state => {
+  console.log(state);
+  const adminJoinRequest = state.AdminJoinRequest;
+  return {
+    joinRequestList: adminJoinRequest.joinRequestList,
+    page: adminJoinRequest.page,
+    count: adminJoinRequest.count,
+    total: adminJoinRequest.total,
+    error: adminJoinRequest.error,
+    loadingState: adminJoinRequest.loadingState
+  };
+};
 
-// Map dispatch to props.
-// const _mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators(JoinRequestActions, dispatch);
-// };
+const _mapDispatchToProps = (dispatch) => {
+  return bindActionCreators(JoinRequestActions, dispatch);
+};
 
-// Connect state and dispatch to SignIn props.
-// export default connect(_mapStateToProps, _mapDispatchToProps)(JoinRequests);
+export default connect(_mapStateToProps, _mapDispatchToProps)(JoinRequests);

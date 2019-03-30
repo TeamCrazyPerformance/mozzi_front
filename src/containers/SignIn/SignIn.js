@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -9,13 +10,12 @@ import Logo from './../../components/Logo/Logo';
 
 import * as authActions from '../../redux/auth/actions';
 
-const SignIn = (props) => {
+const SignIn = props => {
+  const { isSignIn, loadingState } = props;
   const [identityValue, setIdentityValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
-  // Handle input value.
   const _handleIdentityValue = event => setIdentityValue(event.target.value);
-  // Handle input value.
   const _handlePasswordValue = event => setPasswordValue(event.target.value);
 
   const _handleSubmit = event => {
@@ -23,44 +23,50 @@ const SignIn = (props) => {
     event.preventDefault();
 
     const { postSignIn } = props;
-    // Create user information object.
     const userInformation = {
       identity: identityValue,
       password: passwordValue
     };
 
-    // Post sign in action.
     postSignIn({ userInformation });
   };
 
+  const _checkIsSignIn = () => {
+    if(isSignIn) {
+      console.log('work');
+      return <Redirect to="/main" />
+    }
+  }
+
   return (
-    <FlexBox
-      wrap= "wrap"
-      column= "column"
-      align= "center"
-      justify= "center"
-    >
-      <Logo
-        size="large"
-        spin={true}
-      />
-      <SignInForm
-        handleSubmit={_handleSubmit}
-        handleIdentityValue={_handleIdentityValue}
-        handlePasswordVaule={_handlePasswordValue}
-        signupUrl="/signup"
-      />
-    </FlexBox>
+    <>
+      {/* {_checkIsSignIn()} */}
+      <FlexBox
+        wrap= "wrap"
+        column= "column"
+        align= "center"
+        justify= "center"
+      >
+        <Logo
+          size="large"
+          spin={true}
+        />
+        <SignInForm
+          handleSubmit={_handleSubmit}
+          handleIdentityValue={_handleIdentityValue}
+          handlePasswordVaule={_handlePasswordValue}
+          signupUrl="/signup"
+        />
+      </FlexBox>
+    </>
   );
 };
 
-// Check prop types.
 SignIn.propTypes = {
   isSignIn: PropTypes.bool.isRequired,
   loadingState: PropTypes.objectOf(PropTypes.bool),
 };
 
-// Map state to props.
 const _mapStateToProps = (state) => {
   const auth = state.Auth;
   return {
@@ -71,10 +77,8 @@ const _mapStateToProps = (state) => {
   };
 };
 
-// Map dispatch to props.
 const _mapDispatchToProps = (dispatch) => {
   return bindActionCreators(authActions, dispatch);
 };
 
-// Connect state and dispatch to SignIn props.
 export default connect(_mapStateToProps, _mapDispatchToProps)(SignIn);

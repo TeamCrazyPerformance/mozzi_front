@@ -22,7 +22,7 @@ const authReducer = (state = authInitialState, action) => {
       };
     }
     case actions.POST_SIGN_IN_SUCCESS: {
-      // SignIn success. 
+      // SignIn success.
       return {
         ...state,
         isSignIn: true,
