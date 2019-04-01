@@ -1,12 +1,7 @@
 import * as actions from './actionTypes';
 
 const joinRequestInitialState = {
-  joinRequestList: [
-    {
-      name: '',
-      stdNumber: ''
-    },
-  ],
+  joinRequestList: [],
   page: 0,
   count: 0,
   total: 0,
@@ -19,7 +14,7 @@ const joinRequestInitialState = {
 };
 
 const joinRequestReducer = (state = joinRequestInitialState, action) => {
-  switch(action) {
+  switch(action.type) {
     case actions.GET_JOIN_REQUEST_LIST_PENDING: {
       return {
         ...state,

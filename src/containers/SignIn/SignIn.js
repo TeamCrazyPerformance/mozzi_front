@@ -33,14 +33,13 @@ const SignIn = props => {
 
   const _checkIsSignIn = () => {
     if(isSignIn) {
-      console.log('work');
       return <Redirect to="/main" />
     }
   }
 
   return (
     <>
-      {/* {_checkIsSignIn()} */}
+      {_checkIsSignIn()}
       <FlexBox
         wrap= "wrap"
         column= "column"

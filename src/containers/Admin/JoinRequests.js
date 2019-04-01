@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -22,6 +22,14 @@ const JoinRequests = (props) => {
   const handlePageChange = (event, newPage) => getJoinRequestList({ page: newPage });
   const joinRequestApprove = (userId) => postJoinRequestApprove({ userId });
   const joinRequestReject = (userId) => postJoinRequestReject({ userId });
+
+  // useEffect(() => {
+  //   getJoinRequestList(0);
+  // }, [joinRequestList]);
+
+  useEffect(() => {
+    console.log('work');
+  });
 
   return (
     <div>
@@ -52,7 +60,6 @@ const JoinRequests = (props) => {
 // };
 
 const _mapStateToProps = state => {
-  console.log(state);
   const adminJoinRequest = state.AdminJoinRequest;
   return {
     joinRequestList: adminJoinRequest.joinRequestList,

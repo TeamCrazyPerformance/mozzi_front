@@ -6,18 +6,16 @@ import * as jwtHelper from '../../helpers/jwtHelper';
 const postSignIn = function*() {
   yield takeEvery(actions.POST_SIGN_IN, function*({ identity, password }) {
     yield put({
-      // Dispatch action to reducer.
       type: actions.POST_SIGN_IN_PENDING
     });
 
     const userInformation = {
-      // Set user information object.
       identity: identity,
       password: password
     };
+
     const getResult = yield call(() => {
-      // Request signIn to server.
-      return AuthApi.postSignIn(userInformation);
+      return AuthApi.postSignIn(userInformation)
     });
 
     if(getResult.success === true && getResult.jwt) {

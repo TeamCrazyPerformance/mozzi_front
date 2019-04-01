@@ -1,6 +1,5 @@
 import * as actions from './actionTypes';
 
-// Initial state of auth store.
 const authInitialState = {
   isSignIn: false,
   loadingState: {
@@ -8,11 +7,9 @@ const authInitialState = {
   }
 };
 
-// Auth reducer.
 const authReducer = (state = authInitialState, action) => {
-  switch(action) {
+  switch(action.type) {
     case actions.POST_SIGN_IN_PENDING: {
-      // Start signIn request.
       return {
         ...state,
         loadingState: {
@@ -22,7 +19,6 @@ const authReducer = (state = authInitialState, action) => {
       };
     }
     case actions.POST_SIGN_IN_SUCCESS: {
-      // SignIn success.
       return {
         ...state,
         isSignIn: true,
@@ -33,7 +29,6 @@ const authReducer = (state = authInitialState, action) => {
       };
     }
     case actions.POST_SIGN_IN_FAILURE: {
-      // SignIn failure.
       return {
         ...state,
         isSignIn: false,
@@ -44,7 +39,6 @@ const authReducer = (state = authInitialState, action) => {
       };
     }
     case actions.SIGN_OUT_PENDING: {
-      // Start signOut request.
       return {
         ...state,
         loadingState: {
@@ -54,7 +48,6 @@ const authReducer = (state = authInitialState, action) => {
       };
     }
     case actions.SIGN_OUT_SUCCESS: {
-      // SignOut success.
       return {
         ...state,
         isSignIn: false,
@@ -65,7 +58,6 @@ const authReducer = (state = authInitialState, action) => {
       };
     }
     case actions.SIGN_OUT_FAILURE: {
-      // SignOut failure.
       return {
         ...state,
         loadingState: {
