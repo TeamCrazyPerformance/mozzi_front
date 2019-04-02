@@ -33,7 +33,20 @@ const AppRouter = ({ isSignIn }) => {
   );
 };
 
-// Router after login.
+const PrivateRouterComponent = ({ component: Component, isSignIn, ...rest }) => {
+  return(
+    <Route {...rest} render={props => (
+        // Check is signin.
+        isSignIn === true
+          ? <Component exact {...props} />
+          : <Redirect to={{
+              pathname: '/signin',
+              state: { from: props.location }
+            }} />
+    )}/>
+  );
+};
+
 const PrivateRouter = () => {
   return(
     <Header>
@@ -56,26 +69,9 @@ const PrivateRouter = () => {
   );
 };
 
-// Private Router component
-const PrivateRouterComponent = ({ component: Component, isSignIn, ...rest }) => {
-  return(
-    <Route {...rest} render={props => (
-        // Check is signin.
-        isSignIn === true
-          ? <Component exact {...props} />
-          : <Redirect to={{
-              pathname: '/signin',
-              state: { from: props.location }
-            }} />
-    )}/>
-  );
-};
-
-// Map state to props.
 const _mapStateToProps = (state) => {
   const auth = state.Auth;
   return { isSignIn: auth.isSignIn };
 };
 
-// Connect state to SignIn props.
 export default connect(_mapStateToProps)(AppRouter);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
@@ -31,11 +31,51 @@ const SignIn = props => {
     postSignIn({ userInformation });
   };
 
+  // To get previous props or state.
+  const usePrevious = value => {
+    const ref = useRef();
+    useEffect(() => {
+      ref.current = value;
+    });
+    return ref.current
+  };
+
+  const prevIsSignIn = usePrevious(isSignIn);
+
+  useEffect(() => {
+    console.log(prevIsSignIn);
+  });
+
+
+
   const _checkIsSignIn = () => {
     if(isSignIn) {
       return <Redirect to="/main" />
     }
-  }
+  };
+
+
+
+
+  // state = {
+  //   redirectToReferrer: false
+  // };
+
+  // componentWillReceiveProps(nextProps) {
+  //   if (
+  //     isSignIn !== nextProps.isSignIn &&
+  //     nextProps.isSignIn === true
+  //   ) {
+  //     this.setState({ redirectToReferrer: true });
+  //   }
+  // };
+
+  // if (redirectToReferrer) {
+  //   return <Redirect to={from} />;
+  // }
+
+  
+
 
   return (
     <>
