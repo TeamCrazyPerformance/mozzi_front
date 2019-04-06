@@ -1,6 +1,5 @@
 import * as actions from './actionTypes';
 
-// SignIn request function.
 export const postSignIn = ({ identity, password }) => {
   return {
     type: actions.POST_SIGN_IN,
@@ -9,9 +8,14 @@ export const postSignIn = ({ identity, password }) => {
   };
 };
 
-// SignOut request function.
 export const signOut = () => {
   return {
     type: actions.SIGN_OUT
   };
 };
+
+export const checkAuthorization = () => {
+  return {
+    type: actions.CHECK_AUTHORIZATION
+  }
+}

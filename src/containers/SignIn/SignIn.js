@@ -42,9 +42,9 @@ const SignIn = props => {
 
   const prevIsSignIn = usePrevious(isSignIn);
 
-  useEffect(() => {
-    console.log(prevIsSignIn);
-  });
+  // useEffect(() => {
+  //   console.log(prevIsSignIn);
+  // });
 
 
 

@@ -19,13 +19,11 @@ const postSignIn = function*() {
     });
 
     if(getResult.success === true && getResult.jwt) {
-      // Set jwt to web browser local storage.
       yield call(() => jwtHelper.setJwt(getResult.jwt));
       yield put({
         type: actions.POST_SIGN_IN_SUCCESS
       });
     } else {
-      // SignIn failure.
       yield call(() => jwtHelper.clearJwt());
       yield put({
         type: actions.POST_SIGN_IN_FAILURE,
@@ -37,22 +35,18 @@ const postSignIn = function*() {
 const signOut = function*() {
   yield takeEvery(actions.SIGN_OUT, function*() {
     yield put({
-      // Dispatch action to reducer.
       type: actions.SIGN_OUT_PENDING
     });
 
     const clearJwtResult = yield call(() => {
-      // Remove jwt from browser local storage.
       return jwtHelper.clearJwt()
     });
 
     if(clearJwtResult === true) {
-      // SignOut success.
       yield put({
         type: actions.SIGN_OUT_SUCCESS,
       });
     } else {
-      // SignOut failure.
       yield put({
         type: actions.SIGN_OUT_FAILURE,
       })
@@ -60,9 +54,23 @@ const signOut = function*() {
   });
 };
 
+const checkAuthorization = function*() {
+  yield takeEvery(actions.CHECK_AUTHORIZATION, function*() {
+    const jwt = jwtHelper.getJwt();
+    const isAuthorization = jwtHelper.checkExpirity(jwt);
+
+    if(isAuthorization) {
+      yield put({
+        type: actions.POST_SIGN_IN_SUCCESS
+      });
+    }
+  });
+};
+
 export default function* authSaga() {
   yield all([
     fork(postSignIn),
-    fork(signOut)
+    fork(signOut),
+    fork(checkAuthorization)
   ]);
 }

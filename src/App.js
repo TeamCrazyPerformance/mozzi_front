@@ -3,11 +3,16 @@ import { Provider } from 'react-redux';
 import { store } from './redux/store';
 import Router from './router';
 
+import checkSignIn from './redux/checkSignIn';
+
 const App = () => (
-  // Return component.
   <Provider store={store}>
     <Router />
   </Provider>
 );
 
-export default App;
+const checkedApp = checkSignIn(App);
+
+export default checkedApp;
+
+// export default App;
