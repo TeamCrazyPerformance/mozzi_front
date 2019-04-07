@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import JoinRequestsTable from './../../components/JoinRequestsTable/JoinRequestsTable';
+import LoadingSpinner from './../../components/LoadingSpinner/LoadingSpinner';
 
 import * as JoinRequestActions from './../../redux/admin/joinRequests/actions';
 
@@ -19,26 +20,31 @@ const JoinRequests = (props) => {
     postJoinRequestApprove,
     postJoinRequestReject } = props;
 
-  const handlePageChange = (event, newPage) => getJoinRequestList({ page: newPage });
-  const joinRequestApprove = (userId) => postJoinRequestApprove({ userId });
-  const joinRequestReject = (userId) => postJoinRequestReject({ userId });
+  const _handlePageChange = (event, newPage) => getJoinRequestList({ page: newPage });
+  const _joinRequestApprove = (userId) => postJoinRequestApprove({ userId });
+  const _joinRequestReject = (userId) => postJoinRequestReject({ userId });
 
   useEffect(() => {
-    handlePageChange(null, 0);
+    _handlePageChange(null, 0);
   }, []);
 
   return (
     <div>
       <div>Join Request</div>
-      <JoinRequestsTable
-        data={joinRequestList}
-        page={page}
-        count={count}
-        total={total}
-        handlePageChange={handlePageChange}
-        joinRequestApprove={joinRequestApprove}
-        joinRequestReject={joinRequestReject}
-      />
+      <LoadingSpinner loadingState={loadingState.joinRequestList || loadingState.joinRequestApprove || loadingState.joinRequestReject}>
+        {error === true
+          ? <div>Error. Plz press F5</div>
+          : <JoinRequestsTable
+            data={joinRequestList}
+            page={page}
+            count={count}
+            total={total}
+            handlePageChange={_handlePageChange}
+            joinRequestApprove={_joinRequestApprove}
+            joinRequestReject={_joinRequestReject}
+          />
+        }
+      </LoadingSpinner>
     </div>
   );
 }

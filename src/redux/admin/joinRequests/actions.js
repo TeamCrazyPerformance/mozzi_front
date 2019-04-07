@@ -9,16 +9,22 @@ export const getJoinRequestList = ({ limit = 10, page = 1, sort = 'asc' }) => {
   };
 };
 
-export const postJoinRequestApprove = ({ userId }) => {
+export const postJoinRequestApprove = ({ userId, limit = 10, page = 1, sort = 'asc' }) => {
   return {
     type: actions.POST_JOIN_REQUEST_APPROVE,
-    userId: userId
+    userId: userId,
+    limit: limit,
+    page: page,
+    sort: sort
   };
 };
 
-export const postJoinRequestReject = ({ userId }) => {
+export const postJoinRequestReject = ({ userId, limit = 10, page = 1, sort = 'asc'  }) => {
   return {
     type: actions.POST_JOIN_REQUEST_REJECT,
-    userId: userId
+    userId: userId,
+    limit: limit,
+    page: page,
+    sort: sort
   };
 };

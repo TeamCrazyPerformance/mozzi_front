@@ -6,8 +6,6 @@ const getJoinRequestList = function*() {
   yield takeEvery(actions.GET_JOIN_REQUEST_LIST, function*({ limit, page, sort }) {
     yield put({ type: actions.GET_JOIN_REQUEST_LIST_PENDING });
 
-    console.log('Page change', page);
-
     const getResult = yield call(() => JoinRequestApi.getJoinRequestList(limit, page, sort));
 
     if(getResult.success === true) {

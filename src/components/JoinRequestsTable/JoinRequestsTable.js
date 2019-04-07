@@ -91,7 +91,10 @@ const JoinRequestTable = props => {
                         size="small"
                         color="primary"
                         aria-label="Approve"
-                        onClick={() => joinRequestApprove(student.userId)}
+                        onClick={() => joinRequestApprove({
+                          userId: student.userId,
+                          page
+                        })}
                       >
                         <Done />
                       </Fab>
@@ -99,7 +102,10 @@ const JoinRequestTable = props => {
                         size="small"
                         color="secondary"
                         aria-label="Reject"
-                        onClick={() => joinRequestReject(student.userId)}
+                        onClick={() => joinRequestReject({
+                          userId: student.userId,
+                          page
+                        })}
                       >
                         <Close />
                       </Fab>
