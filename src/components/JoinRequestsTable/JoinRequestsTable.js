@@ -57,7 +57,7 @@ const JoinRequestTableStyles = theme => ({
 
 const JoinRequestTable = props => {
   const { data, page, count, total, classes } = props;
-  const emptyRows = count - Math.min(count, data.length - page * count);
+  const emptyRows = count - data.length;
 
   const handlePageChange = props.handlePageChange;
   const joinRequestApprove = props.joinRequestApprove;

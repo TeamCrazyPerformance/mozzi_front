@@ -20,7 +20,7 @@ export const getJoinRequestList = async ({ limit, page, sort}) => {
       ],
       page: 1,
       count: 10,
-      total: 5
+      total: 500
   });
 }
 

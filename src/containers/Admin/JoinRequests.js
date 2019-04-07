@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -23,13 +23,9 @@ const JoinRequests = (props) => {
   const joinRequestApprove = (userId) => postJoinRequestApprove({ userId });
   const joinRequestReject = (userId) => postJoinRequestReject({ userId });
 
-  // useEffect(() => {
-  //   getJoinRequestList(0);
-  // }, [joinRequestList]);
-
   useEffect(() => {
-    console.log('work');
-  });
+    handlePageChange(null, 0);
+  }, []);
 
   return (
     <div>
@@ -47,17 +43,27 @@ const JoinRequests = (props) => {
   );
 }
 
-// JoinRequests.propTypes = {
-//   joinRequestList,
-//   page,
-//   count,
-//   total,
-//   error,
-//   loadingState,
-//   getJoinRequestList,
-//   postJoinRequestApprove,
-//   postJoinRequestReject
-// };
+JoinRequests.propTypes = {
+  joinRequestList: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      stdNumber: PropTypes.string.isRequired,
+      userId: PropTypes.string.isRequired
+    })
+  ).isRequired,
+  page: PropTypes.number.isRequired,
+  count: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  error: PropTypes.bool.isRequired,
+  loadingState: PropTypes.shape({
+    joinRequestList: PropTypes.bool.isRequired,
+    joinRequestApprove: PropTypes.bool.isRequired,
+    joinRequestReject: PropTypes.bool.isRequired
+  }).isRequired,
+  getJoinRequestList: PropTypes.func.isRequired,
+  postJoinRequestApprove: PropTypes.func.isRequired,
+  postJoinRequestReject: PropTypes.func.isRequired
+};
 
 const _mapStateToProps = state => {
   const adminJoinRequest = state.AdminJoinRequest;

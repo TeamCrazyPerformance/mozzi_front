@@ -4,52 +4,69 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import * as getExamActions from './../../redux/Exam/ExamTable/actions';
+import { Button } from '@material-ui/core';
+
+const bonobono = (props) => {
+  const {param} = props;
+
+  return (
+    <div><p>test</p>
+      {
+        (() => {
+          if(true){
+            return (bonobono);
+          }
+        })
+      }
+    </div>
+  );
+};
 
 const Exam = (props) => {
   const {
-    examTableData,
+    examTableDataRequestList,
     page,
     count,
     total,
     error,
     loadingState,
-    getExamTableData,
+    // api 이름
+    getExamTableDataRequestList,
   } = props;
 
-  const handlePageChange = (event, newPage) => getExamTableData({page: newPage});
+  const handlePageChange = (event, newPage) => getExamTableDataRequestList({page: newPage});
+  const [b, setB] = useState(0);
 
-  // useEffect(() => {
-  //   getExamTableData(0);
-  // }, [examTableData]);
-
-  // useEffect(() => {
-  //   console.log('work');
-  // });
+  useEffect(() => {
+    handlePageChange(null, 0);
+  }, []);
 
   return(
     <div>
       <ExamTable
-        data={examTableData}
+        data={examTableDataRequestList}
         page={page}
         count={count}
         total={total}
         handlePageChange={handlePageChange}
       ></ExamTable>
-      {/*여기서 부터가 문제임examTableData.total*/}
+      {b}
+      <button onClick = {() => setB(b => b + 1)}>click!</button>
+      <bonobono param={b}></bonobono>
     </div>
   );
 };
 
 const _mapStateToProps = state => {
   //???
-  const examTableRequest = state;
+  const examGetRequest = state.ExamGetRequest;
   return {
-    examTable: examTableRequest.examTableData,
-    page: examTableRequest.page,
-    count: examTableRequest.count,
-    total: examTableRequest.total,
-    error: examTableRequest.error,
-    loadingState: examTableRequest.loadingState,
+    examTableDataRequestList: examGetRequest.examTableDataRequestList,
+    page: examGetRequest.page,
+    count: examGetRequest.count,
+    total: examGetRequest.total,
+    error: examGetRequest.error,
+    loadingState: examGetRequest.loadingState,
   };
 };
 

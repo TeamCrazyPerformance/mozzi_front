@@ -1,6 +1,6 @@
 import * as actions from './actionTypes';
 
-export const getExamTableData = ({limit = 10, page = 1, sort = 'asc'}) => {
+export const getExamTableDataRequestList = ({limit = 10, page = 1, sort = 'asc'}) => {
     return {
         type: actions.GET_EXAM_TABLE_DATA,
         limit: limit,

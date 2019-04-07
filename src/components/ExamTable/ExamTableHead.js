@@ -12,13 +12,11 @@ const rows = [
     { id: 'term', numeric: false, disablePadding: true, label: 'term' },
     { id: 'subject', numeric: false, disablePadding: true, label: 'subject' },
     { id: 'professor', numeric: false, disablePadding: true, label: 'professor' },
+    { id: 'view', numeric: false, disablePadding: true, label: 'view' },
 ]
 
 const styles = theme => ({
-    cell: {
-        backgroundColor: theme.palette.common.black,
-    color: theme.palette.common.white,
-    },
+    
 })
 
 const ExamTableHead = props => {

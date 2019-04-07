@@ -7,7 +7,7 @@ const examTableInitialState = {
     total: 0,
     error: false,
     loadingState: {
-        getExamData: false,
+        examTableDataRequestList: false,
         appendExamData: false,
         deleteExamData: false,
         reviseExamData: false,
@@ -23,21 +23,21 @@ const getExamRequestReducer = (state = examTableInitialState, action) => {
                 error: false,
                 loadingState: {
                     ...state.loadingState,
-                    getExamData: true
+                    examTableDataRequestList: true
                 }
             };
         }
         case actions.GET_EXAM_TABLE_DATA_SUCCESS: {
             return {
                 ...state,
-                examTableDataRequestList: action.getExamData,
+                examTableDataRequestList: action.examTableDataRequestList,
                 page: action.page,
                 count: action.count,
                 total: action.total,
                 error: false,
                 loadingState: {
                     ...state.loadingState,
-                    examTableData: false
+                    examTableDataRequestList: false
                 }
             };
         }
@@ -51,7 +51,7 @@ const getExamRequestReducer = (state = examTableInitialState, action) => {
                 error: true,
                 loadingState: {
                     ...state.loadingState,
-                    examTableData: false
+                    examTableDataRequestList: false
                 }
             };
         }
@@ -61,4 +61,4 @@ const getExamRequestReducer = (state = examTableInitialState, action) => {
     }
 }
 
-export default getExamReducer;
+export default getExamRequestReducer;

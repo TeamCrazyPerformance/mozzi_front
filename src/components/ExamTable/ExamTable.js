@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Table from '@material-ui/core/Table';
-import { Paper, TableBody } from '@material-ui/core';
+import { Paper, TableBody, TablePagination } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 
 import ExamTableHead from './ExamTableHead';
@@ -27,15 +27,33 @@ const styles = theme => ({
 
 const ExamTable = props => {
     const {data, page, count, total, classes} = props;
+
+    const handlePageChange = props.handlePageChange;
+
     return (
       <Paper>
-        <ExamTableHead/>
-        <TableBody>
-          {/* <ExamTableCell
-            data={data}
-          /> */}
-          하이하이
-        </TableBody>
+        <Table>
+          <ExamTableHead/>
+          <TableBody>
+            {
+              data.map((exam, index) => {
+                return (
+                  <ExamTableCell data = {exam}></ExamTableCell>
+                );
+              })
+            }
+          </TableBody>
+        </Table>
+        <TablePagination
+          rowsPerPage={[10]}
+          component="div"
+          count={total}
+          rowsPerPage={count}
+          page={page}
+          onChangePage={handlePageChange}
+          backIconButtonProps={{ 'aria-label': 'Previous Page' }}
+          nextIconButtonProps={{ 'aria-label': 'Next Page' }}
+        />
       </Paper>
     );
 }
