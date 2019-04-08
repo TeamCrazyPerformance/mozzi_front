@@ -1,60 +1,60 @@
-import * as actions from './actionTypes';
+import * as JoinRequestsActions from './actionTypes';
 
 const joinRequestInitialState = {
-  joinRequestList: [],
+  joinRequests: [],
   page: 0,
   count: 0,
   total: 0,
   error: false,
   loadingState: {
-    joinRequestList: false,
+    joinRequests: false,
     joinRequestApprove: false,
     joinRequestReject: false
   }
 };
 
-const joinRequestReducer = (state = joinRequestInitialState, action) => {
+const joinRequestsReducer = (state = joinRequestInitialState, action) => {
   switch(action.type) {
-    case actions.GET_JOIN_REQUEST_LIST_PENDING: {
+    case JoinRequestsActions.GET_JOIN_REQUESTS_PENDING: {
       return {
         ...state,
-        joinRequestList: [],
+        joinRequests: [],
         error: false,
         loadingState: {
           ...state.loadingState,
-          joinRequestList: true
+          joinRequests: true
         }
       };
     }
-    case actions.GET_JOIN_REQUEST_LIST_SUCCESS: {
+    case JoinRequestsActions.GET_JOIN_REQUESTS_SUCCESS: {
       return {
         ...state,
-        joinRequestList: action.joinRequestList,
+        joinRequests: action.joinRequests,
         page: action.page,
         count: action.count,
         total: action.total,
         error: false,
         loadingState: {
           ...state.loadingState,
-          joinRequestList: false
+          joinRequests: false
         }
       };
     }
-    case actions.GET_JOIN_REQUEST_LIST_FAILURE: {
+    case JoinRequestsActions.GET_JOIN_REQUESTS_FAILURE: {
       return {
         ...state,
-        joinRequestList: [],
+        joinRequests: [],
         page: 0,
         count: 0,
         total: 0,
         error: true,
         loadingState: {
           ...state.loadingState,
-          joinRequestList: false
+          joinRequests: false
         }
       };
     }
-    case actions.POST_JOIN_REQUEST_APPROVE_PENDING: {
+    case JoinRequestsActions.POST_JOIN_REQUEST_APPROVE_PENDING: {
       return {
         ...state,
         error: false,
@@ -64,7 +64,7 @@ const joinRequestReducer = (state = joinRequestInitialState, action) => {
         }
       };
     }
-    case actions.POST_JOIN_REQUEST_APPROVE_SUCCESS: {
+    case JoinRequestsActions.POST_JOIN_REQUEST_APPROVE_SUCCESS: {
       return {
         ...state,
         error: false,
@@ -74,7 +74,7 @@ const joinRequestReducer = (state = joinRequestInitialState, action) => {
         }
       };
     }
-    case actions.POST_JOIN_REQUEST_APPROVE_FAILURE: {
+    case JoinRequestsActions.POST_JOIN_REQUEST_APPROVE_FAILURE: {
       return {
         ...state,
         error: true,
@@ -84,7 +84,7 @@ const joinRequestReducer = (state = joinRequestInitialState, action) => {
         }
       };
     }
-    case actions.POST_JOIN_REQUEST_REJECT_PENDING: {
+    case JoinRequestsActions.POST_JOIN_REQUEST_REJECT_PENDING: {
       return {
         ...state,
         error: false,
@@ -94,7 +94,7 @@ const joinRequestReducer = (state = joinRequestInitialState, action) => {
         }
       };
     }
-    case actions.POST_JOIN_REQUEST_REJECT_SUCCESS: {
+    case JoinRequestsActions.POST_JOIN_REQUEST_REJECT_SUCCESS: {
       return {
         ...state,
         error: false,
@@ -104,7 +104,7 @@ const joinRequestReducer = (state = joinRequestInitialState, action) => {
         }
       };
     }
-    case actions.POST_JOIN_REQUEST_REJECT_FAILURE: {
+    case JoinRequestsActions.POST_JOIN_REQUEST_REJECT_FAILURE: {
       return {
         ...state,
         error: true,
@@ -117,6 +117,6 @@ const joinRequestReducer = (state = joinRequestInitialState, action) => {
     default:
       return state;
   }
-}
+};
 
-export default joinRequestReducer;
+export default joinRequestsReducer;

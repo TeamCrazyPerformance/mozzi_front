@@ -1,8 +1,8 @@
-import * as actions from './actionTypes';
+import * as JoinRequestsActions from './actionTypes';
 
-export const getJoinRequestList = ({ limit = 10, page = 1, sort = 'asc' }) => {
+export const getJoinRequests = ({ limit = 10, page = 1, sort = 'asc' }) => {
   return {
-    type: actions.GET_JOIN_REQUEST_LIST,
+    type: JoinRequestsActions.GET_JOIN_REQUESTS,
     limit: limit,
     page: page,
     sort: sort
@@ -11,7 +11,7 @@ export const getJoinRequestList = ({ limit = 10, page = 1, sort = 'asc' }) => {
 
 export const postJoinRequestApprove = ({ userId, limit = 10, page = 1, sort = 'asc' }) => {
   return {
-    type: actions.POST_JOIN_REQUEST_APPROVE,
+    type: JoinRequestsActions.POST_JOIN_REQUEST_APPROVE,
     userId: userId,
     limit: limit,
     page: page,
@@ -21,7 +21,7 @@ export const postJoinRequestApprove = ({ userId, limit = 10, page = 1, sort = 'a
 
 export const postJoinRequestReject = ({ userId, limit = 10, page = 1, sort = 'asc'  }) => {
   return {
-    type: actions.POST_JOIN_REQUEST_REJECT,
+    type: JoinRequestsActions.POST_JOIN_REQUEST_REJECT,
     userId: userId,
     limit: limit,
     page: page,

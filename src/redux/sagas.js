@@ -1,11 +1,13 @@
 import { all } from 'redux-saga/effects';
 import authSaga from './auth/saga';
-import adminJoinRequestSaga from './admin/joinRequests/saga';
+import adminJoinRequestsSaga from './admin/joinRequests/saga';
+import adminUsersSaga from './admin/users/saga';
 
 // Combine all sagas.
 export default function* rootSaga (getState) {
   yield all([
     authSaga(),
-    adminJoinRequestSaga(),
+    adminJoinRequestsSaga(),
+    adminUsersSaga(),
   ]);
 };

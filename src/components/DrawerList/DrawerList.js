@@ -53,11 +53,11 @@ const drawerList = [
   link: '/admin'
 }, {
   iconComponent: <GroupAdd />,
-  text: 'Join Request',
+  text: 'Join Requests',
   link: '/admin/joinrequests'
 }, {
   iconComponent: <Group />,
-  text: 'User List',
+  text: 'Users',
   link: '/admin/users'
 }]
 ];

@@ -4,9 +4,10 @@ import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import FlexBox from './../../components/LayoutComponents/FlexBox/FlexBox';
+import FlexBox from './../../components/FlexBox/FlexBox';
 import SignInForm from './../../components/SignInForm/SignInForm';
 import Logo from './../../components/Logo/Logo';
+import LoadingSpinner from './../../components/LoadingSpinner/LoadingSpinner';
 
 import * as authActions from '../../redux/auth/actions';
 
@@ -31,51 +32,11 @@ const SignIn = props => {
     postSignIn({ userInformation });
   };
 
-  // To get previous props or state.
-  const usePrevious = value => {
-    const ref = useRef();
-    useEffect(() => {
-      ref.current = value;
-    });
-    return ref.current
-  };
-
-  const prevIsSignIn = usePrevious(isSignIn);
-
-  // useEffect(() => {
-  //   console.log(prevIsSignIn);
-  // });
-
-
-
   const _checkIsSignIn = () => {
     if(isSignIn) {
       return <Redirect to="/main" />
     }
   };
-
-
-
-
-  // state = {
-  //   redirectToReferrer: false
-  // };
-
-  // componentWillReceiveProps(nextProps) {
-  //   if (
-  //     isSignIn !== nextProps.isSignIn &&
-  //     nextProps.isSignIn === true
-  //   ) {
-  //     this.setState({ redirectToReferrer: true });
-  //   }
-  // };
-
-  // if (redirectToReferrer) {
-  //   return <Redirect to={from} />;
-  // }
-
-  
-
 
   return (
     <>
@@ -86,16 +47,18 @@ const SignIn = props => {
         align= "center"
         justify= "center"
       >
-        <Logo
-          size="large"
-          spin={true}
-        />
-        <SignInForm
-          handleSubmit={_handleSubmit}
-          handleIdentityValue={_handleIdentityValue}
-          handlePasswordVaule={_handlePasswordValue}
-          signupUrl="/signup"
-        />
+        <LoadingSpinner loadingState={loadingState.signIn}>
+          <Logo
+            size="large"
+            spin={true}
+          />
+          <SignInForm
+            handleSubmit={_handleSubmit}
+            handleIdentityValue={_handleIdentityValue}
+            handlePasswordVaule={_handlePasswordValue}
+            signupUrl="/signup"
+          />
+        </LoadingSpinner>
       </FlexBox>
     </>
   );
@@ -111,7 +74,7 @@ const _mapStateToProps = (state) => {
   return {
     isSignIn: auth.isSignIn,
     loadingState: {
-      sigIn: auth.loadingState.sigIn
+      signIn: auth.loadingState.signIn
     }
   };
 };

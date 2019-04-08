@@ -1,6 +1,6 @@
 import fetchHelper from './../../../helpers/fetchHelper';
 
-export const getJoinRequestList = async ({ limit, page, sort}) => {
+export const getJoinRequests = async ({ limit, page, sort}) => {
   // return await fetchHelper.get(`/admin/user?limit=${limit}&page=${page}&sort=${sort}`)
   //         .then(response => response)
   //         .catch(error => ({error: JSON.stringify(error)}))

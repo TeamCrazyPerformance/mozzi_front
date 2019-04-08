@@ -1,71 +1,71 @@
 import { all, takeEvery, put, call, fork } from 'redux-saga/effects';
 import * as JoinRequestApi from './api';
-import * as actions from './actionTypes';
+import * as JoinRequestsActions from './actionTypes';
 
-const getJoinRequestList = function*() {
-  yield takeEvery(actions.GET_JOIN_REQUEST_LIST, function*({ limit, page, sort }) {
-    yield put({ type: actions.GET_JOIN_REQUEST_LIST_PENDING });
+const getJoinRequests = function*() {
+  yield takeEvery(JoinRequestsActions.GET_JOIN_REQUESTS, function*({ limit, page, sort }) {
+    yield put({ type: JoinRequestsActions.GET_JOIN_REQUESTS_PENDING });
 
-    const getResult = yield call(() => JoinRequestApi.getJoinRequestList(limit, page, sort));
+    const getResult = yield call(() => JoinRequestApi.getJoinRequests({ limit, page, sort }));
 
     if(getResult.success === true) {
       yield put({
-        type: actions.GET_JOIN_REQUEST_LIST_SUCCESS,
-        joinRequestList: getResult.users,
+        type: JoinRequestsActions.GET_JOIN_REQUESTS_SUCCESS,
+        joinRequests: getResult.users,
         page: getResult.page,
         count: getResult.count,
         total: getResult.total
       });
     } else {
-      yield put({ type: actions.GET_JOIN_REQUEST_LIST_FAILURE });
+      yield put({ type: JoinRequestsActions.GET_JOIN_REQUESTS_FAILURE });
     }
   });
 };
 
 const postJoinRequestApprove = function*() {
-  yield takeEvery(actions.POST_JOIN_REQUEST_APPROVE, function*({ userId, limit, page, sort }) {
-    yield put({ type: actions.POST_JOIN_REQUEST_APPROVE_PENDING });
+  yield takeEvery(JoinRequestsActions.POST_JOIN_REQUEST_APPROVE, function*({ userId, limit, page, sort }) {
+    yield put({ type: JoinRequestsActions.POST_JOIN_REQUEST_APPROVE_PENDING });
 
     const getResult = yield call(() => JoinRequestApi.postJoinRequestApprove(userId));
 
     if(getResult.success === true) {
-      yield put({ type: actions.POST_JOIN_REQUEST_APPROVE_SUCCESS });
+      yield put({ type: JoinRequestsActions.POST_JOIN_REQUEST_APPROVE_SUCCESS });
       yield put({
-        type: actions.GET_JOIN_REQUEST_LIST,
+        type: JoinRequestsActions.GET_JOIN_REQUESTS,
         limit: limit,
         page: page,
         sort: sort
       });
     } else {
-      yield put({ type: actions.POST_JOIN_REQUEST_APPROVE_FAILURE });
+      yield put({ type: JoinRequestsActions.POST_JOIN_REQUEST_APPROVE_FAILURE });
     }
   });
 };
 
 const postJoinRequestReject = function*() {
-  yield takeEvery(actions.POST_JOIN_REQUEST_REJECT, function*({ userId, limit, page, sort }) {
-    yield put({ type: actions.POST_JOIN_REQUEST_REJECT_PENDING });
+  yield takeEvery(JoinRequestsActions.POST_JOIN_REQUEST_REJECT, function*({ userId, limit, page, sort }) {
+    yield put({ type: JoinRequestsActions.POST_JOIN_REQUEST_REJECT_PENDING });
 
     const getResult = yield call(() => JoinRequestApi.postJoinRequestReject(userId));
 
     if(getResult.success === true) {
-      yield put({ type: actions.POST_JOIN_REQUEST_REJECT_SUCCESS });
+      yield put({ type: JoinRequestsActions.POST_JOIN_REQUEST_REJECT_SUCCESS });
       yield put({
-        type: actions.GET_JOIN_REQUEST_LIST,
+        type: JoinRequestsActions.GET_JOIN_REQUESTS,
         limit: limit,
         page: page,
         sort: sort
       });
     } else {
-      yield put({ type: actions.POST_JOIN_REQUEST_REJECT_FAILURE });
+      yield put({ type: JoinRequestsActions.POST_JOIN_REQUEST_REJECT_FAILURE });
     }
   });
 };
 
 export default function* joinRequestsSaga() {
   yield all([
-    fork(getJoinRequestList),
+    fork(getJoinRequests),
     fork(postJoinRequestApprove),
-    fork(postJoinRequestReject),
+    fork(postJoinRequestReject)
   ]);
 }
