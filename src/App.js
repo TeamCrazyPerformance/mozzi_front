@@ -14,5 +14,3 @@ const App = () => (
 const checkedApp = checkSignIn(App);
 
 export default checkedApp;
-
-// export default App;

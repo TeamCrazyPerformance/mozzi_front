@@ -29,7 +29,6 @@ const _changePropsToClassName = ({ size, spin }) => {
   return classNames;
 };
 
-// Check prop types.
 Logo.propTypes = {
   size: PropTypes.oneOf([
     'small',

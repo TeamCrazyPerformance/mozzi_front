@@ -55,7 +55,7 @@ const appBarStyles = theme => ({
   },
 });
 
-const Header = (props) => {
+const Header = props => {
   const { container, children, classes } = props;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -70,7 +70,10 @@ const Header = (props) => {
   return (
     <div className={`${classes.root} app-bar-wrapper`}>
       <CssBaseline />
-      <AppBar position="fixed" className={`${classes.appBar} app-bar-wrapper__app-bar`}>
+      <AppBar
+        position="fixed"
+        className={`${classes.appBar} app-bar-wrapper__app-bar`}
+      >
         <Toolbar className={`app-bar-wrapper__app-bar__tool-bar`}>
           <IconButton
             color="inherit"

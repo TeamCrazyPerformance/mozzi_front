@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Error = (props) => {
+const Error = props => {
   return(
     <div>
       Error. Plz press F5.

@@ -56,12 +56,17 @@ const JoinRequestTableStyles = theme => ({
 });
 
 const JoinRequestTable = props => {
-  const { data, page, count, total, classes } = props;
+  const {
+    data,
+    page,
+    count,
+    total,
+    classes,
+    handlePageChange,
+    joinRequestApprove,
+    joinRequestReject
+  } = props;
   const emptyRows = count - data.length;
-
-  const handlePageChange = props.handlePageChange;
-  const joinRequestApprove = props.joinRequestApprove;
-  const joinRequestReject = props.joinRequestReject;
 
   return (
     <Paper className={classes.root}>
@@ -128,8 +133,8 @@ const JoinRequestTable = props => {
         rowsPerPage={count}
         page={page}
         onChangePage={handlePageChange}
-        backIconButtonProps={{ 'aria-label': 'Previous Page' }}
-        nextIconButtonProps={{ 'aria-label': 'Next Page' }}
+        backIconButtonProps={{ 'aria-label' : 'Previous Page' }}
+        nextIconButtonProps={{ 'aria-label' : 'Next Page' }}
       />
     </Paper>
   );

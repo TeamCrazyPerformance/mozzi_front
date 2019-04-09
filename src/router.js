@@ -2,16 +2,13 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-// Public component.
 import SignIn from './containers/SignIn/SignIn';
 
-// Private components.
 import Header from './components/Header/Header';
 import Main from './containers/Main/Main';
 import Project from './containers/Project/Project';
 import Exam from './containers/Exam/Exam';
 
-// Admin container components.
 import Admin from './containers/Admin/Admin';
 import JoinRequests from './containers/Admin/JoinRequests';
 import Users from './containers/Admin/Users';

@@ -1,4 +1,4 @@
-import fetchHelper from './../../../helpers/fetchHelper';
+// import fetchHelper from './../../../helpers/fetchHelper';
 
 export const getUsers = async ({ page, limit }) => {
   // return await fetchHelper.get(`/admin/user/getall?limit=${limit}&page=${page}`)

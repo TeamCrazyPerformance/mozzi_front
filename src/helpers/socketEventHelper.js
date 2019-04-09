@@ -3,7 +3,6 @@ import socket from './createSocketHelper';
 
 const defaultMatcher = () => true;
 
-// Emit socket event.
 export const emitSocketEvent = (event, data = {}) => {
   socket.emit(event, data);
 }
@@ -21,7 +20,6 @@ export const onSocketEvent = (eventType, buffer, matcher) => {
   }, buffer || buffers.none(), matcher || defaultMatcher);
 }
 
-// Close socket channel.
 export const closeChannel = (channel) => {
   if (channel) {
     channel.close();

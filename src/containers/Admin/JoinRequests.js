@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -9,7 +9,7 @@ import Error from './../../components/Error/Error';
 
 import * as JoinRequestsActions from './../../redux/admin/joinRequests/actions';
 
-const JoinRequests = (props) => {
+const JoinRequests = props => {
   const {
     joinRequests,
     page,
@@ -32,7 +32,11 @@ const JoinRequests = (props) => {
   return (
     <div>
       <div>Join Request</div>
-      <LoadingSpinner loadingState={loadingState.joinRequests || loadingState.joinRequestApprove || loadingState.joinRequestReject}>
+      <LoadingSpinner loadingState={
+        loadingState.joinRequests
+        || loadingState.joinRequestApprove
+        || loadingState.joinRequestReject
+      }>
         {error === true
           ? <Error />
           : <JoinRequestsTable

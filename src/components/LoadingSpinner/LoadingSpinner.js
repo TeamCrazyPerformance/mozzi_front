@@ -10,7 +10,7 @@ const LoadingSpinnerStyles = theme => ({
   }
 });
 
-const LoadingSpinner = (props) => {
+const LoadingSpinner = props => {
   const { classes, loadingState, children } = props;
   return (
     <>

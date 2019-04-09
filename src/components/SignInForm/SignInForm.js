@@ -63,7 +63,6 @@ const SignInForm = ({ handleSubmit, handleIdentityValue, handlePasswordVaule, si
   );
 };
 
-// Check prop types.
 SignInForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleIdentityValue: PropTypes.func.isRequired,

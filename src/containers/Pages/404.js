@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class Fzf extends Component {
-  render() {
-    return(
-      <div>
-        404
-      </div>
-    );
-  };
+const ErrorPage404 = () => {
+  return(
+    <div>
+      404
+    </div>
+  );
 };
 
-export default Fzf;
+export default ErrorPage404;

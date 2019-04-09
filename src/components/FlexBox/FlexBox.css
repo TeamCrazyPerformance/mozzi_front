@@ -75,3 +75,7 @@
 .flex-box--jusitify-content--space-around {
   justify-content: space-around;
 }
+
+.flex-box--max-height-true {
+	height: 100vh;
+}

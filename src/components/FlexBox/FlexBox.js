@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 
 import './FlexBox.css';
 
-const FlexBox = ({ wrap='wrap', column='row', align='flex-start', justify='flex-start', children }) => {
-  const flexBoxClassNames = _changePropsToClassName({ wrap, column, align, justify });
+const FlexBox = ({ wrap='wrap', column='row', align='flex-start', justify='flex-start', maxHeight=false, children }) => {
+  const flexBoxClassNames = _changePropsToClassName({ wrap, column, align, justify, maxHeight });
 
   return(
     <div className={flexBoxClassNames}>
@@ -13,7 +13,7 @@ const FlexBox = ({ wrap='wrap', column='row', align='flex-start', justify='flex-
   );
 };
 
-const _changePropsToClassName = ({ wrap, column, align, justify }) => {
+const _changePropsToClassName = ({ wrap, column, align, justify, maxHeight }) => {
   let classNames = 'flex-box';
 
   // flex-wrap
@@ -22,13 +22,14 @@ const _changePropsToClassName = ({ wrap, column, align, justify }) => {
   classNames = classNames.concat(` flex-box--flex-direction--${column}`);
   // align-items
   classNames = classNames.concat(` flex-box--align-items--${align}`);
-  //jusitify-content
+  // jusitify-content
   classNames = classNames.concat(` flex-box--jusitify-content--${justify}`);
+  // height 100vh
+  classNames = classNames.concat(` flex-box--max-height-${maxHeight}`);
 
   return classNames;
 };
 
-// Check prop types.
 FlexBox.propTypes = {
   wrap: PropTypes.oneOf([
     'wrap',
@@ -55,6 +56,7 @@ FlexBox.propTypes = {
     'space-between',
     'space-around'
   ]),
+  maxHeight: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.array

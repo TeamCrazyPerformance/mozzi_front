@@ -1,6 +1,5 @@
 import { jwtConfig } from './../setting/jwtSetting';
 
-// Make custom header for jwt.
 const customHeader = () => {
   if(localStorage.getItem('jwt')) {
     return({
@@ -23,9 +22,7 @@ const base = (method, url, data) => {
     headers: customHeader(),
     body: JSON.stringify(data)
   })
-    .then(response => {
-      return response.ok ? response.json() : { error: 'Error' }
-  })
+    .then(response => response.ok ? response.json() : { error: 'Error' })
     .then(response => response)
     .catch(error => ({ error: 'Server Error'}));
 };

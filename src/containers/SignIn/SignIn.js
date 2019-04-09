@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Redirect } from 'react-router';
 import { connect } from 'react-redux';
@@ -32,20 +32,25 @@ const SignIn = props => {
     postSignIn({ userInformation });
   };
 
-  const _checkIsSignIn = () => {
-    if(isSignIn) {
-      return <Redirect to="/main" />
-    }
-  };
+  // const _checkIsSignIn = () => {
+  //   if(isSignIn) {
+  //     return <Redirect to="/main" />
+  //   }
+
+  //   return isSignIn === true ? <Redirect to="/main" /> : <></>;
+  // };
+
+  const _checkSignIn = () => isSignIn === true ? <Redirect to="/main" /> : <></>;
 
   return (
     <>
-      {_checkIsSignIn()}
+      {_checkSignIn()}
       <FlexBox
-        wrap= "wrap"
-        column= "column"
-        align= "center"
-        justify= "center"
+        wrap="wrap"
+        column="column"
+        align="center"
+        justify="center"
+        maxHeight={true}
       >
         <LoadingSpinner loadingState={loadingState.signIn}>
           <Logo
