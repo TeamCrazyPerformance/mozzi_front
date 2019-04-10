@@ -32,15 +32,9 @@ const SignIn = props => {
     postSignIn({ userInformation });
   };
 
-  // const _checkIsSignIn = () => {
-  //   if(isSignIn) {
-  //     return <Redirect to="/main" />
-  //   }
-
-  //   return isSignIn === true ? <Redirect to="/main" /> : <></>;
-  // };
-
-  const _checkSignIn = () => isSignIn === true ? <Redirect to="/main" /> : <></>;
+  const _checkSignIn = () => isSignIn
+    ? <Redirect to="/main" />
+    : <></>;
 
   return (
     <>
