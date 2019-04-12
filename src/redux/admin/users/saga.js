@@ -11,7 +11,7 @@ const getUsers = function*() {
     if(getResult.success === true) {
       yield put({
         type: UsersActions.GET_USERS_SUCCESS,
-        user: getResult.user,
+        users: getResult.users,
         page: getResult.page,
         count: getResult.count,
         total: getResult.total

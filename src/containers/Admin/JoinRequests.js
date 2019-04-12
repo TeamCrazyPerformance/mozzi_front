@@ -37,7 +37,8 @@ const JoinRequests = props => {
         || loadingState.joinRequestApprove
         || loadingState.joinRequestReject
       }>
-        {error === true
+        {
+          error
           ? <Error />
           : <JoinRequestsTable
             data={joinRequests}
