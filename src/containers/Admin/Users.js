@@ -7,7 +7,7 @@ import UsersTable from './../../components/UsersTable/UsersTable.js';
 import LoadingSpinner from './../../components/LoadingSpinner/LoadingSpinner';
 import Error from './../../components/Error/Error';
 
-import * as UsersActions from './../../redux/admin/users/actions';
+import * as usersActions from './../../redux/admin/users/actions';
 
 const Users = props => {
   const {
@@ -69,7 +69,7 @@ Users.propTypes = {
 };
 
 const _mapStateToProps = state => {
-  const adminUsers = state.AdminUsers;
+  const adminUsers = state.adminUsers;
   return {
     users: adminUsers.users,
     page: adminUsers.page,
@@ -81,7 +81,7 @@ const _mapStateToProps = state => {
 };
 
 const _mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(UsersActions, dispatch);
+  return bindActionCreators(usersActions, dispatch);
 };
 
 export default connect(_mapStateToProps, _mapDispatchToProps)(Users);

@@ -1,8 +1,8 @@
-import * as actions from './actionTypes';
+import * as usersActions from './actionTypes';
 
 export const getUsers = ({page = 1, limit = 10}) => {
   return ({
-    type: actions.GET_USERS,
+    type: usersActions.GET_USERS,
     page: page,
     limit: limit
   });

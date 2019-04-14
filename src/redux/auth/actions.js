@@ -1,8 +1,8 @@
-import * as actions from './actionTypes';
+import * as AuthActions from './actionTypes';
 
 export const postSignIn = ({ identity, password }) => {
   return {
-    type: actions.POST_SIGN_IN,
+    type: AuthActions.POST_SIGN_IN,
     identity: identity,
     password: password
   };
@@ -10,12 +10,12 @@ export const postSignIn = ({ identity, password }) => {
 
 export const signOut = () => {
   return {
-    type: actions.SIGN_OUT
+    type: AuthActions.SIGN_OUT
   };
 };
 
 export const checkAuthorization = () => {
   return {
-    type: actions.CHECK_AUTHORIZATION
+    type: AuthActions.CHECK_AUTHORIZATION
   }
 }

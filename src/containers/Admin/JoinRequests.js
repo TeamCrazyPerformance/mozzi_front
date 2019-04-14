@@ -7,7 +7,7 @@ import JoinRequestsTable from './../../components/JoinRequestsTable/JoinRequests
 import LoadingSpinner from './../../components/LoadingSpinner/LoadingSpinner';
 import Error from './../../components/Error/Error';
 
-import * as JoinRequestsActions from './../../redux/admin/joinRequests/actions';
+import * as joinRequestsActions from './../../redux/admin/joinRequests/actions';
 
 const JoinRequests = props => {
   const {
@@ -78,7 +78,7 @@ JoinRequests.propTypes = {
 };
 
 const _mapStateToProps = state => {
-  const adminJoinRequests = state.AdminJoinRequests;
+  const adminJoinRequests = state.adminJoinRequests;
   return {
     joinRequests: adminJoinRequests.joinRequests,
     page: adminJoinRequests.page,
@@ -90,7 +90,7 @@ const _mapStateToProps = state => {
 };
 
 const _mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(JoinRequestsActions, dispatch);
+  return bindActionCreators(joinRequestsActions, dispatch);
 };
 
 export default connect(_mapStateToProps, _mapDispatchToProps)(JoinRequests);

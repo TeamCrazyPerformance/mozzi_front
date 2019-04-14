@@ -69,7 +69,7 @@ SignIn.propTypes = {
 };
 
 const _mapStateToProps = (state) => {
-  const auth = state.Auth;
+  const auth = state.auth;
   return {
     isSignIn: auth.isSignIn,
     loadingState: {

@@ -1,4 +1,4 @@
-import * as actions from './actionTypes';
+import * as AuthActions from './actionTypes';
 
 const authInitialState = {
   isSignIn: false,
@@ -9,7 +9,7 @@ const authInitialState = {
 
 const authReducer = (state = authInitialState, action) => {
   switch(action.type) {
-    case actions.POST_SIGN_IN_PENDING: {
+    case AuthActions.POST_SIGN_IN_PENDING: {
       return {
         ...state,
         loadingState: {
@@ -18,7 +18,7 @@ const authReducer = (state = authInitialState, action) => {
         }
       };
     }
-    case actions.POST_SIGN_IN_SUCCESS: {
+    case AuthActions.POST_SIGN_IN_SUCCESS: {
       return {
         ...state,
         isSignIn: true,
@@ -28,7 +28,7 @@ const authReducer = (state = authInitialState, action) => {
         }
       };
     }
-    case actions.POST_SIGN_IN_FAILURE: {
+    case AuthActions.POST_SIGN_IN_FAILURE: {
       return {
         ...state,
         isSignIn: false,
@@ -38,7 +38,7 @@ const authReducer = (state = authInitialState, action) => {
         }
       };
     }
-    case actions.SIGN_OUT_PENDING: {
+    case AuthActions.SIGN_OUT_PENDING: {
       return {
         ...state,
         loadingState: {
@@ -47,7 +47,7 @@ const authReducer = (state = authInitialState, action) => {
         }
       };
     }
-    case actions.SIGN_OUT_SUCCESS: {
+    case AuthActions.SIGN_OUT_SUCCESS: {
       return {
         ...state,
         isSignIn: false,
@@ -57,7 +57,7 @@ const authReducer = (state = authInitialState, action) => {
         }
       };
     }
-    case actions.SIGN_OUT_FAILURE: {
+    case AuthActions.SIGN_OUT_FAILURE: {
       return {
         ...state,
         loadingState: {

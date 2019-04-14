@@ -80,8 +80,9 @@ const UsersTable = props => {
                     role="checkbox"
                     tabIndex={-1}
                     key={index}
-                    component={Link}
-                    to={`/main`}
+                    // TODO
+                    // component={Link}
+                    // to={`/admin/user/${user.id}`}
                   >
                     <TableCell align="center">
                       {user.name}

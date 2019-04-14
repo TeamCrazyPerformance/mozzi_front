@@ -58,7 +58,7 @@ const PrivateRouter = () => {
         <Route exact path="/admin" component={Admin} />
         <Route exact path="/admin/joinrequests" component={JoinRequests} />
         <Route exact path="/admin/users" component={Users} />
-        <Route exact path="/admin/users/:userid" component={User} />
+        <Route exact path="/admin/user/:userid" component={User} />
         {/* 404 Error page */}
         <Route component={ErrorPage404}/>
       </Switch>
@@ -67,7 +67,7 @@ const PrivateRouter = () => {
 };
 
 const _mapStateToProps = (state) => {
-  const auth = state.Auth;
+  const auth = state.auth;
   return { isSignIn: auth.isSignIn };
 };
 

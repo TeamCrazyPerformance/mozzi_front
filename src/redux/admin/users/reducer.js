@@ -1,4 +1,4 @@
-import * as UsersActions from './actionTypes';
+import * as usersActions from './actionTypes';
 
 const usersInitialState = {
   users: [],
@@ -13,7 +13,7 @@ const usersInitialState = {
 
 const usersReducer = (state = usersInitialState, action) => {
   switch(action.type) {
-    case UsersActions.GET_USERS_PENDING: {
+    case usersActions.GET_USERS_PENDING: {
       return {
         ...state,
         users: [],
@@ -24,7 +24,7 @@ const usersReducer = (state = usersInitialState, action) => {
         }
       };
     }
-    case UsersActions.GET_USERS_SUCCESS: {
+    case usersActions.GET_USERS_SUCCESS: {
       return {
         ...state,
         users: action.users,
@@ -38,7 +38,7 @@ const usersReducer = (state = usersInitialState, action) => {
         }
       };
     }
-    case UsersActions.GET_USERS_FAILURE: {
+    case usersActions.GET_USERS_FAILURE: {
       return {
         ...state,
         users: [],
