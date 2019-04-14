@@ -3,57 +3,60 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import ProjectTable from "../../components/ProjectComponents/ProjectTable/ProjectTable";
+import ProjectTable from '../../components/ProjectComponents/ProjectTable/ProjectTable';
 
-import * as projectMainActions from "../../redux/projectMain/actions"
+import * as projectMainActions from '../../redux/project/projectMain/actions';
 
 const ProjectMain = (props) => {
-  //declare state
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-  
-  const _handleChangePage = (event, page) => {
-    setPage(page);
+  // declare state
+  const { page, limit, projects, getProjects } = props;
+
+  const handleChangePage = (event, pageToChange) => {
+    getProjects(pageToChange, limit);
   };
-  
-  const _handleChangeRowsPerPage = event => {
-    setRowsPerPage(Number(event.target.value));
+
+  const handleChangeRowsPerPage = (event) => {
+    getProjects(page, event.target.value);
   };
-  
-  useEffect(()=>{
-    //when component did mount
-    props.getProjects();
-  },[]);
-  
-  return(
+
+  useEffect(() => {
+    // when component did mount
+    getProjects(page, limit);
+  }, []);
+
+  return (
     <ProjectTable
-      projects={props.projects}
+      projects={projects}
       page={page}
-      rowsPerPage={rowsPerPage}
-      handleChangePage={_handleChangePage}
-      handleChangeRowsPerPage={_handleChangeRowsPerPage}
+      limit={limit}
+      handleChangePage={handleChangePage}
+      handleChangeRowsPerPage={handleChangeRowsPerPage}
     />
-  )
+  );
 };
 
 ProjectMain.propTypes = {
-  projects : PropTypes.array.isRequired,
-  loadingState: PropTypes.objectOf(PropTypes.bool)
+  projects: PropTypes.array.isRequired,
+  page: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
+  loadingState: PropTypes.objectOf(PropTypes.bool),
 };
 
 
-const _mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   const projectMain = state.ProjectMain;
   return {
-    projects : projectMain.projects,
-    loadingState : {
-      getProjects : projectMain.loadingState.getProjects
-    }
-  }
+    projects: projectMain.projects,
+    page: projectMain.page,
+    limit: projectMain.limit,
+    total: projectMain.total,
+    loadingState: {
+      getProjects: projectMain.loadingState.getProjects,
+    },
+  };
 };
 
-const _mapDispatchToProps = (dispatch) => {
-  return bindActionCreators(projectMainActions, dispatch);
-};
+const mapDispatchToProps = dispatch => bindActionCreators(projectMainActions, dispatch);
 
-export default connect(_mapStateToProps, _mapDispatchToProps)(ProjectMain);
+export default connect(mapStateToProps, mapDispatchToProps)(ProjectMain);

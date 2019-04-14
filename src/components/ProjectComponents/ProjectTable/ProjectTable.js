@@ -1,69 +1,70 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom';
 
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableRow from '@material-ui/core/TableRow';
 import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination'
+import TablePagination from '@material-ui/core/TablePagination';
+import Button from '@material-ui/core/Button';
 
-const ProjectTable = ({projects, page, rowsPerPage, handleChangePage, handleChangeRowsPerPage})=>{
-  
-  const emptyRows = rowsPerPage-projects.slice(page*rowsPerPage, (page+1)*rowsPerPage).length;
-  
-  return(
+const ProjectTable = ({ projects, page, limit, handleChangePage, handleChangeRowsPerPage }) => {
+  const emptyRows = limit - projects.length;
+  return (
     <Table>
-      
       <TableBody>
-        {projects.slice(page*rowsPerPage, (page+1)*rowsPerPage).map(project =>( //cut project array to current page
-            <TableRow id={project.id}>
-              <Link to {"/"+project.id}>
-                <TableCell>{project.name}</TableCell>
-                <TableCell>{project.author}</TableCell>
-                <TableCell>{project.date}</TableCell>
-              </Link>
-            </TableRow>
-          )
-        )}
+        {projects.map(project => ( // cut project array to current page
+          <TableRow id={project.projectId}>
+            <Link to={`project/${project.projectId}`}>
+              <TableCell>{project.name}</TableCell>
+              <TableCell>{project.author}</TableCell>
+              <TableCell>{project.date}</TableCell>
+            </Link>
+          </TableRow>
+        ))}
+
         {emptyRows > 0 && (
-          //fill empty rows
+          // fill empty rows
           <TableRow style={{ height: 48 * emptyRows }}>
             <TableCell colSpan={3} />
           </TableRow>
         )}
       </TableBody>
-      
+
       <TableFooter>
-        <TableRow id='tablePaginationRow'>
+        <TableRow id="tableFooter">
+          <Link to="project/create">
+            <Button variant="contained" color="primary">
+            생성
+            </Button>
+          </Link>
           <TablePagination
             page={page}
-            rowsPerPage={rowsPerPage}
-            rowsPerPageOptions={[5,10]}
+            rowsPerPage={limit}
+            rowsPerPageOptions={[5, 10]}
             count={projects.length}
             SelectProps={{
-              native : true
+              native: true,
             }}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         </TableRow>
       </TableFooter>
-    
+
     </Table>
-  )
-}
-
-
+  );
+};
 
 
 ProjectTable.propTypes = {
-  page : PropTypes.number.isRequired,
-  rowsPerPage : PropTypes.number.isRequired,
-  projects : PropTypes.array.isRequired,
-  handleChangePage : PropTypes.func.isRequired,
-  handleChangeRowsPerPage : PropTypes.func.isRequired
+  page: PropTypes.number.isRequired,
+  limit: PropTypes.number.isRequired,
+  projects: PropTypes.array.isRequired,
+  handleChangePage: PropTypes.func.isRequired,
+  handleChangeRowsPerPage: PropTypes.func.isRequired,
 };
 
 export default ProjectTable;
