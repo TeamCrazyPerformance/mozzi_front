@@ -1,17 +1,17 @@
 
-//create(post) projectMain action
+// create(post) projectMain action
 export const POST_PROJECT = 'POST_PROJECT';
 export const POST_PROJECT_PENDING = 'POST_PROJECT_PENDING';
 export const POST_PROJECT_SUCCESS = 'POST_PROJECT_SUCCESS';
 export const POST_PROJECT_FAILURE = 'POST_PROJECT_FAILURE';
 
-//modify projectMain action
+// modify projectMain action
 export const MODIFY_PROJECT = 'MODIFY_PROJECT';
 export const MODIFY_PROJECT_PENDING = 'MODIFY_PROJECT_PENDING';
 export const MODIFY_PROJECT_SUCCESS = 'MODIFY_PROJECT_SUCCESS';
 export const MODIFY_PROJECT_FAILURE = 'MODIFY_PROJECT_FAILURE';
 
-//delete projectMain action
+// delete projectMain action
 export const DELETE_PROJECT = 'DELETE_PROJECT';
 export const DELETE_PROJECT_PENDING = 'DELETE_PROJECT_PENDING';
 export const DELETE_PROJECT_SUCCESS = 'DELETE_PROJECT_SUCCESS';
