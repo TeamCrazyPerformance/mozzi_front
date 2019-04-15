@@ -5,31 +5,45 @@ import { bindActionCreators } from 'redux';
 
 import ProjectModifyComponent from '../../components/ProjectComponents/ProjectModify/ProjectModify';
 
-import * as projectModifyActions from '../../redux/projectManipultation/actions';
+import * as projectModifyActions from '../../redux/project/projectManipulation/actions';
 
 const ProjectModify = (props) => {
-  // const [project, setProject] = useState({});
-  const [nameValue, setNameValue] = useState('');
-  const [contentValue, setContentValue] = useState('');
-  const [isPublicValue, setIsPublicValue] = useState('');
-  
-  useEffect(()=>{
-  });
-  
-  return(
+  // const [project, setProject] = useState(props.project);
+  const projectId = props.match.params.projectId;
+  const { project } = props;
+
+  const handleNameValue = (event) => {
+    const name = event.target.value;
+    props.setProjectName({ name });
+  };
+  const handleContentValue = (event) => {
+    const content = event.target.value;
+    props.setProjectContent({ content });
+  };
+  const handleIsPublicValue = (event) => {
+    const isPublic = event.target.checked;
+    props.setProjectIsPublic({ isPublic });
+  };
+
+  useEffect(() => {
+    console.log(projectId);
+  }, []);
+
+  return (
     <ProjectModifyComponent
-      handleNameValue={setNameValue}
-      handleIsPublicValue={setIsPublicValue}
-      handleContentValue={setContentValue}
-      deleteProject={()=>{}}
-      project={props.project}/>
-  )
+      handleNameValue={handleNameValue}
+      handleIsPublicValue={handleIsPublicValue}
+      handleContentValue={handleContentValue}
+      deleteProject={() => { props.deleteProject({ projectId }); }}
+      project={project}
+    />
+  );
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const projectManipulation = state.ProjectManipulation;
   return {
-    project : projectManipulation.project,
+    project: projectManipulation.project,
     loadingState: {
       modifyProject: projectManipulation.loadingState.modifyProject,
       deleteProject: projectManipulation.loadingState.deleteProject,

@@ -5,7 +5,7 @@ import * as actions from './actionTypes';
 import * as ProjectApi from '../api';
 
 const postProject = function* () {
-  yield takeEvery(actions.POST_PROJECT, function* (newProject) {
+  yield takeEvery(actions.POST_PROJECT, function* ({ newProject }) {
     yield put({
       type: actions.POST_PROJECT_PENDING,
     });
@@ -25,7 +25,7 @@ const postProject = function* () {
 };
 
 const modifyProject = function* () {
-  yield takeEvery(actions.MODIFY_PROJECT, function* (targetProject) {
+  yield takeEvery(actions.MODIFY_PROJECT, function* ({ projectId, targetProject }) {
     yield put({
       type: actions.MODIFY_PROJECT_PENDING,
     });
@@ -45,7 +45,8 @@ const modifyProject = function* () {
 };
 
 const deleteProject = function* () {
-  yield takeEvery(actions.DELETE_PROJECT, function* (projectId) {
+  yield takeEvery(actions.DELETE_PROJECT, function* ({ projectId }) {
+    console.log(projectId);
     yield put({
       type: actions.DELETE_PROJECT_PENDING,
     });

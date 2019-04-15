@@ -3,12 +3,12 @@ import * as actions from './actionTypes';
 import * as ProjectApi from '../api';
 
 const getProjects = function* () {
-  yield takeEvery(actions.GET_PROJECTS, function* (page, limit) {
+  yield takeEvery(actions.GET_PROJECTS, function* ({ page, limit }) {
     yield put({
       type: actions.GET_PROJECTS_PENDING,
     });
 
-    const getProjectsResponse = yield call(() => ProjectApi.getProjects(page, limit));
+    const getProjectsResponse = yield call(() => ProjectApi.getProjects( page, limit ));
 
     if (getProjectsResponse.success === true) {
       yield put({
