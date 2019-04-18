@@ -1,7 +1,16 @@
 import * as userActions from './actionTypes';
 
 const userInitialState = {
-  user: {},
+  user: {
+    id: '',
+    name: '',
+    password: '',
+    nickname: '',
+    stdNumber: '',
+    phoneNum: '',
+    email: '',
+    birthday: ''
+  },
   error: false,
   loadingState: {
     user: false
@@ -13,7 +22,16 @@ const userReducer = (state = userInitialState, action) => {
     case userActions.GET_USER_PENDING: {
       return {
         ...state,
-        user: [],
+        user: {
+          id: '',
+          name: '',
+          password: '',
+          nickname: '',
+          stdNumber: '',
+          phoneNum: '',
+          email: '',
+          birthday: ''
+        },
         error: false,
         loadingState: {
           ...state.loadingState,
@@ -35,7 +53,16 @@ const userReducer = (state = userInitialState, action) => {
     case userActions.GET_USER_FAILURE: {
       return {
         ...state,
-        user: {},
+        user: {
+          id: '',
+          name: '',
+          password: '',
+          nickname: '',
+          stdNumber: '',
+          phoneNum: '',
+          email: '',
+          birthday: ''
+        },
         error: true,
         loadingState: {
           ...state.loadingState,

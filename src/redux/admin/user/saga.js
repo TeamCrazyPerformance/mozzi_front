@@ -8,7 +8,7 @@ const getUser = function*() {
 
     const getResult = yield call(() => userApi.getUser({ userId }));
 
-    if(getResult === true) {
+    if(getResult.success === true) {
       yield put({
         type: userActions.GET_USER_SUCCESS,
         user: getResult.user

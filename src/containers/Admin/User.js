@@ -1,15 +1,38 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+import UserInformation from '../../components/UserInformation/UserInformation.js';
+import LoadingSpinner from './../../components/LoadingSpinner/LoadingSpinner';
+import Error from './../../components/Error/Error';
+
 import * as userActions from './../../redux/admin/user/actions';
 
 const User = props => {
-  console.log(props.match.params.userid);
+  const {
+    user,
+    error,
+    loadingState,
+    getUser } = props;
+  const userId = props.match.params.userid;
+
+  const _getUserInformation = userId => getUser(userId);
+
+  useEffect(() => {
+    _getUserInformation(userId);
+  }, []);
+
   return(
     <div>
-      User
+      <div>Users</div>
+      <LoadingSpinner loadingState={loadingState.users}>
+        {
+          error
+          ? <Error />
+          : <UserInformation data={user} />
+        }
+      </LoadingSpinner>
     </div>
   );
 };

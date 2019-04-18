@@ -53,6 +53,37 @@ const UsersTableStyles = theme => ({
   }
 });
 
+const UserTableRow = (user, index) => {
+  return (
+    <TableRow
+      hover
+      role="checkbox"
+      tabIndex={-1}
+      key={index}
+      // component={Link}
+      // to={`/admin/user/${user.id}`}
+    >
+      <TableCell align="center">
+        <Link to={`/admin/user/${user.id}`}>
+          {user.name}
+        </Link>
+      </TableCell>
+      <TableCell align="center">
+        {user.nickname}
+      </TableCell>
+      <TableCell align="center">
+        {user.email}
+      </TableCell>
+      <TableCell align="center">
+        {user.stdNumber}
+      </TableCell>
+      <TableCell align="center">
+        {user.birthday}
+      </TableCell>
+    </TableRow>
+  );
+}
+
 const UsersTable = props => {
   const {
     data,
@@ -73,35 +104,7 @@ const UsersTable = props => {
         >
           <EnhancedTableHead rowCount={count} />
           <TableBody>
-              {data.map((user, index) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={index}
-                    // TODO
-                    // component={Link}
-                    // to={`/admin/user/${user.id}`}
-                  >
-                    <TableCell align="center">
-                      {user.name}
-                    </TableCell>
-                    <TableCell align="center">
-                      {user.nickname}
-                    </TableCell>
-                    <TableCell align="center">
-                      {user.email}
-                    </TableCell>
-                    <TableCell align="center">
-                      {user.stdNumber}
-                    </TableCell>
-                    <TableCell align="center">
-                      {user.birthday}
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+            {data.map((user, index) => UserTableRow(user, index))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
