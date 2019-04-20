@@ -14,7 +14,8 @@ const User = props => {
     user,
     error,
     loadingState,
-    getUser } = props;
+    getUser
+  } = props;
   const userId = props.match.params.userid;
 
   const _getUserInformation = userId => getUser(userId);
@@ -25,8 +26,8 @@ const User = props => {
 
   return(
     <div>
-      <div>Users</div>
-      <LoadingSpinner loadingState={loadingState.users}>
+      <div>User</div>
+      <LoadingSpinner loadingState={loadingState.user}>
         {
           error
           ? <Error />

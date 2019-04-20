@@ -51,7 +51,7 @@ const JoinRequestTableStyles = theme => ({
     overflowX: 'auto',
   },
   buttonPadding: {
-    paddingRight: 5
+    marginRight: 10
   }
 });
 
@@ -96,6 +96,7 @@ const JoinRequestTable = props => {
                         size="small"
                         color="primary"
                         aria-label="Approve"
+                        className={classes.buttonPadding}
                         onClick={() => joinRequestApprove({
                           userId: student.userId,
                           page

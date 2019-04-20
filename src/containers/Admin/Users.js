@@ -17,7 +17,8 @@ const Users = props => {
     total,
     error,
     loadingState,
-    getUsers } = props;
+    getUsers
+  } = props;
 
   const _handlePageChange = (event, newPage) => getUsers({ page: newPage });
 
