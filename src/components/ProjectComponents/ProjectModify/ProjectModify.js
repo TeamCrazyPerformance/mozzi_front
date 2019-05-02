@@ -12,8 +12,10 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogActions from '@material-ui/core/DialogActions';
 import Dialog from '@material-ui/core/Dialog';
 
+import './ProjectModify.css';
 
-const ProjectModify = ({ project, handleNameValue, handleContentValue, handleIsPublicValue, deleteProject, }) => {
+
+const ProjectModify = ({ project, handleNameValue, handleContentValue, handleIsPublicValue, handleSubmit, deleteProject, }) => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   return (
@@ -53,40 +55,40 @@ const ProjectModify = ({ project, handleNameValue, handleContentValue, handleIsP
       <form className="project-modify-component__form">
         <TextField
           id="outlined-name"
-          label="Project Name"
+          label="Project title"
           margin="normal"
           variant="outlined"
           onChange={handleNameValue}
-          value={project.name}
+          // value={project.name}
         />
 
         <TextField
           id="outlined-multiline-static"
-          label="Project Content"
+          label="Content"
           margin="normal"
           variant="outlined"
           multiline="true"
           rows="4"
           onChange={handleContentValue}
-          value={project.content}
+          // value={project.content}
         />
   
         <TextField
           id="outlined-name"
-          label="Project Development stack"
+          label="Development stack"
           margin="normal"
           variant="outlined"
           multiline="true"
-          rows="4"
+          rows="1"
           onChange={handleContentValue}
-          value=""
+          // value=""
         />
 
         <div className="project-modify-component__form__checkbox-wrapper">
           <Checkbox
             checked={project.isPublic}
             onChange={handleIsPublicValue}
-            value="checkedB"
+            // value="checkedB"
             color="primary"
           />
           공개
@@ -115,6 +117,7 @@ const ProjectModify = ({ project, handleNameValue, handleContentValue, handleIsP
           variant="contained"
           color="primary"
           type="submit"
+          onClick={handleSubmit}
         >
           완료
         </Button>
@@ -133,6 +136,7 @@ ProjectModify.propTypes = {
   handleNameValue: PropTypes.func.isRequired,
   handleContentValue: PropTypes.func.isRequired,
   handleIsPublicValue: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
   deleteProject: PropTypes.func.isRequired,
 };
 

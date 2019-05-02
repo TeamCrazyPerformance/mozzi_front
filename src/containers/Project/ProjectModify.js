@@ -24,9 +24,13 @@ const ProjectModify = (props) => {
     const isPublic = event.target.checked;
     props.setProjectIsPublic({ isPublic });
   };
+  
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    props.modifyProject({ projectId, project });
+  }
 
   useEffect(() => {
-    console.log(projectId);
   }, []);
 
   return (
@@ -34,6 +38,7 @@ const ProjectModify = (props) => {
       handleNameValue={handleNameValue}
       handleIsPublicValue={handleIsPublicValue}
       handleContentValue={handleContentValue}
+      handleSubmit={handleSubmit}
       deleteProject={() => { props.deleteProject({ projectId }); }}
       project={project}
     />
