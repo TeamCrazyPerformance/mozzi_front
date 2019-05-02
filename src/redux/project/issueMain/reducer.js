@@ -1,46 +1,41 @@
 import * as actions from './actionTypes';
 
-const projectViewInitialState = {
-  project: {
-    name: '',
-    content: '',
-    members: '',
-  },
+const issueMainInitialState = {
+  issues: [],
   loadingState: {
-    getProject: false,
     getIssues: false,
   },
 };
 
-const projectViewReducer = (state = projectViewInitialState, action) => {
+const issueMainReducer = (state = issueMainInitialState, action) => {
   switch (action.type) {
-    case actions.GET_PROJECT_PENDING: {
+    case actions.GET_ISSUES_PENDING: {
       return {
         ...state,
         loadingState: {
           ...state.loadingState,
-          getProject: true,
+          getIssues: true,
         },
       };
     }
 
-    case actions.GET_PROJECT_SUCCESS: {
+    case actions.GET_ISSUES_SUCCESS: {
       return {
         ...state,
-        project: action.project,
+        issues: action.issues,
         loadingState: {
           ...state.loadingState,
-          getProject: false,
+          getIssues: false,
         },
       };
     }
 
-    case actions.GET_PROJECT_FAILURE: {
+    case actions.GET_ISSUES_FAILURE: {
       return {
         ...state,
         loadingState: {
           ...state.loadingState,
-          getProject: false,
+          getIssues: false,
         },
       };
     }
@@ -50,4 +45,4 @@ const projectViewReducer = (state = projectViewInitialState, action) => {
   }
 };
 
-export default projectViewReducer;
+export default issueMainReducer;

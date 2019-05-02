@@ -5,7 +5,3 @@ export const getProject = projectId => ({
   projectId,
 });
 
-export const getIssues = projectId => ({
-  type: actions.GET_ISSUES,
-  projectId,
-});

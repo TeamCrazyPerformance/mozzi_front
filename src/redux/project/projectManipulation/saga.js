@@ -46,7 +46,6 @@ const modifyProject = function* () {
 
 const deleteProject = function* () {
   yield takeEvery(actions.DELETE_PROJECT, function* ({ projectId }) {
-    console.log(projectId);
     yield put({
       type: actions.DELETE_PROJECT_PENDING,
     });
