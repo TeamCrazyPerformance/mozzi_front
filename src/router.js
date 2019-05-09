@@ -10,7 +10,7 @@ import Project from './containers/Project/Project';
 import Exam from './containers/Exam/Exam';
 
 import Admin from './containers/Admin/Admin';
-import JoinRequests from './containers/Admin/JoinRequests';
+import JoinRequests from './containers/Admin/JoinRequests/JoinRequests';
 import Users from './containers/Admin/Users';
 import User from './containers/Admin/User';
 

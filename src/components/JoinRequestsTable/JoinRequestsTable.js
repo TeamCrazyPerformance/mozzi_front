@@ -99,7 +99,7 @@ const JoinRequestTable = props => {
                         className={classes.buttonPadding}
                         onClick={() => joinRequestApprove({
                           userId: student.userId,
-                          page
+                          currentPage: page
                         })}
                       >
                         <Done />
@@ -110,7 +110,7 @@ const JoinRequestTable = props => {
                         aria-label="Reject"
                         onClick={() => joinRequestReject({
                           userId: student.userId,
-                          page
+                          currentPage: page
                         })}
                       >
                         <Close />
