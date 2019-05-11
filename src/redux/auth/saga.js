@@ -17,7 +17,7 @@ const postSignIn = function*() {
     const getResult = yield call(() => {
       return AuthApi.postSignIn(userInformation)
     });
-
+    
     if(getResult.success === true && getResult.jwt) {
       yield call(() => jwtHelper.setJwt(getResult.jwt));
       yield put({
@@ -58,8 +58,8 @@ const checkAuthorization = function*() {
   yield takeEvery(AuthActions.CHECK_AUTHORIZATION, function*() {
     const jwt = jwtHelper.getJwt();
     const isAuthorization = jwtHelper.checkExpirity(jwt);
-
-    if(isAuthorization) {
+    
+    if(isAuthorization.token) {
       yield put({
         type: AuthActions.POST_SIGN_IN_SUCCESS
       });

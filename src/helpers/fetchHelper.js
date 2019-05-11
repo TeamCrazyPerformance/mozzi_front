@@ -1,11 +1,11 @@
-import { jwtConfig } from './../setting/jwtSetting';
+import { jwtConfig, jwtLocalStorageVariableName } from './../setting/jwtSetting';
 
 const customHeader = () => {
-  if(localStorage.getItem('jwt')) {
+  if(localStorage.getItem(jwtLocalStorageVariableName)) {
     return({
       'Content-Type': 'application/json',
       Accept: 'application/json',
-      Authorization: 'Bearer '.concat(localStorage.getItem('jwt'))
+      Authorization: 'Bearer '.concat(localStorage.getItem(jwtLocalStorageVariableName))
     })
   } else {
     return({

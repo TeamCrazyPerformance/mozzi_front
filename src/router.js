@@ -9,10 +9,10 @@ import Main from './containers/Main/Main';
 import Project from './containers/Project/Project';
 import Exam from './containers/Exam/Exam';
 
-import Admin from './containers/Admin/Admin';
+import Admin from './containers/Admin/Admin/Admin';
 import JoinRequests from './containers/Admin/JoinRequests/JoinRequests';
-import Users from './containers/Admin/Users';
-import User from './containers/Admin/User';
+import Users from './containers/Admin/Users/Users';
+import User from './containers/Admin/User/User';
 
 import ErrorPage404 from './containers/Pages/404';
 
@@ -66,9 +66,9 @@ const PrivateRouter = () => {
   );
 };
 
-const _mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const auth = state.auth;
   return { isSignIn: auth.isSignIn };
 };
 
-export default connect(_mapStateToProps)(AppRouter);
+export default connect(mapStateToProps)(AppRouter);

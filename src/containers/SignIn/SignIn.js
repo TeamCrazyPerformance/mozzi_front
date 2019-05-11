@@ -16,10 +16,10 @@ const SignIn = props => {
   const [identityValue, setIdentityValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
-  const _handleIdentityValue = event => setIdentityValue(event.target.value);
-  const _handlePasswordValue = event => setPasswordValue(event.target.value);
+  const handleIdentityValue = event => setIdentityValue(event.target.value);
+  const handlePasswordValue = event => setPasswordValue(event.target.value);
 
-  const _handleSubmit = event => {
+  const handleSubmit = event => {
     // Prevent browers refresh.
     event.preventDefault();
 
@@ -32,13 +32,14 @@ const SignIn = props => {
     postSignIn({ userInformation });
   };
 
-  const _checkSignIn = () => isSignIn
+  // When client sign in successed or try to access the SignIn page after signin.
+  const checkSignIn = () => isSignIn
     ? <Redirect to="/main" />
     : <></>;
 
   return (
     <>
-      {_checkSignIn()}
+      {checkSignIn()}
       <FlexBox
         wrap="wrap"
         column="column"
@@ -52,9 +53,9 @@ const SignIn = props => {
             spin={true}
           />
           <SignInForm
-            handleSubmit={_handleSubmit}
-            handleIdentityValue={_handleIdentityValue}
-            handlePasswordVaule={_handlePasswordValue}
+            handleSubmit={handleSubmit}
+            handleIdentityValue={handleIdentityValue}
+            handlePasswordVaule={handlePasswordValue}
             signupUrl="/signup"
           />
         </LoadingSpinner>

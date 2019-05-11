@@ -3,3 +3,4 @@ export const jwtConfig = {
   secretKey: ''
 };
 
+export const jwtLocalStorageVariableName = 'tcpWebJwt';

@@ -18,7 +18,7 @@ const JoinRequests = props => {
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
 
-  const setJoinRequestsResponse = (getJoinRequestsResponse) => {
+  const setJoinRequestsResponse = ({ getJoinRequestsResponse }) => {
     setJoinRequests([...getJoinRequestsResponse.users]);
     setPage(getJoinRequestsResponse.page);
     setCount(getJoinRequestsResponse.count);
@@ -29,17 +29,25 @@ const JoinRequests = props => {
   const setErrorToTrue = () => setError(true);
   const setErrorToFalse = () => setError(false);
 
-  const handlePageChange = (event, newPage) => {
+  const setLoadingStateAndErrorWhenApiCallStart = () => {
     setLoadingStateToTrue();
     setErrorToFalse();
+  };
+
+  const setLoadingStateAndErrorWhenApiCallFailure = () => {
+    setLoadingStateToFalse();
+    setErrorToTrue();
+  };
+
+  const handlePageChange = (event, newPage) => {
+    setLoadingStateAndErrorWhenApiCallStart();
     const getJoinRequestsResponse = joinRequestsApi.getJoinRequests({ page: newPage });
 
     if(getJoinRequestsResponse.success === true) {
-      setJoinRequestsResponse(getJoinRequestsResponse);
+      setJoinRequestsResponse({ getJoinRequestsResponse });
       setLoadingStateToFalse();
     } else if(getJoinRequestsResponse.success === false) {
-      setErrorToTrue();
-      setLoadingStateToFalse();
+      setLoadingStateAndErrorWhenApiCallFailure();
     } else {
       // TODO
       console.log('Response Error');
@@ -47,16 +55,14 @@ const JoinRequests = props => {
   };
 
   const joinRequestApprove = ({ userId, currentPage }) => {
-    setLoadingStateToTrue();
-    setErrorToFalse();
+    setLoadingStateAndErrorWhenApiCallStart();
     const postJoinRequestApproveResponse = joinRequestsApi.postJoinRequestApprove({ userId });
 
     if(postJoinRequestApproveResponse.success === true) {
       setLoadingStateToFalse();
       handlePageChange(null, currentPage);
     } else if(postJoinRequestApproveResponse.success === false) {
-      setErrorToTrue();
-      setLoadingStateToFalse();
+      setLoadingStateAndErrorWhenApiCallFailure();
     } else {
       // TODO
       console.log('Response Error');
@@ -64,16 +70,14 @@ const JoinRequests = props => {
   }
 
   const joinRequestReject = ({ userId, currentPage }) => {
-    setLoadingStateToTrue();
-    setErrorToFalse();
+    setLoadingStateAndErrorWhenApiCallStart();
     const postJoinRequestRejectResponse = joinRequestsApi.postJoinRequestReject({ userId });
 
     if(postJoinRequestRejectResponse.success === true) {
       setLoadingStateToFalse();
       handlePageChange(null, currentPage);
     } else if(postJoinRequestRejectResponse.success === false) {
-      setErrorToTrue();
-      setLoadingStateToFalse();
+      setLoadingStateAndErrorWhenApiCallFailure();
     } else {
       // TODO
       console.log('Response Error');

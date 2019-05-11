@@ -1,6 +1,8 @@
 // import fetchHelper from './../../../helpers/fetchHelper';
 
-export const getUser = async ({ userId }) => {
+export const getUser = ({ userId }) => {
+// export const getUser = async ({ userId }) => {
+  console.log('GET: User');
   return ({
     success : true,
     user: {
