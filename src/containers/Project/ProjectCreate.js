@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 
 import ProjectCreateForm from "../../components/ProjectComponents/ProjectCreateForm/ProjectCreateForm";
 
-import * as projectManipulationActions from "../../redux/projectManipultation/actions";
+import * as projectManipulationActions from "../../redux/project/projectManipulation/actions";
 
 const ProjectCreate = (props)=>{
   const [nameValue, setNameValue] = useState('');

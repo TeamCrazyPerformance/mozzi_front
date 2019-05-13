@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 import ProjectDescription from '../../components/ProjectComponents/ProjectDescription/ProjectDescription';
-import FlexBox from '../../components/LayoutComponents/FlexBox/FlexBox';
+import FlexBox from '../../components/FlexBox/FlexBox';
 
-import * as projectViewActions from '../../redux/projectView/actions';
+import * as projectViewActions from '../../redux/project/projectView/actions';
 
 const ProjectView = (props) => {
   useEffect(() => {

@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 import Button from '@material-ui/core/Button';
 
-import './ProjectDescription.css';
+// import './ProjectDescription.css';
 
 const ProjectDescription = ({ projectId , project }) => {
 

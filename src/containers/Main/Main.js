@@ -14,6 +14,4 @@ class Main extends Component {
   };
 };
 
-export default connect(state => ({
-  isSignIn: state.Auth.isSignIn
-}))(Main);
+export default Main;

@@ -16,7 +16,7 @@ import Memory from '@material-ui/icons/Memory';
 import GroupAdd from '@material-ui/icons/GroupAdd';
 import Group from '@material-ui/icons/Group';
 
-import './DrawerList.css';
+// import './DrawerList.css';
 
 const drawerList = [
 [{
