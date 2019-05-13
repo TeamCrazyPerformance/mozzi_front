@@ -6,6 +6,7 @@ const projectManipulationInitialState = {
     name: '',
     content: '',
     isPublic: true,
+    stack: '',
     members: [],
   },
   loadingState: {
@@ -106,6 +107,46 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         loadingState: {
           ...state.loadingState,
           deleteProject: false,
+        },
+      };
+    }
+
+    case actions.SET_PROJECT_NAME: {
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          name: action.name,
+        },
+      };
+    }
+
+    case actions.SET_PROJECT_CONTENT: {
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          content: action.content,
+        },
+      };
+    }
+
+    case actions.SET_PROJECT_ISPUBLIC: {
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          isPublic: action.isPublic,
+        },
+      };
+    }
+
+    case actions.SET_PROJECT_STACK: {
+      return {
+        ...state,
+        project: {
+          ...state.project,
+          stack: action.stack,
         },
       };
     }

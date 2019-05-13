@@ -9,7 +9,7 @@ import * as projectMainActions from '../../redux/project/projectMain/actions';
 
 const ProjectMain = (props) => {
   // declare state
-  const { page, limit, projects, getProjects } = props;
+  const { page, limit, total, projects, getProjects } = props;
 
   const handleChangePage = (event, pageToChange) => {
     getProjects(pageToChange, limit);
@@ -29,6 +29,7 @@ const ProjectMain = (props) => {
       projects={projects}
       page={page}
       limit={limit}
+      total={total}
       handleChangePage={handleChangePage}
       handleChangeRowsPerPage={handleChangeRowsPerPage}
     />

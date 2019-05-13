@@ -10,12 +10,12 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Button from '@material-ui/core/Button';
 
-const ProjectTable = ({ projects, page, limit, handleChangePage, handleChangeRowsPerPage }) => {
+const ProjectTable = ({ projects, page, limit, total, handleChangePage, handleChangeRowsPerPage }) => {
   const emptyRows = limit - projects.length;
   return (
     <Table>
       <TableBody>
-        {projects.map(project => ( // cut project array to current page
+        {projects.map(project => (
           <TableRow id={project.projectId}>
             <Link to={`project/${project.projectId}`}>
               <TableCell>{project.name}</TableCell>
@@ -44,7 +44,7 @@ const ProjectTable = ({ projects, page, limit, handleChangePage, handleChangeRow
             page={page}
             rowsPerPage={limit}
             rowsPerPageOptions={[5, 10]}
-            count={projects.length}
+            count={total}
             SelectProps={{
               native: true,
             }}
@@ -53,7 +53,6 @@ const ProjectTable = ({ projects, page, limit, handleChangePage, handleChangeRow
           />
         </TableRow>
       </TableFooter>
-
     </Table>
   );
 };
@@ -62,6 +61,7 @@ const ProjectTable = ({ projects, page, limit, handleChangePage, handleChangeRow
 ProjectTable.propTypes = {
   page: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,
+  total: PropTypes.number.isRequired,
   projects: PropTypes.array.isRequired,
   handleChangePage: PropTypes.func.isRequired,
   handleChangeRowsPerPage: PropTypes.func.isRequired,

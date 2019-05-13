@@ -9,15 +9,17 @@ import FlexBox from '../../components/FlexBox/FlexBox';
 import * as projectViewActions from '../../redux/project/projectView/actions';
 
 const ProjectView = (props) => {
+  const projectId = props.match.params.projectId;
   useEffect(() => {
-    props.getProject(props.projectId);
-    props.getIssues(props.projectId);
+    console.log(projectId);
+    props.getProject(projectId);
+    props.getIssues(projectId);
   }, []);
 
   return (
     <FlexBox>
       <ProjectDescription
-        projectId={props.projectId}
+        projectId={projectId}
         project={props.project}
       />
     </FlexBox>
