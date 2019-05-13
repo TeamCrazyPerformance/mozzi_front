@@ -3,7 +3,8 @@ import * as AuthActions from './actionTypes';
 const authInitialState = {
   isSignIn: false,
   loadingState: {
-    signIn: false
+    signIn: false,
+    signOut: false
   }
 };
 

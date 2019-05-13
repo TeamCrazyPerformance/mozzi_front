@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-import Logo from './../../components/Logo/Logo';
-import TextSection from './../../components/TextSection/TextSection';
+class Main extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  };
 
-const Main = () => {
-  return (
-    <div className="main">
-      <Logo />
-      <TextSection>
-        This is tcp web site
-        https://github.com/orgs/TeamCrazyPerformance/dashboard
-      </TextSection>
-    </div>
-  );
+  render() {
+    return (
+      <div>{this.props.isSignIn ? <h1>welcom</h1> : <h1>NoNoNo</h1>}</div>
+    );
+  };
 };
 
-export default Main;
+export default connect(state => ({
+  isSignIn: state.Auth.isSignIn
+}))(Main);

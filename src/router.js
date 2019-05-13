@@ -6,7 +6,10 @@ import SignIn from './containers/SignIn/SignIn';
 
 import Header from './components/Header/Header';
 import Main from './containers/Main/Main';
-import Project from './containers/Project/Project';
+import ProjectMain from './containers/Project/ProjectMain';
+import ProjectCreate from "./containers/Project/ProjectCreate";
+import ProjectView from './containers/Project/ProjectVIew';
+
 import Exam from './containers/Exam/Exam';
 
 import Admin from './containers/Admin/Admin/Admin';
@@ -51,7 +54,9 @@ const PrivateRouter = () => {
         {/* Main page */}
         <Route exact path="/main" component={Main} />
         {/* Project page */}
-        <Route exact path="/project" component={Project} />
+        <Route exact path="/project" component={ProjectMain} />
+        <Route exact path="/project/create" component={ProjectCreate} />
+        <Route exact path="/project/:projectId" component={ProjectView} />
         {/* Exam page */}
         <Route exact path="/exam" component={Exam} />
         {/* Admin page */}
