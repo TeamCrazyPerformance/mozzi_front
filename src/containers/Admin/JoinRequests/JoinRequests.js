@@ -34,24 +34,38 @@ const JoinRequests = props => {
     setErrorToFalse();
   };
 
+  const setLoadingStateAndErrorWhenApiCallSuccess = () => {
+    setLoadingStateToFalse();
+    setErrorToFalse();
+  };
+
   const setLoadingStateAndErrorWhenApiCallFailure = () => {
     setLoadingStateToFalse();
     setErrorToTrue();
   };
 
   const handlePageChange = (event, newPage) => {
-    setLoadingStateAndErrorWhenApiCallStart();
-    const getJoinRequestsResponse = joinRequestsApi.getJoinRequests({ page: newPage });
+    // setLoadingStateAndErrorWhenApiCallStart();
+    // const getJoinRequestsResponse = joinRequestsApi.getJoinRequests({ page: newPage });
 
-    if(getJoinRequestsResponse.success === true) {
-      setJoinRequestsResponse({ getJoinRequestsResponse });
-      setLoadingStateToFalse();
-    } else if(getJoinRequestsResponse.success === false) {
-      setLoadingStateAndErrorWhenApiCallFailure();
-    } else {
-      // TODO
-      console.log('Response Error');
-    }
+    // if(getJoinRequestsResponse.success === true) {
+    //   setJoinRequestsResponse({ getJoinRequestsResponse });
+    //   setLoadingStateToFalse();
+    // } else if(getJoinRequestsResponse.success === false) {
+    //   setLoadingStateAndErrorWhenApiCallFailure();
+    // } else {
+    //   // TODO
+    //   console.log('Response Error');
+    // }
+    joinRequestsApi.getJoinRequests({
+      limit: 10,
+      page: newPage,
+      sort: 'asc',
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
+      setResponseToState: setJoinRequestsResponse
+    });
   };
 
   const joinRequestApprove = ({ userId, currentPage }) => {

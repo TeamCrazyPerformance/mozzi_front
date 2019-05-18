@@ -1,12 +1,23 @@
 // import fetchHelper from './../../../helpers/fetchHelper';
 
-// export const getJoinRequests = async ({ limit, page, sort}) => {
-export const getJoinRequests = ({ limit, page, sort}) => {
-  // return await fetchHelper.get(`/admin/user?limit=${limit}&page=${page}&sort=${sort}`)
-  //         .then(response => response)
-  //         .catch(error => ({error: JSON.stringify(error)}))
-  console.log('GET: Join requests.');
-  return {
+// export const getJoinRequests = async ({
+export const getJoinRequests = ({
+  limit = 10,
+  page = 1,
+  sort = 'asc',
+  apiCallStart,
+  apiCallSuccess,
+  apiCallFailure,
+  setResponseToState,
+  }) => {
+  console.log('GET: Join requests call.');
+  apiCallStart();
+
+  // const getJoinRequetsResponse = await fetchHelper.get(`/admin/user?limit=${limit}&page=${page}&sort=${sort}`)
+  // .then(response => response)
+  // .catch(error => ({error: JSON.stringify(error)}))
+
+  const getJoinRequestsResponse = {
     success: true,
     users: [
       {name: 'Kang', stdNumber: '16101340', userId: '001'},
@@ -23,6 +34,15 @@ export const getJoinRequests = ({ limit, page, sort}) => {
     page: 1,
     count: 10,
     total: 500
+  };
+
+  if(getJoinRequestsResponse.success) {
+    console.log('GET: Join requests success');
+    setResponseToState({ getJoinRequestsResponse: getJoinRequestsResponse });
+    apiCallSuccess();
+  } else {
+    console.log('GET: Join requests failure');
+    apiCallFailure();
   }
 }
   

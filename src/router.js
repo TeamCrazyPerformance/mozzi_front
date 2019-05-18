@@ -73,6 +73,7 @@ const PrivateRouter = () => {
 
 const mapStateToProps = state => {
   const auth = state.auth;
+  console.log(auth);
   return { isSignIn: auth.isSignIn };
 };
 
