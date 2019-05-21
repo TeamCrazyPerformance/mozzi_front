@@ -63,8 +63,7 @@ const JoinRequestTable = props => {
     total,
     classes,
     handlePageChange,
-    joinRequestApprove,
-    joinRequestReject
+    joinRequestReview
   } = props;
   const emptyRows = count - data.length;
 
@@ -97,9 +96,10 @@ const JoinRequestTable = props => {
                         color="primary"
                         aria-label="Approve"
                         className={classes.buttonPadding}
-                        onClick={() => joinRequestApprove({
+                        onClick={() => joinRequestReview({
                           userId: student.userId,
-                          currentPage: page
+                          currentPage: page,
+                          joinRequestType: 'approve'
                         })}
                       >
                         <Done />
@@ -108,9 +108,10 @@ const JoinRequestTable = props => {
                         size="small"
                         color="secondary"
                         aria-label="Reject"
-                        onClick={() => joinRequestReject({
+                        onClick={() => joinRequestReview({
                           userId: student.userId,
-                          currentPage: page
+                          currentPage: page,
+                          joinRequestType: 'reject'
                         })}
                       >
                         <Close />
@@ -151,8 +152,7 @@ JoinRequestTable.propTypes = {
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   handlePageChange: PropTypes.func.isRequired,
-  joinRequestApprove: PropTypes.func.isRequired,
-  joinRequestReject: PropTypes.func.isRequired
+  joinRequestReview: PropTypes.func.isRequired
 };
 
 export default withStyles(JoinRequestTableStyles)(JoinRequestTable); 

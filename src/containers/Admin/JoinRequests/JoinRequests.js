@@ -45,22 +45,8 @@ const JoinRequests = props => {
   };
 
   const handlePageChange = (event, newPage) => {
-    // setLoadingStateAndErrorWhenApiCallStart();
-    // const getJoinRequestsResponse = joinRequestsApi.getJoinRequests({ page: newPage });
-
-    // if(getJoinRequestsResponse.success === true) {
-    //   setJoinRequestsResponse({ getJoinRequestsResponse });
-    //   setLoadingStateToFalse();
-    // } else if(getJoinRequestsResponse.success === false) {
-    //   setLoadingStateAndErrorWhenApiCallFailure();
-    // } else {
-    //   // TODO
-    //   console.log('Response Error');
-    // }
     joinRequestsApi.getJoinRequests({
-      limit: 10,
       page: newPage,
-      sort: 'asc',
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
       apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
@@ -68,34 +54,15 @@ const JoinRequests = props => {
     });
   };
 
-  const joinRequestApprove = ({ userId, currentPage }) => {
-    setLoadingStateAndErrorWhenApiCallStart();
-    const postJoinRequestApproveResponse = joinRequestsApi.postJoinRequestApprove({ userId });
-
-    if(postJoinRequestApproveResponse.success === true) {
-      setLoadingStateToFalse();
-      handlePageChange(null, currentPage);
-    } else if(postJoinRequestApproveResponse.success === false) {
-      setLoadingStateAndErrorWhenApiCallFailure();
-    } else {
-      // TODO
-      console.log('Response Error');
-    }
-  }
-
-  const joinRequestReject = ({ userId, currentPage }) => {
-    setLoadingStateAndErrorWhenApiCallStart();
-    const postJoinRequestRejectResponse = joinRequestsApi.postJoinRequestReject({ userId });
-
-    if(postJoinRequestRejectResponse.success === true) {
-      setLoadingStateToFalse();
-      handlePageChange(null, currentPage);
-    } else if(postJoinRequestRejectResponse.success === false) {
-      setLoadingStateAndErrorWhenApiCallFailure();
-    } else {
-      // TODO
-      console.log('Response Error');
-    }
+  const joinRequestReview = ({ userId, currentPage, joinRequestType }) => {
+    joinRequestsApi.postJoinRequestReview({
+      userId: userId,
+      joinRequestType: joinRequestType,
+      currentPage: currentPage,
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: handlePageChange,
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
+    });
   }
 
   // Component did mount
@@ -114,9 +81,8 @@ const JoinRequests = props => {
               count={count}
               total={total}
               handlePageChange={handlePageChange}
-              joinRequestApprove={joinRequestApprove}
-              joinRequestReject={joinRequestReject}
-          />
+              joinRequestReview={joinRequestReview}
+            />
         }
       </LoadingSpinner>
     </div>

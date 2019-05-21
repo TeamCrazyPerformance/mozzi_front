@@ -46,24 +46,42 @@ export const getJoinRequests = ({
   }
 }
   
-// export const postJoinRequestApprove = async ({ userId }) => {
-export const postJoinRequestApprove = ({ userId }) => {
-  // return await fetchHelper.post(`/admin/user/approve/${userId}/`)
-  //         .then(response => response)
-  //         .catch(error => ({error: JSON.stringify(error)}))
-  console.log(`POST: ${userId} Join request approve.`);
-  return ({
-    success : true
-  });
-}
-  
-// export const postJoinRequestReject = async ({ userId }) => {
-export const postJoinRequestReject = ({ userId }) => {
-  // return await fetchHelper.post(`/admin/user/reject/${userId}/`)
-  //          .then(response => response)
-  //          .catch(error => ({error: JSON.stringify(error)}))
-  console.log(`POST: ${userId} Join request reject.`);
-  return ({
-    success : true
-  });
+// export const postJoinRequestReview = async ({
+export const postJoinRequestReview = ({
+  userId,
+  joinRequestType,
+  currentPage = 1,
+  apiCallStart,
+  apiCallSuccess,
+  apiCallFailure
+  }) => {
+  let postJoinRequestApprove = { success: false };
+  let postJoinRequestReject = { success: false };
+  apiCallStart();
+
+  if(joinRequestType === 'approve') {
+    console.log(`POST: ${userId} Join request approve`);
+    postJoinRequestApprove = { success: true };
+    // const postJoinRequestApprove = await fetchHelper.post(`/admin/user/approve/${userId}/`)
+    // .then(response => response)
+    // .catch(error => ({error: JSON.stringify(error)}))
+  } else if(joinRequestType === 'reject') {
+    console.log(`POST: ${userId} Join request reject`);
+    postJoinRequestReject = { success: true };
+    // const postJoinRequestReject = await fetchHelper.post(`/admin/user/reject/${userId}/`)
+    // .then(response => response)
+    // .catch(error => ({error: JSON.stringify(error)}))
+  } else {
+    console.log('POST: Join request review type error');
+  }
+
+  if(postJoinRequestApprove.success) {
+    console.log('POST: Join request approve success');
+    apiCallSuccess(null, currentPage);
+  } else if(postJoinRequestReject.success) {
+    console.log('POST: Join request reject success');
+    apiCallSuccess(null, currentPage);
+  } else {
+    apiCallFailure();
+  }
 }
