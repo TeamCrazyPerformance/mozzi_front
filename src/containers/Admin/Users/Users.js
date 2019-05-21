@@ -39,24 +39,24 @@ const Users = props => {
     setErrorToFalse();
   };
 
+  const setLoadingStateAndErrorWhenApiCallSuccess = () => {
+    setLoadingStateToFalse();
+    setErrorToFalse();
+  };
+
   const setLoadingStateAndErrorWhenApiCallFailure = () => {
     setLoadingStateToFalse();
     setErrorToTrue();
   };
 
   const handlePageChange = (event, newPage) => {
-    setLoadingStateAndErrorWhenApiCallStart();
-    const getUsersResponse = usersApi.getUsers({ page: newPage });
-
-    if(getUsersResponse.success === true) {
-      setGetUsersResponse({ getUsersResponse });
-      setLoadingStateToFalse();
-    } else if(getUsersResponse.success === false) {
-      setLoadingStateAndErrorWhenApiCallFailure();
-    } else {
-      // TODO
-      console.log('Response Error');
-    }
+    usersApi.getUsers({
+      page: newPage,
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
+      setResponseToState: setGetUsersResponse
+    });
   };
 
   useEffect(() => handlePageChange(null, 0), []);
