@@ -32,6 +32,11 @@ const User = props => {
     setErrorToFalse();
   };
 
+  const setLoadingStateAndErrorWhenApiCallSuccess = () => {
+    setLoadingStateToFalse();
+    setErrorToFalse();
+  };
+
   const setLoadingStateAndErrorWhenApiCallFailure = () => {
     setLoadingStateToFalse();
     setErrorToTrue();
@@ -39,17 +44,13 @@ const User = props => {
 
   const getUserInformation = ({ userId }) => {
     setLoadingStateAndErrorWhenApiCallStart();
-    const getUserResponse = userApi.getUser({ userId });
-    
-    if(getUserResponse.success === true) {
-      setLoadingState(false);
-      setGetUserResponse({ getUserResponse });
-    } else if(getUserResponse.success === false) {
-      setLoadingStateAndErrorWhenApiCallFailure();
-    } else {
-      // TODO
-      console.log('Response Error');
-    }
+    userApi.getUser({
+      userId: userId,
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
+      setResponseToState: setGetUserResponse
+    });
   }
 
   useEffect(() => getUserInformation({ userId }), []);
