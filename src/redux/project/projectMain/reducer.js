@@ -8,14 +8,14 @@ function Project() {
   this.date = '2019-04-11';
 }
 
-var projects = [];
+const projects = [];
 
-for(var i=0; i<100; i++){
+for (let i = 0; i < 100; i++) {
   projects.push(new Project());
 }
 
 const projectMainInitialState = {
-  projects: projects,
+  projects,
   page: 0,
   limit: 5,
   total: 0,

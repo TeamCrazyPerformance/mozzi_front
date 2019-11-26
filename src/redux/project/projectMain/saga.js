@@ -8,7 +8,7 @@ const getProjects = function* () {
       type: actions.GET_PROJECTS_PENDING,
     });
 
-    const getProjectsResponse = yield call(() => ProjectApi.getProjects( page, limit ));
+    const getProjectsResponse = yield call(() => ProjectApi.getProjects(page, limit));
 
     if (getProjectsResponse.success === true) {
       yield put({

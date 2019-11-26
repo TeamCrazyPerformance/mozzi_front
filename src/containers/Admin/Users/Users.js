@@ -6,7 +6,7 @@ import Error from '../../../components/Error/Error';
 
 import * as usersApi from './UsersApi';
 
-const Users = props => {
+const Users = (props) => {
   const [users, setUsers] = useState([{
     id: '',
     name: '',
@@ -15,7 +15,7 @@ const Users = props => {
     stdNumber: '',
     phoneNum: '',
     email: '',
-    birthday: ''
+    birthday: '',
   }]);
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
@@ -55,26 +55,28 @@ const Users = props => {
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
       apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
-      setResponseToState: setGetUsersResponse
+      setResponseToState: setGetUsersResponse,
     });
   };
 
   useEffect(() => handlePageChange(null, 0), []);
 
-  return(
+  return (
     <div>
       <div>Users</div>
       <LoadingSpinner loadingState={loadingState}>
         {
           error
-          ? <Error />
-          : <UsersTable
-              data={users}
-              page={page}
-              count={count}
-              total={total}
-              handlePageChange={handlePageChange}
-            />
+            ? <Error />
+            : (
+              <UsersTable
+                data={users}
+                page={page}
+                count={count}
+                total={total}
+                handlePageChange={handlePageChange}
+              />
+            )
         }
       </LoadingSpinner>
     </div>

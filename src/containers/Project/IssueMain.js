@@ -8,7 +8,7 @@ import IssueTable from '../../components/ProjectComponents/IssueTable/IssueTable
 import * as issueMainActions from '../../redux/project/issueMain/actions';
 
 const IssueMain = (props) => {
-  const projectId = props.match.params.projectId;
+  const { projectId } = props.match.params;
 
   useEffect(() => {
     props.getIssues(projectId);
@@ -29,6 +29,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapSDispatchToProps = dispatch => bindActionCreators(issueMainActions, dispatch);
+const mapSDispatchToProps = (dispatch) => bindActionCreators(issueMainActions, dispatch);
 
 export default connect(mapStateToProps, mapSDispatchToProps)(IssueMain);

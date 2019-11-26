@@ -10,34 +10,42 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
-import { Link } from 'react-router-dom'
+import { Link } from 'react-router-dom';
 
 const rows = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'User Name' },
-  { id: 'nickname', numeric: true, disablePadding: false, label: 'User Nickname' },
-  { id: 'email', numeric: true, disablePadding: false, label: 'User Email' },
-  { id: 'stdNumber', numeric: true, disablePadding: false, label: 'User Student Number' },
-  { id: 'birthday', numeric: true, disablePadding: false, label: 'User Birthday' },
+  {
+    id: 'name', numeric: false, disablePadding: true, label: 'User Name',
+  },
+  {
+    id: 'nickname', numeric: true, disablePadding: false, label: 'User Nickname',
+  },
+  {
+    id: 'email', numeric: true, disablePadding: false, label: 'User Email',
+  },
+  {
+    id: 'stdNumber', numeric: true, disablePadding: false, label: 'User Student Number',
+  },
+  {
+    id: 'birthday', numeric: true, disablePadding: false, label: 'User Birthday',
+  },
 ];
 
-const EnhancedTableHead = () => {
-  return (
-    <TableHead>
-      <TableRow role="checkbox">
-        {rows.map(row => (
-          <TableCell
-            key={row.id}
-            align="center"
-          >
-            {row.label}
-          </TableCell>
-        ))}
-      </TableRow>
-    </TableHead>
-  );
-}
+const EnhancedTableHead = () => (
+  <TableHead>
+    <TableRow role="checkbox">
+      {rows.map((row) => (
+        <TableCell
+          key={row.id}
+          align="center"
+        >
+          {row.label}
+        </TableCell>
+      ))}
+    </TableRow>
+  </TableHead>
+);
 
-const UsersTableStyles = theme => ({
+const UsersTableStyles = (theme) => ({
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
@@ -49,49 +57,45 @@ const UsersTableStyles = theme => ({
     overflowX: 'auto',
   },
   buttonPadding: {
-    paddingRight: 5
-  }
+    paddingRight: 5,
+  },
 });
 
-const UserTableRow = (user, index) => {
-  return (
-    <TableRow
-      hover
-      role="checkbox"
-      tabIndex={-1}
-      key={index}
-      // component={Link}
-      // to={`/admin/user/${user.id}`}
-    >
-      <TableCell align="center">
-        <Link to={`/admin/user/${user.id}`}>
-          {user.name}
-        </Link>
-      </TableCell>
-      <TableCell align="center">
-        {user.nickname}
-      </TableCell>
-      <TableCell align="center">
-        {user.email}
-      </TableCell>
-      <TableCell align="center">
-        {user.stdNumber}
-      </TableCell>
-      <TableCell align="center">
-        {user.birthday}
-      </TableCell>
-    </TableRow>
-  );
-}
+const UserTableRow = (user, index) => (
+  <TableRow
+    hover
+    role="checkbox"
+    tabIndex={-1}
+    key={index}
+  >
+    <TableCell align="center">
+      <Link to={`/admin/user/${user.id}`}>
+        {user.name}
+      </Link>
+    </TableCell>
+    <TableCell align="center">
+      {user.nickname}
+    </TableCell>
+    <TableCell align="center">
+      {user.email}
+    </TableCell>
+    <TableCell align="center">
+      {user.stdNumber}
+    </TableCell>
+    <TableCell align="center">
+      {user.birthday}
+    </TableCell>
+  </TableRow>
+);
 
-const UsersTable = props => {
+const UsersTable = (props) => {
   const {
     data,
     page,
     count,
     total,
     classes,
-    handlePageChange
+    handlePageChange,
   } = props;
   const emptyRows = count - data.length;
 
@@ -120,8 +124,8 @@ const UsersTable = props => {
         rowsPerPage={count}
         page={page}
         onChangePage={handlePageChange}
-        backIconButtonProps={{ 'aria-label' : 'Previous Page' }}
-        nextIconButtonProps={{ 'aria-label' : 'Next Page' }}
+        backIconButtonProps={{ 'aria-label': 'Previous Page' }}
+        nextIconButtonProps={{ 'aria-label': 'Next Page' }}
       />
     </Paper>
   );
@@ -141,7 +145,7 @@ UsersTable.propTypes = {
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  handlePageChange: PropTypes.func.isRequired
+  handlePageChange: PropTypes.func.isRequired,
 };
 
-export default withStyles(UsersTableStyles)(UsersTable); 
+export default withStyles(UsersTableStyles)(UsersTable);

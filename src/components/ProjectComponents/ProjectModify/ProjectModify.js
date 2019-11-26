@@ -15,7 +15,9 @@ import Dialog from '@material-ui/core/Dialog';
 import './ProjectModify.css';
 
 
-const ProjectModify = ({ project, handleNameValue, handleContentValue, handleIsPublicValue, handleSubmit, deleteProject, }) => {
+const ProjectModify = ({
+  project, handleNameValue, handleContentValue, handleIsPublicValue, handleSubmit, deleteProject,
+}) => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   return (
@@ -72,7 +74,7 @@ const ProjectModify = ({ project, handleNameValue, handleContentValue, handleIsP
           onChange={handleContentValue}
           // value={project.content}
         />
-  
+
         <TextField
           id="outlined-name"
           label="Development stack"
@@ -96,7 +98,7 @@ const ProjectModify = ({ project, handleNameValue, handleContentValue, handleIsP
 
         <div className="project-modify-component__form__member-list-wrapper">
           <List>
-            {project.members.map(member => (
+            {project.members.map((member) => (
               <ListItem>
                 <ListItemText
                   primary={member}

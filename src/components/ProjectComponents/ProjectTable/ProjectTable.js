@@ -10,12 +10,14 @@ import TableFooter from '@material-ui/core/TableFooter';
 import TablePagination from '@material-ui/core/TablePagination';
 import Button from '@material-ui/core/Button';
 
-const ProjectTable = ({ projects, page, limit, total, handleChangePage, handleChangeRowsPerPage }) => {
+const ProjectTable = ({
+  projects, page, limit, total, handleChangePage, handleChangeRowsPerPage,
+}) => {
   const emptyRows = limit - projects.length;
   return (
     <Table>
       <TableBody>
-        {projects.map(project => (
+        {projects.map((project) => (
           <TableRow id={project.projectId}>
             <Link to={`project/${project.projectId}`}>
               <TableCell>{project.name}</TableCell>

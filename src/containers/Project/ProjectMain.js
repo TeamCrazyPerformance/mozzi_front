@@ -9,7 +9,9 @@ import * as projectMainActions from '../../redux/project/projectMain/actions';
 
 const ProjectMain = (props) => {
   // declare state
-  const { page, limit, total, projects, getProjects } = props;
+  const {
+    page, limit, total, projects, getProjects,
+  } = props;
 
   const handleChangePage = (event, pageToChange) => {
     getProjects(pageToChange, limit);
@@ -58,6 +60,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators(projectMainActions, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators(projectMainActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectMain);

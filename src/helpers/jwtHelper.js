@@ -1,13 +1,13 @@
 import jwtDecode from 'jwt-decode';
-import { jwtLocalStorageVariableName } from './../setting/jwtSetting';
+import { jwtLocalStorageVariableName } from '../setting/jwtSetting';
 
 export const setJwt = (jwtToken) => {
   localStorage.setItem(jwtLocalStorageVariableName, jwtToken);
-}
+};
 
 export const clearJwt = () => {
   localStorage.removeItem(jwtLocalStorageVariableName);
-}
+};
 
 export const getJwt = () => {
   try {
@@ -16,28 +16,28 @@ export const getJwt = () => {
   } catch (err) {
     clearJwt();
   }
-}
+};
 
 export const checkExpirity = (token) => {
   if (!token) {
     return {
-      error: 'not matched'
+      error: 'not matched',
     };
   }
 
   try {
-    const profile = jwtDecode(token);
-    const expiredAt = profile.expiredAt || profile.exp * 1000;
+    const decodedJwt = jwtDecode(token);
+    const exp = decodedJwt.exp * 1000;
 
-    if (expiredAt > new Date().getTime())
+    if (exp > new Date().getTime()) {
       return {
-        ...profile,
+        ...decodedJwt,
         token,
-        expiredAt: new Date(expiredAt)
+        exp: new Date(exp),
       };
-    else {
-      return { error: 'Token expired' };
     }
+
+    return { error: 'Token expired' };
   } catch (error) {
     return { error: 'Server Error' };
   }

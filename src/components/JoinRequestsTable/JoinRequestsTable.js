@@ -15,31 +15,33 @@ import Done from '@material-ui/icons/Done';
 import Close from '@material-ui/icons/Close';
 
 const rows = [
-  { id: 'name', numeric: false, disablePadding: true, label: 'Student Name' },
-  { id: 'studenNumber', numeric: true, disablePadding: false, label: 'Student Number' },
+  {
+    id: 'name', numeric: false, disablePadding: true, label: 'Student Name',
+  },
+  {
+    id: 'studenNumber', numeric: true, disablePadding: false, label: 'Student Number',
+  },
 ];
 
-const EnhancedTableHead = () => {
-  return (
-    <TableHead>
-      <TableRow role="checkbox">
-        {rows.map(row => (
-          <TableCell
-            key={row.id}
-            align="center"
-          >
-            {row.label}
-          </TableCell>
-        ))}
-        <TableCell align="center">
-          Approve/Reject
+const EnhancedTableHead = () => (
+  <TableHead>
+    <TableRow role="checkbox">
+      {rows.map((row) => (
+        <TableCell
+          key={row.id}
+          align="center"
+        >
+          {row.label}
         </TableCell>
-      </TableRow>
-    </TableHead>
-  );
-}
+      ))}
+      <TableCell align="center">
+          Approve/Reject
+      </TableCell>
+    </TableRow>
+  </TableHead>
+);
 
-const JoinRequestTableStyles = theme => ({
+const JoinRequestTableStyles = (theme) => ({
   root: {
     width: '100%',
     marginTop: theme.spacing.unit * 3,
@@ -51,11 +53,11 @@ const JoinRequestTableStyles = theme => ({
     overflowX: 'auto',
   },
   buttonPadding: {
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
 });
 
-const JoinRequestTable = props => {
+const JoinRequestTable = (props) => {
   const {
     data,
     page,
@@ -63,7 +65,7 @@ const JoinRequestTable = props => {
     total,
     classes,
     handlePageChange,
-    joinRequestReview
+    joinRequestReview,
   } = props;
   const emptyRows = count - data.length;
 
@@ -76,50 +78,48 @@ const JoinRequestTable = props => {
         >
           <EnhancedTableHead rowCount={count} />
           <TableBody>
-              {data.map((student, index) => {
-                return (
-                  <TableRow
-                    hover
-                    role="checkbox"
-                    tabIndex={-1}
-                    key={index}
+            {data.map((student, index) => (
+              <TableRow
+                hover
+                role="checkbox"
+                tabIndex={-1}
+                key={index}
+              >
+                <TableCell align="center">
+                  {student.name}
+                </TableCell>
+                <TableCell align="center">
+                  {student.stdNumber}
+                </TableCell>
+                <TableCell align="center">
+                  <Fab
+                    size="small"
+                    color="primary"
+                    aria-label="Approve"
+                    className={classes.buttonPadding}
+                    onClick={() => joinRequestReview({
+                      userId: student.userId,
+                      currentPage: page,
+                      joinRequestType: 'approve',
+                    })}
                   >
-                    <TableCell align="center">
-                      {student.name}
-                    </TableCell>
-                    <TableCell align="center">
-                      {student.stdNumber}
-                    </TableCell>
-                    <TableCell align="center">
-                      <Fab
-                        size="small"
-                        color="primary"
-                        aria-label="Approve"
-                        className={classes.buttonPadding}
-                        onClick={() => joinRequestReview({
-                          userId: student.userId,
-                          currentPage: page,
-                          joinRequestType: 'approve'
-                        })}
-                      >
-                        <Done />
-                      </Fab>
-                      <Fab
-                        size="small"
-                        color="secondary"
-                        aria-label="Reject"
-                        onClick={() => joinRequestReview({
-                          userId: student.userId,
-                          currentPage: page,
-                          joinRequestType: 'reject'
-                        })}
-                      >
-                        <Close />
-                      </Fab>
-                    </TableCell>
-                  </TableRow>
-                );
-              })}
+                    <Done />
+                  </Fab>
+                  <Fab
+                    size="small"
+                    color="secondary"
+                    aria-label="Reject"
+                    onClick={() => joinRequestReview({
+                      userId: student.userId,
+                      currentPage: page,
+                      joinRequestType: 'reject',
+                    })}
+                  >
+                    <Close />
+                  </Fab>
+                </TableCell>
+              </TableRow>
+            ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -135,8 +135,8 @@ const JoinRequestTable = props => {
         rowsPerPage={count}
         page={page}
         onChangePage={handlePageChange}
-        backIconButtonProps={{ 'aria-label' : 'Previous Page' }}
-        nextIconButtonProps={{ 'aria-label' : 'Next Page' }}
+        backIconButtonProps={{ 'aria-label': 'Previous Page' }}
+        nextIconButtonProps={{ 'aria-label': 'Next Page' }}
       />
     </Paper>
   );
@@ -152,7 +152,7 @@ JoinRequestTable.propTypes = {
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   handlePageChange: PropTypes.func.isRequired,
-  joinRequestReview: PropTypes.func.isRequired
+  joinRequestReview: PropTypes.func.isRequired,
 };
 
-export default withStyles(JoinRequestTableStyles)(JoinRequestTable); 
+export default withStyles(JoinRequestTableStyles)(JoinRequestTable);

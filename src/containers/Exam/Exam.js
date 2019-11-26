@@ -1,11 +1,9 @@
 import React from 'react';
 
-const Exam = () => {
-  return(
-    <div>
+const Exam = () => (
+  <div>
       Exam
-    </div>
-  );
-};
+  </div>
+);
 
 export default Exam;

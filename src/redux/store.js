@@ -1,4 +1,6 @@
-import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
+import {
+  createStore, combineReducers, applyMiddleware, compose,
+} from 'redux';
 import { routerReducer, routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import reducers from './reducers';
@@ -15,9 +17,9 @@ const middlewares = [sagaMiddleware, routeMiddleware];
 const store = createStore(
   combineReducers({
     ...reducers,
-    router: routerReducer
+    router: routerReducer,
   }),
-  compose(applyMiddleware(...middlewares))
+  compose(applyMiddleware(...middlewares)),
 );
 
 // Dynamically run saga.

@@ -9,7 +9,7 @@ import * as projectModifyActions from '../../redux/project/projectManipulation/a
 
 const ProjectModify = (props) => {
   // const [project, setProject] = useState(props.project);
-  const projectId = props.match.params.projectId;
+  const { projectId } = props.match.params;
   const { project } = props;
 
   const handleNameValue = (event) => {
@@ -24,11 +24,11 @@ const ProjectModify = (props) => {
     const isPublic = event.target.checked;
     props.setProjectIsPublic({ isPublic });
   };
-  
+
   const handleSubmit = (event) => {
     event.preventDefault();
     props.modifyProject({ projectId, project });
-  }
+  };
 
   useEffect(() => {
   }, []);
@@ -56,6 +56,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators(projectModifyActions, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators(projectModifyActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectModify);

@@ -9,7 +9,7 @@ import FlexBox from '../../components/FlexBox/FlexBox';
 import * as projectViewActions from '../../redux/project/projectView/actions';
 
 const ProjectView = (props) => {
-  const projectId = props.match.params.projectId;
+  const { projectId } = props.match.params;
   useEffect(() => {
     console.log(projectId);
     props.getProject(projectId);
@@ -46,6 +46,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-const mapDispatchToProps = dispatch => bindActionCreators(projectViewActions, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators(projectViewActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectView);

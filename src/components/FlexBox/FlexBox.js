@@ -3,17 +3,23 @@ import PropTypes from 'prop-types';
 
 import './FlexBox.css';
 
-const FlexBox = ({ wrap='wrap', column='row', align='flex-start', justify='flex-start', maxHeight=false, children }) => {
-  const flexBoxClassNames = _changePropsToClassName({ wrap, column, align, justify, maxHeight });
+const FlexBox = ({
+  wrap = 'wrap', column = 'row', align = 'flex-start', justify = 'flex-start', maxHeight = false, children,
+}) => {
+  const flexBoxClassNames = _changePropsToClassName({
+    wrap, column, align, justify, maxHeight,
+  });
 
-  return(
+  return (
     <div className={flexBoxClassNames}>
-      {children ? children : ''}
+      {children || ''}
     </div>
   );
 };
 
-const _changePropsToClassName = ({ wrap, column, align, justify, maxHeight }) => {
+const _changePropsToClassName = ({
+  wrap, column, align, justify, maxHeight,
+}) => {
   let classNames = 'flex-box';
 
   // flex-wrap
@@ -34,32 +40,32 @@ FlexBox.propTypes = {
   wrap: PropTypes.oneOf([
     'wrap',
     'no-wrap',
-    'wrap-reverse'
+    'wrap-reverse',
   ]),
   column: PropTypes.oneOf([
     'row',
     'column',
     'row-reverse',
-    'column-reverse'
+    'column-reverse',
   ]),
   align: PropTypes.oneOf([
     'flex-start',
     'flex-end',
     'center',
     'stretch',
-    'baseline'
+    'baseline',
   ]),
   justify: PropTypes.oneOf([
     'flex-start',
     'flex-end',
     'center',
     'space-between',
-    'space-around'
+    'space-around',
   ]),
   maxHeight: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.element,
-    PropTypes.array
+    PropTypes.array,
   ]).isRequired,
 };
 

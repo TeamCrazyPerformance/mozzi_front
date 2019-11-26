@@ -6,7 +6,7 @@ import Error from '../../../components/Error/Error';
 
 import * as userApi from './UserApi';
 
-const User = props => {
+const User = (props) => {
   const userId = props.match.params.userid;
   const [user, setUser] = useState({
     id: '',
@@ -16,7 +16,7 @@ const User = props => {
     stdNumber: '',
     phoneNum: '',
     email: '',
-    birthday: ''
+    birthday: '',
   });
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
@@ -45,24 +45,24 @@ const User = props => {
   const getUserInformation = ({ userId }) => {
     setLoadingStateAndErrorWhenApiCallStart();
     userApi.getUser({
-      userId: userId,
+      userId,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
       apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
-      setResponseToState: setGetUserResponse
+      setResponseToState: setGetUserResponse,
     });
-  }
+  };
 
   useEffect(() => getUserInformation({ userId }), []);
 
-  return(
+  return (
     <div>
       <div>User</div>
       <LoadingSpinner loadingState={loadingState}>
         {
           error
-          ? <Error />
-          : <UserInformation data={user} />
+            ? <Error />
+            : <UserInformation data={user} />
         }
       </LoadingSpinner>
     </div>

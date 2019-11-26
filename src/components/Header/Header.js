@@ -15,12 +15,12 @@ import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 
-import DrawerList from './../DrawerList/DrawerList';
+import DrawerList from '../DrawerList/DrawerList';
 // import './Header.css';
 
 const drawerWidth = 240;
 
-const appBarStyles = theme => ({
+const appBarStyles = (theme) => ({
   root: {
     display: 'flex',
   },
@@ -48,23 +48,23 @@ const appBarStyles = theme => ({
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3
+    padding: theme.spacing.unit * 3,
   },
   title: {
     flexGrow: 1,
   },
 });
 
-const Header = props => {
+const Header = (props) => {
   const { container, children, classes } = props;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
-  const accountCircleMenuOpen = Boolean(anchorEl)
+  const accountCircleMenuOpen = Boolean(anchorEl);
 
   const handleDrawerToggleOpen = () => setDrawerOpen(true);
   const handleDrawerToggleClose = () => setDrawerOpen(false);
 
-  const handleAccountCircleMenuOpen = event => setAnchorEl(event.currentTarget);
+  const handleAccountCircleMenuOpen = (event) => setAnchorEl(event.currentTarget);
   const handleAccountCircleMenuClose = () => setAnchorEl(null);
 
   return (
@@ -74,14 +74,14 @@ const Header = props => {
         position="fixed"
         className={`${classes.appBar} app-bar-wrapper__app-bar`}
       >
-        <Toolbar className={`app-bar-wrapper__app-bar__tool-bar`}>
+        <Toolbar className="app-bar-wrapper__app-bar__tool-bar">
           <IconButton
             color="inherit"
             aria-label="Open drawer"
             onClick={handleDrawerToggleOpen}
             className={`${classes.menuButton} app-bar-wrapper__app-bar__tool-bar__icon-button`}
           >
-            <MenuIcon className={`app-bar-wrapper__app-bar__tool-bar__icon-button__icon`} />
+            <MenuIcon className="app-bar-wrapper__app-bar__tool-bar__icon-button__icon" />
           </IconButton>
           <Typography
             variant="h6"
@@ -91,7 +91,7 @@ const Header = props => {
           >
             TCP WEB PROJECT
           </Typography>
-          <div className={`app-bar-wrapper__app-bar__tool-bar__account-circle`}>
+          <div className="app-bar-wrapper__app-bar__tool-bar__account-circle">
             <IconButton
               aria-owns={accountCircleMenuOpen ? 'menu-appbar' : undefined}
               aria-haspopup="true"
@@ -122,7 +122,7 @@ const Header = props => {
       <nav className={`${classes.drawer} app-bar-wrapper__drawer-wrapper`}>
         {/* Width is smaller than 1280px */}
         <Hidden
-          className={`app-bar-wrapper__drawer-wrapper__hidden--md-up`}
+          className="app-bar-wrapper__drawer-wrapper__hidden--md-up"
           implementation="css"
           mdUp
         >
@@ -142,7 +142,7 @@ const Header = props => {
         </Hidden>
         {/* Width is bigger then 1280px */}
         <Hidden
-          className={`app-bar-wrapper__drawer-wrapper__hidden--md-down`}
+          className="app-bar-wrapper__drawer-wrapper__hidden--md-down"
           implementation="css"
           mdDown
         >
@@ -161,13 +161,13 @@ const Header = props => {
       </main>
     </div>
   );
-}
+};
 
 Header.propTypes = {
   children: PropTypes.oneOfType([
     PropTypes.element,
-    PropTypes.array
-  ]).isRequired
+    PropTypes.array,
+  ]).isRequired,
 };
 
-export default withStyles(appBarStyles, {widthTheme: true})(Header);
+export default withStyles(appBarStyles, { widthTheme: true })(Header);

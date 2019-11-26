@@ -6,11 +6,11 @@ import Error from '../../../components/Error/Error';
 
 import * as joinRequestsApi from './JoinRequestsApi';
 
-const JoinRequests = props => {
+const JoinRequests = (props) => {
   const [joinRequests, setJoinRequests] = useState([{
     name: '',
     stdNumber: '',
-    userId: ''
+    userId: '',
   }]);
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
@@ -50,20 +50,20 @@ const JoinRequests = props => {
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
       apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
-      setResponseToState: setJoinRequestsResponse
+      setResponseToState: setJoinRequestsResponse,
     });
   };
 
   const joinRequestReview = ({ userId, currentPage, joinRequestType }) => {
     joinRequestsApi.postJoinRequestReview({
-      userId: userId,
-      joinRequestType: joinRequestType,
-      currentPage: currentPage,
+      userId,
+      joinRequestType,
+      currentPage,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: handlePageChange,
-      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
     });
-  }
+  };
 
   // Component did mount
   useEffect(() => handlePageChange(null, 0), []);
@@ -74,19 +74,21 @@ const JoinRequests = props => {
       <LoadingSpinner loadingState={loadingState}>
         {
           error
-          ? <Error />
-          : <JoinRequestsTable
-              data={joinRequests}
-              page={page}
-              count={count}
-              total={total}
-              handlePageChange={handlePageChange}
-              joinRequestReview={joinRequestReview}
-            />
+            ? <Error />
+            : (
+              <JoinRequestsTable
+                data={joinRequests}
+                page={page}
+                count={count}
+                total={total}
+                handlePageChange={handlePageChange}
+                joinRequestReview={joinRequestReview}
+              />
+            )
         }
       </LoadingSpinner>
     </div>
   );
-}
+};
 
 export default JoinRequests;

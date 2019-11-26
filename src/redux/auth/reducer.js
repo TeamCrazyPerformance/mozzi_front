@@ -4,19 +4,19 @@ const authInitialState = {
   isSignIn: false,
   loadingState: {
     signIn: false,
-    signOut: false
-  }
+    signOut: false,
+  },
 };
 
 const authReducer = (state = authInitialState, action) => {
-  switch(action.type) {
+  switch (action.type) {
     case AuthActions.POST_SIGN_IN_PENDING: {
       return {
         ...state,
         loadingState: {
           ...state.loadingState,
-          signIn: true
-        }
+          signIn: true,
+        },
       };
     }
     case AuthActions.POST_SIGN_IN_SUCCESS: {
@@ -25,8 +25,8 @@ const authReducer = (state = authInitialState, action) => {
         isSignIn: true,
         loadingState: {
           ...state.loadingState,
-          signIn: false
-        }
+          signIn: false,
+        },
       };
     }
     case AuthActions.POST_SIGN_IN_FAILURE: {
@@ -35,8 +35,8 @@ const authReducer = (state = authInitialState, action) => {
         isSignIn: false,
         loadingState: {
           ...state.loadingState,
-          signIn: false
-        }
+          signIn: false,
+        },
       };
     }
     case AuthActions.SIGN_OUT_PENDING: {
@@ -44,8 +44,8 @@ const authReducer = (state = authInitialState, action) => {
         ...state,
         loadingState: {
           ...state.loadingState,
-          signOut: true
-        }
+          signOut: true,
+        },
       };
     }
     case AuthActions.SIGN_OUT_SUCCESS: {
@@ -54,8 +54,8 @@ const authReducer = (state = authInitialState, action) => {
         isSignIn: false,
         loadingState: {
           ...state.loadingState,
-          signOut: false
-        }
+          signOut: false,
+        },
       };
     }
     case AuthActions.SIGN_OUT_FAILURE: {
@@ -63,13 +63,13 @@ const authReducer = (state = authInitialState, action) => {
         ...state,
         loadingState: {
           ...state.loadingState,
-          signOut: false
-        }
+          signOut: false,
+        },
       };
     }
     default:
       return state;
   }
-}
+};
 
 export default authReducer;

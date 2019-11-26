@@ -19,60 +19,60 @@ import Group from '@material-ui/icons/Group';
 // import './DrawerList.css';
 
 const drawerList = [
-[{
-  iconComponent: <Home />,
-  text: 'Main',
-  link: '/main'
-}],
-// Project drawer list.
-[{
-  iconComponent: <LaptopWindows />,
-  text: 'Project',
-  link: '/project'
-}, {
-  iconComponent: <LaptopWindows />,
-  text: 'Project',
-  link: '/project'
-}],
-//Exam drawer list.
-[{
-  iconComponent: <LibraryBooks />,
-  text: 'Exam',
-  link: '/exam'
-}, {
-  iconComponent: <LibraryBooks />,
-  text: 'Exam',
-  link: '/exam'
-}],
-// Admin drawer list.
-[{
-  iconComponent: <Memory />,
-  text: 'Admin',
-  link: '/admin'
-}, {
-  iconComponent: <GroupAdd />,
-  text: 'Join Requests',
-  link: '/admin/joinrequests'
-}, {
-  iconComponent: <Group />,
-  text: 'Users',
-  link: '/admin/users'
-}]
+  [{
+    iconComponent: <Home />,
+    text: 'Main',
+    link: '/main',
+  }],
+  // Project drawer list.
+  [{
+    iconComponent: <LaptopWindows />,
+    text: 'Project',
+    link: '/project',
+  }, {
+    iconComponent: <LaptopWindows />,
+    text: 'Project',
+    link: '/project',
+  }],
+  // Exam drawer list.
+  [{
+    iconComponent: <LibraryBooks />,
+    text: 'Exam',
+    link: '/exam',
+  }, {
+    iconComponent: <LibraryBooks />,
+    text: 'Exam',
+    link: '/exam',
+  }],
+  // Admin drawer list.
+  [{
+    iconComponent: <Memory />,
+    text: 'Admin',
+    link: '/admin',
+  }, {
+    iconComponent: <GroupAdd />,
+    text: 'Join Requests',
+    link: '/admin/joinrequests',
+  }, {
+    iconComponent: <Group />,
+    text: 'Users',
+    link: '/admin/users',
+  }],
 ];
 
-const drawerListStyles = theme => ({
+const drawerListStyles = (theme) => ({
   drawerWrapper: {
-    width: 240
+    width: 240,
   },
   toolbar: {
-    height: 55
+    height: 55,
   },
 });
 
-const DrawerList = props => {
+const DrawerList = (props) => {
   const { classes } = props;
 
-  return(
+  return (
     <div className={`${classes.drawerWrapper} drawer-wrapper`}>
       <div className={`${classes.toolbar} drawer-wrapper__empty-space`} />
       <List>
@@ -93,12 +93,12 @@ const DrawerList = props => {
                   <ListItemText primary={text} />
                 </ListItem>
               </div>
-            )
+            );
           })
         ))}
       </List>
     </div>
-  )
+  );
 };
 
 export default withStyles(drawerListStyles)(DrawerList);

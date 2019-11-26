@@ -17,23 +17,23 @@ import Phone from '@material-ui/icons/Phone';
 import Email from '@material-ui/icons/Email';
 import Cake from '@material-ui/icons/Cake';
 
-const userInformationStyles = theme => ({
+const userInformationStyles = (theme) => ({
   root: {
     width: '100%',
     backgroundColor: theme.palette.background.paper,
   },
   typographyBoxSize: {
-    minWidth: 300
+    minWidth: 300,
   },
   iconRightMargin: {
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
 });
 
-const UserInformation = props => {
+const UserInformation = (props) => {
   const {
     data,
-    classes
+    classes,
   } = props;
 
   return (
@@ -50,12 +50,12 @@ const UserInformation = props => {
             />
             Identity
           </Typography>
-          <ListItemText primary={data.id}/>
+          <ListItemText primary={data.id} />
         </ListItem>
         <Divider variant="inset" component="li" />
 
         <ListItem button>
-          <Typography 
+          <Typography
             className={classes.typographyBoxSize}
             variant="display1"
           >
@@ -65,12 +65,12 @@ const UserInformation = props => {
             />
             Name
           </Typography>
-          <ListItemText primary={data.name}/>
+          <ListItemText primary={data.name} />
         </ListItem>
         <Divider variant="inset" component="li" />
 
         <ListItem button>
-          <Typography 
+          <Typography
             className={classes.typographyBoxSize}
             variant="display1"
           >
@@ -80,12 +80,12 @@ const UserInformation = props => {
             />
             Password
           </Typography>
-          <ListItemText primary={data.password}/>
+          <ListItemText primary={data.password} />
         </ListItem>
         <Divider variant="inset" component="li" />
 
         <ListItem button>
-          <Typography 
+          <Typography
             className={classes.typographyBoxSize}
             variant="display1"
           >
@@ -95,12 +95,12 @@ const UserInformation = props => {
             />
             Nickname
           </Typography>
-          <ListItemText primary={data.nickname}/>
+          <ListItemText primary={data.nickname} />
         </ListItem>
         <Divider variant="inset" component="li" />
 
         <ListItem button>
-          <Typography 
+          <Typography
             className={classes.typographyBoxSize}
             variant="display1"
           >
@@ -110,12 +110,12 @@ const UserInformation = props => {
             />
             Student Number
           </Typography>
-          <ListItemText primary={data.stdNumber}/>
+          <ListItemText primary={data.stdNumber} />
         </ListItem>
         <Divider variant="inset" component="li" />
 
         <ListItem button>
-          <Typography 
+          <Typography
             className={classes.typographyBoxSize}
             variant="display1"
           >
@@ -125,12 +125,12 @@ const UserInformation = props => {
             />
             Phone Number
           </Typography>
-          <ListItemText primary={data.phoneNum}/>
+          <ListItemText primary={data.phoneNum} />
         </ListItem>
         <Divider variant="inset" component="li" />
 
         <ListItem button>
-          <Typography 
+          <Typography
             className={classes.typographyBoxSize}
             variant="display1"
           >
@@ -140,12 +140,12 @@ const UserInformation = props => {
             />
             E-mail
           </Typography>
-          <ListItemText primary={data.email}/>
+          <ListItemText primary={data.email} />
         </ListItem>
         <Divider variant="inset" component="li" />
 
         <ListItem button>
-          <Typography 
+          <Typography
             className={classes.typographyBoxSize}
             variant="display1"
           >
@@ -155,13 +155,13 @@ const UserInformation = props => {
             />
             Birthday
           </Typography>
-          <ListItemText primary={data.birthday}/>
+          <ListItemText primary={data.birthday} />
         </ListItem>
         <Divider variant="inset" component="li" />
       </List>
     </div>
-  )
-}
+  );
+};
 
 UserInformation.propTypes = {
   data: PropTypes.shape({
@@ -172,8 +172,8 @@ UserInformation.propTypes = {
     stdNumber: PropTypes.string.isRequired,
     phoneNum: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    birthday: PropTypes.string.isRequired
-  }).isRequired
+    birthday: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default withStyles(userInformationStyles)(UserInformation);

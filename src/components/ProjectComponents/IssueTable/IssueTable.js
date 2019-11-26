@@ -11,7 +11,7 @@ import TableRow from '@material-ui/core/TableRow';
 const IssueTable = ({ projectIssues, projectId }) => (
   <Table>
     <TableBody>
-      {projectIssues.map(issue => (
+      {projectIssues.map((issue) => (
         <TableRow id={issue.id}>
           <Link to={`./${issue.id}`}>
             <TableCell>{issue.title}</TableCell>
