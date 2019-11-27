@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   BrowserRouter as Router, Switch, Route, Redirect,
 } from 'react-router-dom';
@@ -21,36 +22,6 @@ import User from './containers/Admin/User/User';
 
 import ErrorPage404 from './containers/Pages/404';
 
-// Router before login.
-const AppRouter = ({ isSignIn }) => (
-  <Router>
-    <Switch>
-      <Route exact path="/" component={SignIn} />
-      <Route exact path="/signin" component={SignIn} />
-      <PrivateRouterComponent isSignIn={isSignIn} component={PrivateRouter} />
-      <Route component={ErrorPage404} />
-    </Switch>
-  </Router>
-);
-
-const PrivateRouterComponent = ({ component: Component, isSignIn, ...rest }) => (
-  <Route
-    {...rest}
-    render={(props) => (
-      // Check is signin.
-      isSignIn === true
-        ? <Component exact {...props} />
-        : (
-          <Redirect to={{
-            pathname: '/signin',
-            state: { from: props.location },
-          }}
-          />
-        )
-    )}
-  />
-);
-
 const PrivateRouter = () => (
   <Header>
     <Switch>
@@ -72,6 +43,46 @@ const PrivateRouter = () => (
     </Switch>
   </Header>
 );
+
+// Router before login.
+const AppRouter = (props) => {
+  const { isSignIn } = props;
+  return (
+    <Router>
+      <Switch>
+        <Route exact path="/" component={SignIn} />
+        <Route exact path="/signin" component={SignIn} />
+        <PrivateRouterComponent isSignIn={isSignIn} privateRouterComponent={PrivateRouter} />
+        <Route component={ErrorPage404} />
+      </Switch>
+    </Router>
+  );
+};
+
+AppRouter.propTypes = {
+  isSignIn: PropTypes.bool.isRequired,
+};
+
+const PrivateRouterComponent = (props) => {
+  const { isSignIn } = props;
+  return (
+    <Route
+      render={() => (
+        // Check is signin.
+        isSignIn === true
+          ? (
+            <PrivateRouter exact />
+          ) : (
+            <Redirect to={{ pathname: '/signin' }} />
+          )
+      )}
+    />
+  );
+};
+
+PrivateRouterComponent.propTypes = {
+  isSignIn: PropTypes.bool.isRequired,
+};
 
 const mapStateToProps = (state) => {
   const { auth } = state;

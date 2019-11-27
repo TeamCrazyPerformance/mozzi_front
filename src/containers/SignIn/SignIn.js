@@ -12,7 +12,7 @@ import LoadingSpinner from '../../components/LoadingSpinner/LoadingSpinner';
 import * as authActions from '../../redux/auth/actions';
 
 const SignIn = (props) => {
-  const { isSignIn, loadingState } = props;
+  const { isSignIn, loadingState = true, postSignIn } = props;
   const [identityValue, setIdentityValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
@@ -23,7 +23,6 @@ const SignIn = (props) => {
     // Prevent browers refresh.
     event.preventDefault();
 
-    const { postSignIn } = props;
     const userInformation = {
       identity: identityValue,
       password: passwordValue,
@@ -34,12 +33,16 @@ const SignIn = (props) => {
 
   // When client sign in successed or try to access the SignIn page after signin.
   const checkSignIn = () => (isSignIn
-    ? <Redirect to="/main" />
-    : <></>);
+    ? (
+      <Redirect to="/main" />
+    ) : (
+      <></>
+    ));
 
   return (
     <>
       {checkSignIn()}
+      {console.log(loadingState)}
       <FlexBox
         wrap="wrap"
         column="column"
@@ -66,10 +69,13 @@ const SignIn = (props) => {
 
 SignIn.propTypes = {
   isSignIn: PropTypes.bool.isRequired,
-  loadingState: PropTypes.objectOf(PropTypes.bool),
+  postSignIn: PropTypes.func.isRequired,
+  loadingState: PropTypes.shape({
+    signIn: PropTypes.bool,
+  }).isRequired,
 };
 
-const _mapStateToProps = (state) => {
+const mapStateToProps = (state) => {
   const { auth } = state;
   return {
     isSignIn: auth.isSignIn,
@@ -79,6 +85,6 @@ const _mapStateToProps = (state) => {
   };
 };
 
-const _mapDispatchToProps = (dispatch) => bindActionCreators(authActions, dispatch);
+const mapDispatchToProps = (dispatch) => bindActionCreators(authActions, dispatch);
 
-export default connect(_mapStateToProps, _mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

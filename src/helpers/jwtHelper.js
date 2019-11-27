@@ -2,16 +2,16 @@ import jwtDecode from 'jwt-decode';
 import { jwtLocalStorageVariableName } from '../setting/jwtSetting';
 
 export const setJwt = (jwtToken) => {
-  localStorage.setItem(jwtLocalStorageVariableName, jwtToken);
+  sessionStorage.setItem(jwtLocalStorageVariableName, jwtToken);
 };
 
 export const clearJwt = () => {
-  localStorage.removeItem(jwtLocalStorageVariableName);
+  sessionStorage.removeItem(jwtLocalStorageVariableName);
 };
 
 export const getJwt = () => {
   try {
-    const jwt = localStorage.getItem(jwtLocalStorageVariableName);
+    const jwt = sessionStorage.getItem(jwtLocalStorageVariableName);
     return jwt;
   } catch (err) {
     clearJwt();
