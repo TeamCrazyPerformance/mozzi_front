@@ -1,27 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
 
-import UserInformation from '../../../components/UserInformation/UserInformation.js';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
-import Error from '../../../components/Error/Error';
+import UserInformation from "../../../components/UserInformation/UserInformation.js";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
+import Error from "../../../components/Error/Error";
 
-import * as userApi from './UserApi';
+import * as userApi from "./UserApi";
 
-const User = (props) => {
+const User = props => {
   const userId = props.match.params.userid;
   const [user, setUser] = useState({
-    id: '',
-    name: '',
-    password: '',
-    nickname: '',
-    stdNumber: '',
-    phoneNum: '',
-    email: '',
-    birthday: '',
+    id: "",
+    name: "",
+    password: "",
+    nickname: "",
+    stdNumber: "",
+    phoneNum: "",
+    email: "",
+    birthday: ""
   });
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
 
-  const setGetUserResponse = ({ getUserResponse }) => setUser({ ...getUserResponse.user });
+  const setGetUserResponse = ({ getUserResponse }) =>
+    setUser({ ...getUserResponse.user });
   const setLoadingStateToTrue = () => setLoadingState(true);
   const setLoadingStateToFalse = () => setLoadingState(false);
   const setErrorToTrue = () => setError(true);
@@ -49,21 +50,17 @@ const User = (props) => {
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
       apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
-      setResponseToState: setGetUserResponse,
+      setResponseToState: setGetUserResponse
     });
   };
 
-  useEffect(() => getUserInformation({ userId }), []);
+  useEffect(() => getUserInformation({ userId }), [getUserInformation, userId]);
 
   return (
     <div>
       <div>User</div>
       <LoadingSpinner loadingState={loadingState}>
-        {
-          error
-            ? <Error />
-            : <UserInformation data={user} />
-        }
+        {error ? <Error /> : <UserInformation data={user} />}
       </LoadingSpinner>
     </div>
   );

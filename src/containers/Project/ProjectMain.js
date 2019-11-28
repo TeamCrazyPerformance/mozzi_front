@@ -1,30 +1,28 @@
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
+import React, { useEffect } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 
-import ProjectTable from '../../components/ProjectComponents/ProjectTable/ProjectTable';
+import ProjectTable from "../../components/ProjectComponents/ProjectTable/ProjectTable";
 
-import * as projectMainActions from '../../redux/project/projectMain/actions';
+import * as projectMainActions from "../../redux/project/projectMain/actions";
 
-const ProjectMain = (props) => {
+const ProjectMain = props => {
   // declare state
-  const {
-    page, limit, total, projects, getProjects,
-  } = props;
+  const { page, limit, total, projects, getProjects } = props;
 
   const handleChangePage = (event, pageToChange) => {
     getProjects(pageToChange, limit);
   };
 
-  const handleChangeRowsPerPage = (event) => {
+  const handleChangeRowsPerPage = event => {
     getProjects(page, event.target.value);
   };
 
   useEffect(() => {
     // when component did mount
     getProjects(page, limit);
-  }, []);
+  }, [getProjects, limit, page]);
 
   return (
     <ProjectTable
@@ -43,11 +41,10 @@ ProjectMain.propTypes = {
   page: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  loadingState: PropTypes.objectOf(PropTypes.bool),
+  loadingState: PropTypes.objectOf(PropTypes.bool)
 };
 
-
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   const projectMain = state.ProjectMain;
   return {
     projects: projectMain.projects,
@@ -55,11 +52,12 @@ const mapStateToProps = (state) => {
     limit: projectMain.limit,
     total: projectMain.total,
     loadingState: {
-      getProjects: projectMain.loadingState.getProjects,
-    },
+      getProjects: projectMain.loadingState.getProjects
+    }
   };
 };
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(projectMainActions, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(projectMainActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProjectMain);

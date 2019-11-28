@@ -1,9 +1,5 @@
-import React from 'react';
+import React from "react";
 
-const Error = (props) => (
-  <div>
-      Error. Plz press F5.
-  </div>
-);
+const Error = props => <div>Error. Plz press F5.</div>;
 
 export default Error;

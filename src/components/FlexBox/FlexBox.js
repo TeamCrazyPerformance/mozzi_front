@@ -1,26 +1,35 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import './FlexBox.css';
+import "./FlexBox.css";
 
 const FlexBox = ({
-  wrap = 'wrap', column = 'row', align = 'flex-start', justify = 'flex-start', maxHeight = false, children,
+  wrap = "wrap",
+  column = "row",
+  align = "flex-start",
+  justify = "flex-start",
+  maxHeight = false,
+  children
 }) => {
   const flexBoxClassNames = _changePropsToClassName({
-    wrap, column, align, justify, maxHeight,
+    wrap,
+    column,
+    align,
+    justify,
+    maxHeight
   });
 
-  return (
-    <div className={flexBoxClassNames}>
-      {children || ''}
-    </div>
-  );
+  return <div className={flexBoxClassNames}>{children || ""}</div>;
 };
 
 const _changePropsToClassName = ({
-  wrap, column, align, justify, maxHeight,
+  wrap,
+  column,
+  align,
+  justify,
+  maxHeight
 }) => {
-  let classNames = 'flex-box';
+  let classNames = "flex-box";
 
   // flex-wrap
   classNames = classNames.concat(` flex-box--flex-wrap--${wrap}`);
@@ -37,36 +46,24 @@ const _changePropsToClassName = ({
 };
 
 FlexBox.propTypes = {
-  wrap: PropTypes.oneOf([
-    'wrap',
-    'no-wrap',
-    'wrap-reverse',
-  ]),
-  column: PropTypes.oneOf([
-    'row',
-    'column',
-    'row-reverse',
-    'column-reverse',
-  ]),
+  wrap: PropTypes.oneOf(["wrap", "no-wrap", "wrap-reverse"]),
+  column: PropTypes.oneOf(["row", "column", "row-reverse", "column-reverse"]),
   align: PropTypes.oneOf([
-    'flex-start',
-    'flex-end',
-    'center',
-    'stretch',
-    'baseline',
+    "flex-start",
+    "flex-end",
+    "center",
+    "stretch",
+    "baseline"
   ]),
   justify: PropTypes.oneOf([
-    'flex-start',
-    'flex-end',
-    'center',
-    'space-between',
-    'space-around',
+    "flex-start",
+    "flex-end",
+    "center",
+    "space-between",
+    "space-around"
   ]),
   maxHeight: PropTypes.bool,
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.array,
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired
 };
 
 export default FlexBox;

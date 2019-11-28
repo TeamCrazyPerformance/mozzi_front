@@ -1,9 +1,5 @@
-import React from 'react';
+import React from "react";
 
-const Project = () => (
-  <div>
-      Project
-  </div>
-);
+const Project = () => <div>Project</div>;
 
 export default Project;

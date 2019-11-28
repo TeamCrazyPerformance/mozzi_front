@@ -1,42 +1,42 @@
-import * as actions from './actionTypes';
+import * as actions from "./actionTypes";
 
 export const postProject = ({ newProject }) => ({
   type: actions.POST_PROJECT,
-  newProject,
+  newProject
 });
 
 export const modifyProject = ({ projectId, replaceProject }) => ({
   type: actions.MODIFY_PROJECT,
   projectId,
-  replaceProject,
+  replaceProject
 });
 
 export const deleteProject = ({ projectId }) => ({
   type: actions.DELETE_PROJECT,
-  projectId,
+  projectId
 });
 
 export const setProjectName = ({ name }) => ({
   type: actions.SET_PROJECT_NAME,
-  name,
+  name
 });
 
 export const setProjectContent = ({ content }) => ({
   type: actions.SET_PROJECT_CONTENT,
-  content,
+  content
 });
 
 export const setProjectIsPublic = ({ isPublic }) => ({
   type: actions.SET_PROJECT_ISPUBLIC,
-  isPublic,
+  isPublic
 });
 
 export const setProjectMembers = ({ members }) => ({
   type: actions.SET_PROJECT_MEMBERS,
-  members,
+  members
 });
 
 export const setProjectStack = ({ stack }) => ({
   type: actions.SET_PROJECT_STACK,
-  stack,
+  stack
 });

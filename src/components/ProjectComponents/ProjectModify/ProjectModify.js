@@ -1,29 +1,37 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
-import Dialog from '@material-ui/core/Dialog';
+import TextField from "@material-ui/core/TextField";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
+import List from "@material-ui/core/List";
+import ListItem from "@material-ui/core/ListItem";
+import ListItemText from "@material-ui/core/ListItemText";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogActions from "@material-ui/core/DialogActions";
+import Dialog from "@material-ui/core/Dialog";
 
-import './ProjectModify.css';
-
+import "./ProjectModify.css";
 
 const ProjectModify = ({
-  project, handleNameValue, handleContentValue, handleIsPublicValue, handleSubmit, deleteProject,
+  project,
+  handleNameValue,
+  handleContentValue,
+  handleIsPublicValue,
+  handleSubmit,
+  deleteProject
 }) => {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
 
   return (
     <div className="project-modify-component">
       <div className="project-modify-component__delete-button-wrapper">
-        <Button variant="contained" color="secondary" onClick={() => setOpenDeleteDialog(true)}>
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={() => setOpenDeleteDialog(true)}
+        >
           삭제
         </Button>
       </div>
@@ -34,9 +42,7 @@ const ProjectModify = ({
         aria-describedby="alert-dialog-description"
       >
         <DialogContent>
-          <DialogContentText>
-            정말 삭제하시게요..?
-          </DialogContentText>
+          <DialogContentText>정말 삭제하시게요..?</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button
@@ -98,11 +104,9 @@ const ProjectModify = ({
 
         <div className="project-modify-component__form__member-list-wrapper">
           <List>
-            {project.members.map((member) => (
+            {project.members.map(member => (
               <ListItem>
-                <ListItemText
-                  primary={member}
-                />
+                <ListItemText primary={member} />
               </ListItem>
             ))}
           </List>
@@ -133,13 +137,13 @@ ProjectModify.propTypes = {
     name: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired,
     members: PropTypes.array.isRequired,
-    isPublic: PropTypes.bool.isRequired,
+    isPublic: PropTypes.bool.isRequired
   }).isRequired,
   handleNameValue: PropTypes.func.isRequired,
   handleContentValue: PropTypes.func.isRequired,
   handleIsPublicValue: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
-  deleteProject: PropTypes.func.isRequired,
+  deleteProject: PropTypes.func.isRequired
 };
 
 export default ProjectModify;

@@ -1,61 +1,61 @@
-import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
 
-import AppBar from '@material-ui/core/AppBar';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import Drawer from '@material-ui/core/Drawer';
-import Hidden from '@material-ui/core/Hidden';
-import IconButton from '@material-ui/core/IconButton';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
-import { withStyles } from '@material-ui/core/styles';
+import AppBar from "@material-ui/core/AppBar";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Drawer from "@material-ui/core/Drawer";
+import Hidden from "@material-ui/core/Hidden";
+import IconButton from "@material-ui/core/IconButton";
+import Toolbar from "@material-ui/core/Toolbar";
+import Typography from "@material-ui/core/Typography";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import { withStyles } from "@material-ui/core/styles";
 
-import MenuIcon from '@material-ui/icons/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircle from "@material-ui/icons/AccountCircle";
 
-import DrawerList from '../DrawerList/DrawerList';
+import DrawerList from "../DrawerList/DrawerList";
 // import './Header.css';
 
 const drawerWidth = 240;
 
-const appBarStyles = (theme) => ({
+const appBarStyles = theme => ({
   root: {
-    display: 'flex',
+    display: "flex"
   },
   drawer: {
-    [theme.breakpoints.up('lg')]: {
+    [theme.breakpoints.up("lg")]: {
       width: drawerWidth,
-      flexShrink: 0,
-    },
+      flexShrink: 0
+    }
   },
   appBar: {
     marginLeft: drawerWidth,
-    [theme.breakpoints.up('lg')]: {
-      width: `calc(100% - ${drawerWidth}px)`,
-    },
+    [theme.breakpoints.up("lg")]: {
+      width: `calc(100% - ${drawerWidth}px)`
+    }
   },
   menuButton: {
     marginRight: 20,
-    [theme.breakpoints.up('lg')]: {
-      display: 'none',
-    },
+    [theme.breakpoints.up("lg")]: {
+      display: "none"
+    }
   },
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
-    width: drawerWidth,
+    width: drawerWidth
   },
   content: {
     flexGrow: 1,
-    padding: theme.spacing.unit * 3,
+    padding: theme.spacing(3)
   },
   title: {
-    flexGrow: 1,
-  },
+    flexGrow: 1
+  }
 });
 
-const Header = (props) => {
+const Header = props => {
   const { container, children, classes } = props;
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -64,7 +64,7 @@ const Header = (props) => {
   const handleDrawerToggleOpen = () => setDrawerOpen(true);
   const handleDrawerToggleClose = () => setDrawerOpen(false);
 
-  const handleAccountCircleMenuOpen = (event) => setAnchorEl(event.currentTarget);
+  const handleAccountCircleMenuOpen = event => setAnchorEl(event.currentTarget);
   const handleAccountCircleMenuClose = () => setAnchorEl(null);
 
   return (
@@ -93,7 +93,7 @@ const Header = (props) => {
           </Typography>
           <div className="app-bar-wrapper__app-bar__tool-bar__account-circle">
             <IconButton
-              aria-owns={accountCircleMenuOpen ? 'menu-appbar' : undefined}
+              aria-owns={accountCircleMenuOpen ? "menu-appbar" : undefined}
               aria-haspopup="true"
               onClick={handleAccountCircleMenuOpen}
               color="inherit"
@@ -103,17 +103,19 @@ const Header = (props) => {
             <Menu
               anchorEl={anchorEl}
               anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right"
               }}
               transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
+                vertical: "top",
+                horizontal: "right"
               }}
               open={accountCircleMenuOpen}
               onClose={handleAccountCircleMenuClose}
             >
-              <MenuItem onClick={handleAccountCircleMenuClose}>Profile</MenuItem>
+              <MenuItem onClick={handleAccountCircleMenuClose}>
+                Profile
+              </MenuItem>
               <MenuItem onClick={handleAccountCircleMenuClose}>Logout</MenuItem>
             </Menu>
           </div>
@@ -164,10 +166,7 @@ const Header = (props) => {
 };
 
 Header.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.array,
-  ]).isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired
 };
 
 export default withStyles(appBarStyles, { widthTheme: true })(Header);

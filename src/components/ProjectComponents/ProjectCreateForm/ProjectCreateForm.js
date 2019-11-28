@@ -1,13 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import TextField from '@material-ui/core/TextField';
-import Checkbox from '@material-ui/core/Checkbox';
-import Button from '@material-ui/core/Button';
-
+import TextField from "@material-ui/core/TextField";
+import Checkbox from "@material-ui/core/Checkbox";
+import Button from "@material-ui/core/Button";
 
 const ProjectCreateForm = ({
-  handleSubmit, handleNameValue, handleContentValue, handleIsPublicValue, isPublic,
+  handleSubmit,
+  handleNameValue,
+  handleContentValue,
+  handleIsPublicValue,
+  isPublic
 }) => (
   <div className="project-create-component">
     <form onSubmit={handleSubmit}>
@@ -36,17 +39,12 @@ const ProjectCreateForm = ({
           value="checkedB"
           color="primary"
         />
-					공개
+        공개
       </div>
 
-      <Button
-        variant="contained"
-        color="primary"
-        type="submit"
-      >
-					완료
+      <Button variant="contained" color="primary" type="submit">
+        완료
       </Button>
-
     </form>
   </div>
 );
@@ -54,7 +52,7 @@ const ProjectCreateForm = ({
 ProjectCreateForm.propTypes = {
   handleNameValue: PropTypes.func.isRequired,
   handleContentValue: PropTypes.func.isRequired,
-  handleIsPublicValue: PropTypes.func.isRequired,
+  handleIsPublicValue: PropTypes.func.isRequired
 };
 
 export default ProjectCreateForm;

@@ -1,13 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
 
-import './SignInForm.css';
+import "./SignInForm.css";
 
 const SignInForm = ({
-  handleSubmit, handleIdentityValue, handlePasswordVaule, signupUrl = '',
+  handleSubmit,
+  handleIdentityValue,
+  handlePasswordVaule,
+  signupUrl = ""
 }) => (
   <div className="signin-form-component">
     <form
@@ -42,9 +45,9 @@ const SignInForm = ({
           <Button
             className="signin-form-component__form__button-box-wrapper__button-wrapper__signup-button"
             color="primary"
-            href={signupUrl || ''}
+            href={signupUrl || ""}
           >
-              Sign-up in tcp
+            Sign-up in tcp
           </Button>
         </div>
 
@@ -55,7 +58,7 @@ const SignInForm = ({
             color="primary"
             type="submit"
           >
-              Sign-in
+            Sign-in
           </Button>
         </div>
       </div>
@@ -67,7 +70,7 @@ SignInForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
   handleIdentityValue: PropTypes.func.isRequired,
   handlePasswordVaule: PropTypes.func.isRequired,
-  signupUrl: PropTypes.string.isRequired,
+  signupUrl: PropTypes.string.isRequired
 };
 
 export default SignInForm;

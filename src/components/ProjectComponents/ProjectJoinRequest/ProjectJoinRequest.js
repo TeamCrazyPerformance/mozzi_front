@@ -1,28 +1,22 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import Button from '@material-ui/core/Button';
-
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import Button from "@material-ui/core/Button";
 
 const ProjectJoinRequest = ({ joinRequestUsers }) => {
   let count = 0;
   return (
     <Table>
       <TableBody>
-        {joinRequestUsers.map((user) => (
+        {joinRequestUsers.map(user => (
           <TableRow>
+            <TableCell>{++count}</TableCell>
             <TableCell>
-              {++count}
-            </TableCell>
-            <TableCell>
-              {user.userName}
-(
-              {user.stdNumber}
-)
+              {user.userName}({user.stdNumber})
             </TableCell>
             <TableCell>
               <Button variant="contained" color="primary">
@@ -44,8 +38,8 @@ ProjectJoinRequest.propTypes = {
     userId: PropTypes.number.isRequired,
     link: PropTypes.string.isRequired,
     userName: PropTypes.string.isRequired,
-    stdNumber: PropTypes.number.isRequired,
-  }),
+    stdNumber: PropTypes.number.isRequired
+  })
 };
 
 export default ProjectJoinRequest;

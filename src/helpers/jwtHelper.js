@@ -1,7 +1,7 @@
-import jwtDecode from 'jwt-decode';
-import { jwtLocalStorageVariableName } from '../setting/jwtSetting';
+import jwtDecode from "jwt-decode";
+import { jwtLocalStorageVariableName } from "../setting/jwtSetting";
 
-export const setJwt = (jwtToken) => {
+export const setJwt = jwtToken => {
   sessionStorage.setItem(jwtLocalStorageVariableName, jwtToken);
 };
 
@@ -18,10 +18,10 @@ export const getJwt = () => {
   }
 };
 
-export const checkExpirity = (token) => {
+export const checkExpirity = token => {
   if (!token) {
     return {
-      error: 'not matched',
+      error: "not matched"
     };
   }
 
@@ -33,12 +33,12 @@ export const checkExpirity = (token) => {
       return {
         ...decodedJwt,
         token,
-        exp: new Date(exp),
+        exp: new Date(exp)
       };
     }
 
-    return { error: 'Token expired' };
+    return { error: "Token expired" };
   } catch (error) {
-    return { error: 'Server Error' };
+    return { error: "Server Error" };
   }
 };

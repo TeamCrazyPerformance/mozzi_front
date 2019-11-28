@@ -1,9 +1,5 @@
-import React from 'react';
+import React from "react";
 
-const Exam = () => (
-  <div>
-      Exam
-  </div>
-);
+const Exam = () => <div>Exam</div>;
 
 export default Exam;

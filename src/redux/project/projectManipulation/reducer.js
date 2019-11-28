@@ -1,30 +1,33 @@
-import * as actions from './actionTypes';
+import * as actions from "./actionTypes";
 
 const projectManipulationInitialState = {
   project: {
-    projectId: '',
-    name: '',
-    content: '',
+    projectId: "",
+    name: "",
+    content: "",
     isPublic: true,
-    stack: '',
-    members: [],
+    stack: "",
+    members: []
   },
   loadingState: {
     postProject: false,
     modifyProject: false,
-    deleteProject: false,
-  },
+    deleteProject: false
+  }
 };
 
-const projectManipulationReducer = (state = projectManipulationInitialState, action) => {
+const projectManipulationReducer = (
+  state = projectManipulationInitialState,
+  action
+) => {
   switch (action.type) {
     case actions.POST_PROJECT_PENDING: {
       return {
         ...state,
         loadingState: {
           ...state.loadingState,
-          postProject: true,
-        },
+          postProject: true
+        }
       };
     }
 
@@ -34,8 +37,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         project: action.project,
         loadingState: {
           ...state.loadingState,
-          postProject: false,
-        },
+          postProject: false
+        }
       };
     }
 
@@ -44,8 +47,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         ...state,
         loadingState: {
           ...state.loadingState,
-          postProject: false,
-        },
+          postProject: false
+        }
       };
     }
 
@@ -54,8 +57,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         ...state,
         loadingState: {
           ...state.loadingState,
-          modifyProject: true,
-        },
+          modifyProject: true
+        }
       };
     }
 
@@ -65,8 +68,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         project: action.project,
         loadingState: {
           ...state.loadingState,
-          modifyProject: false,
-        },
+          modifyProject: false
+        }
       };
     }
 
@@ -75,8 +78,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         ...state,
         loadingState: {
           ...state.loadingState,
-          modifyProject: false,
-        },
+          modifyProject: false
+        }
       };
     }
 
@@ -85,8 +88,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         ...state,
         loadingState: {
           ...state.loadingState,
-          deleteProject: true,
-        },
+          deleteProject: true
+        }
       };
     }
 
@@ -96,8 +99,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         project: action.project,
         loadingState: {
           ...state.loadingState,
-          deleteProject: false,
-        },
+          deleteProject: false
+        }
       };
     }
 
@@ -106,8 +109,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         ...state,
         loadingState: {
           ...state.loadingState,
-          deleteProject: false,
-        },
+          deleteProject: false
+        }
       };
     }
 
@@ -116,8 +119,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         ...state,
         project: {
           ...state.project,
-          name: action.name,
-        },
+          name: action.name
+        }
       };
     }
 
@@ -126,8 +129,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         ...state,
         project: {
           ...state.project,
-          content: action.content,
-        },
+          content: action.content
+        }
       };
     }
 
@@ -136,8 +139,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         ...state,
         project: {
           ...state.project,
-          isPublic: action.isPublic,
-        },
+          isPublic: action.isPublic
+        }
       };
     }
 
@@ -146,8 +149,8 @@ const projectManipulationReducer = (state = projectManipulationInitialState, act
         ...state,
         project: {
           ...state.project,
-          stack: action.stack,
-        },
+          stack: action.stack
+        }
       };
     }
 

@@ -1,11 +1,11 @@
-import * as actions from './actionTypes';
+import * as actions from "./actionTypes";
 
 function Project() {
   this.projectId = 1;
-  this.link = '';
-  this.name = 'mozzi';
-  this.author = '이건우';
-  this.date = '2019-04-11';
+  this.link = "";
+  this.name = "mozzi";
+  this.author = "이건우";
+  this.date = "2019-04-11";
 }
 
 const projects = [];
@@ -20,8 +20,8 @@ const projectMainInitialState = {
   limit: 5,
   total: 0,
   loadingState: {
-    getProjects: false,
-  },
+    getProjects: false
+  }
 };
 
 const projectMainReducer = (state = projectMainInitialState, action) => {
@@ -31,8 +31,8 @@ const projectMainReducer = (state = projectMainInitialState, action) => {
         ...state,
         loadingState: {
           ...state.loadingState,
-          getProjects: true,
-        },
+          getProjects: true
+        }
       };
     }
 
@@ -44,8 +44,8 @@ const projectMainReducer = (state = projectMainInitialState, action) => {
         limit: action.limit,
         loadingState: {
           ...state.loadingState,
-          getProjects: false,
-        },
+          getProjects: false
+        }
       };
     }
 
@@ -54,8 +54,8 @@ const projectMainReducer = (state = projectMainInitialState, action) => {
         ...state,
         loadingState: {
           ...state.loadingState,
-          getProjects: false,
-        },
+          getProjects: false
+        }
       };
     }
 

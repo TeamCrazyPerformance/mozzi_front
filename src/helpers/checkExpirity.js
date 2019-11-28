@@ -1,9 +1,9 @@
-import jwtDecode from 'jwt-decode';
+import jwtDecode from "jwt-decode";
 
-const checkExpirity = (token) => {
+const checkExpirity = token => {
   if (!token) {
     return {
-      error: 'not matched',
+      error: "not matched"
     };
   }
 
@@ -15,13 +15,13 @@ const checkExpirity = (token) => {
       return {
         ...profile,
         token,
-        expiredAt: new Date(expiredAt),
+        expiredAt: new Date(expiredAt)
       };
     }
 
-    return { error: 'Token expired' };
+    return { error: "Token expired" };
   } catch (error) {
-    return { error: 'Server Error' };
+    return { error: "Server Error" };
   }
 };
 

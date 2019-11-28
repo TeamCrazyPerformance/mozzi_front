@@ -1,15 +1,15 @@
-import * as actions from './actionTypes';
+import * as actions from "./actionTypes";
 
 const projectViewInitialState = {
   project: {
-    name: '',
-    content: '',
-    members: '',
+    name: "",
+    content: "",
+    members: ""
   },
   loadingState: {
     getProject: false,
-    getIssues: false,
-  },
+    getIssues: false
+  }
 };
 
 const projectViewReducer = (state = projectViewInitialState, action) => {
@@ -19,8 +19,8 @@ const projectViewReducer = (state = projectViewInitialState, action) => {
         ...state,
         loadingState: {
           ...state.loadingState,
-          getProject: true,
-        },
+          getProject: true
+        }
       };
     }
 
@@ -30,8 +30,8 @@ const projectViewReducer = (state = projectViewInitialState, action) => {
         project: action.project,
         loadingState: {
           ...state.loadingState,
-          getProject: false,
-        },
+          getProject: false
+        }
       };
     }
 
@@ -40,8 +40,8 @@ const projectViewReducer = (state = projectViewInitialState, action) => {
         ...state,
         loadingState: {
           ...state.loadingState,
-          getProject: false,
-        },
+          getProject: false
+        }
       };
     }
 
