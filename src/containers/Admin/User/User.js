@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-
-import UserInformationTable from "../../../components/UserInformationTable/UserInformationTable.js";
+import UserInformation from "../../../components/UserInformation/UserInformation";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
-
 import * as userApi from "./UserApi";
 
 const User = ({
@@ -64,7 +62,7 @@ const User = ({
     <div>
       <div>User</div>
       <LoadingSpinner loadingState={loadingState}>
-        {error ? <Error /> : <UserInformationTable data={user} />}
+        {error ? <Error /> : <UserInformation data={user} />}
       </LoadingSpinner>
     </div>
   );
