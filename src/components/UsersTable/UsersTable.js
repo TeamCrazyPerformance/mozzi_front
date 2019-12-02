@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,9 +7,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { withStyles } from "@material-ui/core/styles";
-
-import { Link } from "react-router-dom";
+import { makeStyles } from "@material-ui/core/styles";
 
 const rows = [
   {
@@ -57,27 +54,32 @@ const EnhancedTableHead = () => (
   </TableHead>
 );
 
-const UsersTableStyles = theme => ({
-  root: {
+const UsersTableStyles = makeStyles(theme => ({
+  rootClassName: {
     width: "100%",
     marginTop: theme.spacing(3)
   },
-  table: {
+  tableClassName: {
     minWidth: 400
   },
-  tableWrapper: {
+  tableWrapperClassName: {
     overflowX: "auto"
-  },
-  buttonPadding: {
-    paddingRight: 5
   }
-});
+}));
 
-const UserTableRow = (user, index) => (
-  <TableRow hover role="checkbox" tabIndex={-1} key={index}>
-    <TableCell align="center">
-      <Link to={`/admin/user/${user.id}`}>{user.name}</Link>
-    </TableCell>
+const userPageRedirect = userId => {
+  const currentUrl = window.location.href;
+  const redirectUrl = currentUrl.split("/")[0];
+  window.location.href = `${redirectUrl}/admin/user/${userId}`;
+};
+
+const UserTableRow = user => (
+  <TableRow
+    hover
+    key={user.stdNumber}
+    onClick={() => userPageRedirect(user.id)}
+  >
+    <TableCell align="center">{user.name}</TableCell>
     <TableCell align="center">{user.nickname}</TableCell>
     <TableCell align="center">{user.email}</TableCell>
     <TableCell align="center">{user.stdNumber}</TableCell>
@@ -86,15 +88,21 @@ const UserTableRow = (user, index) => (
 );
 
 const UsersTable = props => {
-  const { data, page, count, total, classes, handlePageChange } = props;
+  const { data, page, count, total, handlePageChange } = props;
+  const {
+    rootClassName,
+    tableClassName,
+    tableWrapperClassName
+  } = UsersTableStyles;
   const emptyRows = count - data.length;
+
   return (
-    <Paper className={classes.root}>
-      <div className={classes.tableWrapper}>
-        <Table className={classes.table} aria-labelledby="tableTitle">
+    <Paper className={rootClassName}>
+      <div className={tableWrapperClassName}>
+        <Table className={tableClassName} aria-labelledby="tableTitle">
           <EnhancedTableHead rowCount={count} />
           <TableBody>
-            {data.map((user, index) => UserTableRow(user, index))}
+            {data.map(user => UserTableRow(user))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -133,13 +141,7 @@ UsersTable.propTypes = {
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  classes: PropTypes.shape({
-    buttonPadding: PropTypes.string.isRequired,
-    root: PropTypes.string.isRequired,
-    table: PropTypes.string.isRequired,
-    tableWrapper: PropTypes.string.isRequired
-  }).isRequired,
   handlePageChange: PropTypes.func.isRequired
 };
 
-export default withStyles(UsersTableStyles)(UsersTable);
+export default UsersTable;
