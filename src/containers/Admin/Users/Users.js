@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-
-import UsersTable from "../../../components/UsersTable/UsersTable.js";
+import UsersTable from "../../../components/UsersTable/UsersTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
-
 import * as usersApi from "./UsersApi";
 
 const Users = () => {
