@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-import UserInformation from "../../../components/UserInformation/UserInformation.js";
+import UserInformationTable from "../../../components/UserInformationTable/UserInformationTable.js";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
 
 import * as userApi from "./UserApi";
 
-const User = props => {
-  const userId = props.match.params.userid;
+const User = ({
+  match: {
+    params: { userId }
+  }
+}) => {
   const [user, setUser] = useState({
     id: "",
     name: "",
@@ -43,7 +47,7 @@ const User = props => {
     setErrorToTrue();
   };
 
-  const getUserInformation = ({ userId }) => {
+  const getUserInformation = () => {
     setLoadingStateAndErrorWhenApiCallStart();
     userApi.getUser({
       userId,
@@ -54,16 +58,24 @@ const User = props => {
     });
   };
 
-  useEffect(() => getUserInformation({ userId }), [getUserInformation, userId]);
+  useEffect(getUserInformation, []);
 
   return (
     <div>
       <div>User</div>
       <LoadingSpinner loadingState={loadingState}>
-        {error ? <Error /> : <UserInformation data={user} />}
+        {error ? <Error /> : <UserInformationTable data={user} />}
       </LoadingSpinner>
     </div>
   );
+};
+
+User.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      userId: PropTypes.string.isRequired
+    }).isRequired
+  }).isRequired
 };
 
 export default User;

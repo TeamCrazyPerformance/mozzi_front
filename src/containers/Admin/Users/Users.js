@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 
 import UsersTable from "../../../components/UsersTable/UsersTable.js";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
@@ -6,7 +6,7 @@ import Error from "../../../components/Error/Error";
 
 import * as usersApi from "./UsersApi";
 
-const Users = props => {
+const Users = () => {
   const [users, setUsers] = useState([
     {
       id: "",
@@ -51,7 +51,7 @@ const Users = props => {
     setErrorToTrue();
   };
 
-  const handlePageChange = useCallback((event, newPage) => {
+  const handlePageChange = (event, newPage = 0) => {
     usersApi.getUsers({
       page: newPage,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
@@ -59,9 +59,10 @@ const Users = props => {
       apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
       setResponseToState: setGetUsersResponse
     });
-  });
+  };
 
-  useEffect(() => handlePageChange(null, 0), [handlePageChange]);
+  // Component did mount
+  useEffect(handlePageChange, []);
 
   return (
     <div>

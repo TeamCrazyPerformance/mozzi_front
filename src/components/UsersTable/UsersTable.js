@@ -88,7 +88,6 @@ const UserTableRow = (user, index) => (
 const UsersTable = props => {
   const { data, page, count, total, classes, handlePageChange } = props;
   const emptyRows = count - data.length;
-  console.log(props);
   return (
     <Paper className={classes.root}>
       <div className={classes.tableWrapper}>
@@ -134,7 +133,12 @@ UsersTable.propTypes = {
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.shape({
+    buttonPadding: PropTypes.string.isRequired,
+    root: PropTypes.string.isRequired,
+    table: PropTypes.string.isRequired,
+    tableWrapper: PropTypes.string.isRequired
+  }).isRequired,
   handlePageChange: PropTypes.func.isRequired
 };
 
