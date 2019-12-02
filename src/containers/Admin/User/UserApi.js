@@ -8,7 +8,6 @@ export const getUser = ({
   apiCallFailure,
   setResponseToState
 }) => {
-  console.log("GET: User call.");
   apiCallStart();
 
   // const getJoinRequetsResponse = await fetchHelper.get(`/admin/user/${userId}`)
@@ -30,11 +29,9 @@ export const getUser = ({
   };
 
   if (getUserResponse.success) {
-    console.log("GET: User success");
     setResponseToState({ getUserResponse });
     apiCallSuccess();
   } else {
-    console.log("GET: User failure");
     apiCallFailure();
   }
 };
