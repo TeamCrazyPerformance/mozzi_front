@@ -46,7 +46,6 @@ const User = ({
   };
 
   const getUserInformation = () => {
-    setLoadingStateAndErrorWhenApiCallStart();
     userApi.getUser({
       userId,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
