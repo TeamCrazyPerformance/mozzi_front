@@ -10,7 +10,6 @@ export const getUsers = ({
   apiCallFailure,
   setResponseToState
 }) => {
-  console.log("GET: Users call.");
   apiCallStart();
 
   // const getJoinRequetsResponse = await fetchHelper.get(`/admin/user/getall?limit=${limit}&page=${page}`)
@@ -37,7 +36,7 @@ export const getUsers = ({
         nickname: "Bzzz",
         stdNumber: "26101340",
         phoneNum: "010010010",
-        email: "bbc@naver.com",
+        email: "bbs@naver.com",
         birthday: "29971226"
       },
       {
@@ -127,11 +126,9 @@ export const getUsers = ({
   };
 
   if (getUsersResponse.success) {
-    console.log("GET: Users success");
     setResponseToState({ getUsersResponse });
     apiCallSuccess();
   } else {
-    console.log("GET: Users failure");
     apiCallFailure();
   }
 };
