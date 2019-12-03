@@ -93,7 +93,7 @@ const UsersTable = props => {
     rootClassName,
     tableClassName,
     tableWrapperClassName
-  } = UsersTableStyles;
+  } = UsersTableStyles();
   const emptyRows = count - data.length;
 
   return (
