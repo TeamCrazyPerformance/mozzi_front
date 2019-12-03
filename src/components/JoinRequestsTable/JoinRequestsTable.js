@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,11 +7,10 @@ import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { withStyles } from "@material-ui/core/styles";
-
 import Fab from "@material-ui/core/Fab";
 import Done from "@material-ui/icons/Done";
 import Close from "@material-ui/icons/Close";
+import { makeStyles } from "@material-ui/core/styles";
 
 const rows = [
   {
@@ -42,21 +40,21 @@ const EnhancedTableHead = () => (
   </TableHead>
 );
 
-const JoinRequestTableStyles = theme => ({
-  root: {
+const JoinRequestTableStyles = makeStyles(theme => ({
+  rootClassName: {
     width: "100%",
     marginTop: theme.spacing(3)
   },
-  table: {
+  tableClassName: {
     minWidth: 400
   },
-  tableWrapper: {
+  tableWrapperClassName: {
     overflowX: "auto"
   },
-  buttonPadding: {
+  buttonPaddingClassName: {
     marginRight: 10
   }
-});
+}));
 
 const JoinRequestTable = props => {
   const {
@@ -64,20 +62,30 @@ const JoinRequestTable = props => {
     page,
     count,
     total,
-    classes,
     handlePageChange,
     joinRequestReview
   } = props;
+  const {
+    rootClassName,
+    tableClassName,
+    tableWrapperClassName,
+    buttonPaddingClassName
+  } = JoinRequestTableStyles();
   const emptyRows = count - data.length;
 
   return (
-    <Paper className={classes.root}>
-      <div className={classes.tableWrapper}>
-        <Table className={classes.table} aria-labelledby="tableTitle">
+    <Paper className={rootClassName}>
+      <div className={tableWrapperClassName}>
+        <Table className={tableClassName} aria-labelledby="tableTitle">
           <EnhancedTableHead rowCount={count} />
           <TableBody>
-            {data.map((student, index) => (
-              <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+            {data.map(student => (
+              <TableRow
+                hover
+                role="checkbox"
+                tabIndex={-1}
+                key={student.stdNumber}
+              >
                 <TableCell align="center">{student.name}</TableCell>
                 <TableCell align="center">{student.stdNumber}</TableCell>
                 <TableCell align="center">
@@ -85,7 +93,7 @@ const JoinRequestTable = props => {
                     size="small"
                     color="primary"
                     aria-label="Approve"
-                    className={classes.buttonPadding}
+                    className={buttonPaddingClassName}
                     onClick={() =>
                       joinRequestReview({
                         userId: student.userId,
@@ -142,7 +150,7 @@ JoinRequestTable.propTypes = {
       stdNumber: PropTypes.string.isRequired,
       userId: PropTypes.string.isRequired
     })
-  ),
+  ).isRequired,
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
@@ -150,4 +158,4 @@ JoinRequestTable.propTypes = {
   joinRequestReview: PropTypes.func.isRequired
 };
 
-export default withStyles(JoinRequestTableStyles)(JoinRequestTable);
+export default JoinRequestTable;
