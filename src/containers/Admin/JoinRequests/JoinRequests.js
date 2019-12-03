@@ -1,9 +1,7 @@
-import React, { useEffect, useState, useCallback } from "react";
-
+import React, { useEffect, useState } from "react";
 import JoinRequestsTable from "../../../components/JoinRequestsTable/JoinRequestsTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
-
 import * as joinRequestsApi from "./JoinRequestsApi";
 
 const JoinRequests = () => {
@@ -46,7 +44,7 @@ const JoinRequests = () => {
     setErrorToTrue();
   };
 
-  const handlePageChange = useCallback((event, newPage) => {
+  const handlePageChange = (event, newPage = 0) => {
     joinRequestsApi.getJoinRequests({
       page: newPage,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
@@ -54,7 +52,7 @@ const JoinRequests = () => {
       apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
       setResponseToState: setJoinRequestsResponse
     });
-  });
+  };
 
   const joinRequestReview = ({ userId, currentPage, joinRequestType }) => {
     joinRequestsApi.postJoinRequestReview({
@@ -68,7 +66,7 @@ const JoinRequests = () => {
   };
 
   // Component did mount
-  useEffect(() => handlePageChange(null, 0), [handlePageChange]);
+  useEffect(handlePageChange, []);
 
   return (
     <div>
