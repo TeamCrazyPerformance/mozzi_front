@@ -3,10 +3,12 @@ import { jwtLocalStorageVariableName } from "../setting/jwtSetting";
 
 export const setJwt = jwtToken => {
   sessionStorage.setItem(jwtLocalStorageVariableName, jwtToken);
+  return true;
 };
 
 export const clearJwt = () => {
   sessionStorage.removeItem(jwtLocalStorageVariableName);
+  return true;
 };
 
 export const getJwt = () => {
