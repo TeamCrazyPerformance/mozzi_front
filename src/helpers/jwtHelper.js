@@ -12,12 +12,15 @@ export const clearJwt = () => {
 };
 
 export const getJwt = () => {
+  let jwt;
+
   try {
-    const jwt = sessionStorage.getItem(jwtLocalStorageVariableName);
-    return jwt;
+    jwt = sessionStorage.getItem(jwtLocalStorageVariableName);
   } catch (err) {
     clearJwt();
   }
+
+  return jwt;
 };
 
 export const checkExpirity = token => {
