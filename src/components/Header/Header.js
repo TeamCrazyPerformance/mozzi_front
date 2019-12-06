@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
@@ -13,6 +16,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import DrawerList from "../DrawerList/DrawerList";
+import * as authActions from "../../redux/auth/actions";
 
 const drawerWidth = 240;
 
@@ -52,7 +56,7 @@ const appBarStyles = makeStyles(theme => ({
 }));
 
 const Header = props => {
-  const { children } = props;
+  const { children, signOut } = props;
   const {
     rootClassName,
     drawerClassName,
@@ -72,6 +76,8 @@ const Header = props => {
 
   const handleAccountCircleMenuOpen = event => setAnchorEl(event.currentTarget);
   const handleAccountCircleMenuClose = () => setAnchorEl(null);
+
+  const signOutHandler = () => signOut();
 
   return (
     <div className={`${rootClassName} app-bar-wrapper`}>
@@ -122,7 +128,9 @@ const Header = props => {
               <MenuItem onClick={handleAccountCircleMenuClose}>
                 Profile
               </MenuItem>
-              <MenuItem onClick={handleAccountCircleMenuClose}>Logout</MenuItem>
+              <MenuItem onClick={signOutHandler}>
+                <Link to="/">Logout</Link>
+              </MenuItem>
             </Menu>
           </div>
         </Toolbar>
@@ -173,7 +181,12 @@ const Header = props => {
 };
 
 Header.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array])
+    .isRequired,
+  signOut: PropTypes.func.isRequired
 };
 
-export default Header;
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(authActions, dispatch);
+
+export default connect(null, mapDispatchToProps)(Header);
