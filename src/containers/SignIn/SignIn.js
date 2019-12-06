@@ -19,10 +19,7 @@ const SignIn = props => {
   const handleIdentityValue = event => setIdentityValue(event.target.value);
   const handlePasswordValue = event => setPasswordValue(event.target.value);
 
-  const handleSubmit = event => {
-    // Prevent browers refresh.
-    event.preventDefault();
-
+  const handleSubmit = () => {
     const userInformation = {
       identity: identityValue,
       password: passwordValue
@@ -48,7 +45,9 @@ const SignIn = props => {
           <Logo size="large" spin />
           <SignInForm
             handleSubmit={handleSubmit}
+            identityValue={identityValue}
             handleIdentityValue={handleIdentityValue}
+            passwordValue={passwordValue}
             handlePasswordVaule={handlePasswordValue}
             signupUrl="/signup"
           />
