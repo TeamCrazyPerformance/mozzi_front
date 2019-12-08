@@ -6,7 +6,7 @@ import projectManipulationSaga from "./project/projectManipulation/saga";
 import issueMainSaga from "./project/issueMain/saga";
 
 // Combine all sagas.
-export default function* rootSaga(getState) {
+export default function* rootSaga() {
   yield all([
     authSaga(),
     projectMainSaga(),
