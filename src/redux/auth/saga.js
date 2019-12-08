@@ -3,8 +3,11 @@ import * as AuthApi from "./api";
 import * as AuthActions from "./actionTypes";
 import * as jwtHelper from "../../helpers/jwtHelper";
 
-const postSignIn = function*() {
-  yield takeEvery(AuthActions.POST_SIGN_IN, function*({ identity, password }) {
+const postSignIn = function* postSignIn() {
+  yield takeEvery(AuthActions.POST_SIGN_IN, function* postSignInSaga({
+    identity,
+    password
+  }) {
     yield put({
       type: AuthActions.POST_SIGN_IN_PENDING
     });
@@ -30,8 +33,8 @@ const postSignIn = function*() {
   });
 };
 
-const signOut = function*() {
-  yield takeEvery(AuthActions.SIGN_OUT, function*() {
+const signOut = function* signOut() {
+  yield takeEvery(AuthActions.SIGN_OUT, function* signOutSaga() {
     yield put({
       type: AuthActions.SIGN_OUT_PENDING
     });
@@ -50,17 +53,20 @@ const signOut = function*() {
   });
 };
 
-const checkAuthorization = function*() {
-  yield takeEvery(AuthActions.CHECK_AUTHORIZATION, function*() {
-    const jwt = jwtHelper.getJwt();
-    const isAuthorization = jwtHelper.checkExpirity(jwt);
+const checkAuthorization = function* checkAuthorization() {
+  yield takeEvery(
+    AuthActions.CHECK_AUTHORIZATION,
+    function* checkAuthorizationSaga() {
+      const jwt = jwtHelper.getJwt();
+      const isAuthorization = jwtHelper.checkExpirity(jwt);
 
-    if (isAuthorization.token) {
-      yield put({
-        type: AuthActions.POST_SIGN_IN_SUCCESS
-      });
+      if (isAuthorization.token) {
+        yield put({
+          type: AuthActions.POST_SIGN_IN_SUCCESS
+        });
+      }
     }
-  });
+  );
 };
 
 export default function* authSaga() {
