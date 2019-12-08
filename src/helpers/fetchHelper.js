@@ -25,7 +25,7 @@ const base = (method, url, data) =>
   })
     .then(response => (response.ok ? response.json() : { error: "Error" }))
     .then(response => response)
-    .catch(error => ({ error: "Server Error" }));
+    .catch(() => ({ error: "Server Error" }));
 
 const fetchHelper = {};
 
