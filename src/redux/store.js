@@ -23,4 +23,4 @@ const store = createStore(
 // Dynamically run saga.
 sagaMiddleware.run(rootSaga);
 
-export { store };
+export default store;

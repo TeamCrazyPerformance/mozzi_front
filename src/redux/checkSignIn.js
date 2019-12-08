@@ -1,4 +1,4 @@
-import { store } from "./store";
+import store from "./store";
 import * as authActions from "./auth/actions";
 
 const checkSignIn = component => {
