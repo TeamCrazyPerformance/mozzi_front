@@ -3,12 +3,10 @@ import PropTypes from "prop-types";
 import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-
 import FlexBox from "../../components/FlexBox/FlexBox";
 import SignInForm from "../../components/SignInForm/SignInForm";
 import Logo from "../../components/Logo/Logo";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
-
 import * as authActions from "../../redux/auth/actions";
 
 const SignIn = props => {
