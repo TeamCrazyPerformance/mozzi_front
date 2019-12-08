@@ -1,28 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-
 import "./FlexBox.css";
 
-const FlexBox = ({
-  wrap = "wrap",
-  column = "row",
-  align = "flex-start",
-  justify = "flex-start",
-  maxHeight = false,
-  children
-}) => {
-  const flexBoxClassNames = _changePropsToClassName({
-    wrap,
-    column,
-    align,
-    justify,
-    maxHeight
-  });
-
-  return <div className={flexBoxClassNames}>{children || ""}</div>;
-};
-
-const _changePropsToClassName = ({
+const changePropsToClassName = ({
   wrap,
   column,
   align,
@@ -45,6 +25,19 @@ const _changePropsToClassName = ({
   return classNames;
 };
 
+const FlexBox = props => {
+  const { wrap, column, align, justify, maxHeight, children } = props;
+  const flexBoxClassNames = changePropsToClassName({
+    wrap,
+    column,
+    align,
+    justify,
+    maxHeight
+  });
+
+  return <div className={flexBoxClassNames}>{children || ""}</div>;
+};
+
 FlexBox.propTypes = {
   wrap: PropTypes.oneOf(["wrap", "no-wrap", "wrap-reverse"]),
   column: PropTypes.oneOf(["row", "column", "row-reverse", "column-reverse"]),
@@ -64,6 +57,14 @@ FlexBox.propTypes = {
   ]),
   maxHeight: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired
+};
+
+FlexBox.defaultProps = {
+  wrap: "wrap",
+  column: "row",
+  align: "flex-start",
+  justify: "flex-start",
+  maxHeight: false
 };
 
 export default FlexBox;

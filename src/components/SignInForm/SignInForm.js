@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-
 import "./SignInForm.css";
 
 const SignInForm = props => {

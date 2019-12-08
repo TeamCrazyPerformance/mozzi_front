@@ -1,17 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
-import { withStyles } from "@material-ui/core/styles";
-
+import { makeStyles } from "@material-ui/core/styles";
 import Home from "@material-ui/icons/Home";
 import LaptopWindows from "@material-ui/icons/LaptopWindows";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
-
 import Memory from "@material-ui/icons/Memory";
 import GroupAdd from "@material-ui/icons/GroupAdd";
 import Group from "@material-ui/icons/Group";
@@ -72,21 +69,21 @@ const drawerList = [
   ]
 ];
 
-const drawerListStyles = theme => ({
-  drawerWrapper: {
+const drawerListStyles = makeStyles(() => ({
+  drawerWrapperClassName: {
     width: 240
   },
-  toolbar: {
+  toolbarClassName: {
     height: 55
   }
-});
+}));
 
-const DrawerList = props => {
-  const { classes } = props;
+const DrawerList = () => {
+  const { drawerWrapperClassName, toolbarClassName } = drawerListStyles();
 
   return (
-    <div className={`${classes.drawerWrapper} drawer-wrapper`}>
-      <div className={`${classes.toolbar} drawer-wrapper__empty-space`} />
+    <div className={`${drawerWrapperClassName} drawer-wrapper`}>
+      <div className={`${toolbarClassName} drawer-wrapper__empty-space`} />
       <List>
         {drawerList.map((list, listIndex) =>
           list.map(({ iconComponent, text, link }, index) => {
@@ -111,4 +108,4 @@ const DrawerList = props => {
   );
 };
 
-export default withStyles(drawerListStyles)(DrawerList);
+export default DrawerList;
