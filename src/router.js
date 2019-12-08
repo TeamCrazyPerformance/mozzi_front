@@ -7,22 +7,17 @@ import {
   Redirect
 } from "react-router-dom";
 import { connect } from "react-redux";
-
 import SignIn from "./containers/SignIn/SignIn";
-
 import Header from "./components/Header/Header";
 import Main from "./containers/Main/Main";
 import ProjectMain from "./containers/Project/ProjectMain";
 import ProjectCreate from "./containers/Project/ProjectCreate";
 import ProjectView from "./containers/Project/ProjectVIew";
-
 import Exam from "./containers/Exam/Exam";
-
 import Admin from "./containers/Admin/Admin/Admin";
 import JoinRequests from "./containers/Admin/JoinRequests/JoinRequests";
 import Users from "./containers/Admin/Users/Users";
 import User from "./containers/Admin/User/User";
-
 import ErrorPage404 from "./containers/Pages/404";
 
 const PrivateRouter = () => (
