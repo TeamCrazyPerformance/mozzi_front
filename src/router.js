@@ -8,6 +8,7 @@ import {
 } from "react-router-dom";
 import { connect } from "react-redux";
 import SignIn from "./containers/SignIn/SignIn";
+import SignUp from "./containers/SignUp/SignUp";
 import Header from "./components/Header/Header";
 import Main from "./containers/Main/Main";
 import ProjectMain from "./containers/Project/ProjectMain";
@@ -50,6 +51,7 @@ const AppRouter = props => {
       <Switch>
         <Route exact path="/" component={SignIn} />
         <Route exact path="/signin" component={SignIn} />
+        <Route exact path="/signup" component={SignUp} />
         <PrivateRouterComponent
           isSignIn={isSignIn}
           privateRouterComponent={PrivateRouter}
