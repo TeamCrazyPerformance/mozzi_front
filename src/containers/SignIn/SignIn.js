@@ -38,6 +38,7 @@ const SignIn = props => {
         align="center"
         justify="center"
         maxHeight
+        createWrapper
       >
         <LoadingSpinner loadingState={loadingState.signIn}>
           <Logo size="large" spin />

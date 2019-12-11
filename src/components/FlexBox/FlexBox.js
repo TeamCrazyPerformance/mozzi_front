@@ -26,7 +26,15 @@ const changePropsToClassName = ({
 };
 
 const FlexBox = props => {
-  const { wrap, column, align, justify, maxHeight, children } = props;
+  const {
+    wrap,
+    column,
+    align,
+    justify,
+    maxHeight,
+    createWrapper,
+    children
+  } = props;
   const flexBoxClassNames = changePropsToClassName({
     wrap,
     column,
@@ -35,7 +43,17 @@ const FlexBox = props => {
     maxHeight
   });
 
-  return <div className={flexBoxClassNames}>{children || ""}</div>;
+  return (
+    <div className={flexBoxClassNames}>
+      {createWrapper ? (
+        <div className="flexBoxChildrenWrapper">{children}</div>
+      ) : (
+        children
+      )}
+    </div>
+  );
+
+  // return <div className={flexBoxClassNames}>{children || ""}</div>;
 };
 
 FlexBox.propTypes = {
@@ -56,6 +74,7 @@ FlexBox.propTypes = {
     "space-around"
   ]),
   maxHeight: PropTypes.bool,
+  createWrapper: PropTypes.bool,
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired
 };
 
@@ -64,7 +83,8 @@ FlexBox.defaultProps = {
   column: "row",
   align: "flex-start",
   justify: "flex-start",
-  maxHeight: false
+  maxHeight: false,
+  createWrapper: false
 };
 
 export default FlexBox;
