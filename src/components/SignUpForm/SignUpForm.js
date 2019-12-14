@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import "./SignUpForm.css";
@@ -159,6 +160,28 @@ const SignUpForm = props => {
   );
 };
 
-SignUpForm.propTypes = {};
+SignUpForm.propTypes = {
+  identityValue: PropTypes.string.isRequired,
+  handleIdentityValue: PropTypes.func.isRequired,
+  passwordValue: PropTypes.string.isRequired,
+  handlePasswordValue: PropTypes.func.isRequired,
+  passwordConfirmValue: PropTypes.string.isRequired,
+  handlePasswordConfirmValue: PropTypes.func.isRequired,
+  nameValue: PropTypes.string.isRequired,
+  handleNameValue: PropTypes.func.isRequired,
+  birthdayValue: PropTypes.string.isRequired,
+  handleBirthdayValue: PropTypes.func.isRequired,
+  nickNameValue: PropTypes.string.isRequired,
+  handleNickNameValue: PropTypes.func.isRequired,
+  genderValue: PropTypes.string.isRequired,
+  handleGenderValue: PropTypes.func.isRequired,
+  schoolValue: PropTypes.string.isRequired,
+  handleSchoolValue: PropTypes.func.isRequired,
+  emailValue: PropTypes.string.isRequired,
+  handleEmailValue: PropTypes.func.isRequired,
+  phoneNumberValue: PropTypes.string.isRequired,
+  handlePhoneNumberValue: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired
+};
 
 export default SignUpForm;
