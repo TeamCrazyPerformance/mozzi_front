@@ -28,17 +28,48 @@ const SignUp = () => {
   const handlePhoneNumberValue = event =>
     setPhoneNumberValue(event.target.value);
 
+  const handleSubmit = () => {
+    const userInformation = {
+      identity: identityValue,
+      password: passwordValue,
+      name: nameValue,
+      birthday: birthdayValue,
+      nickName: nickNameValue,
+      gender: genderValue,
+      school: schoolValue,
+      email: emailValue,
+      phoneNumber: phoneNumberValue
+    };
+
+    console.log(userInformation);
+  };
+
   return (
-    <FlexBox
-      wrap="wrap"
-      column="column"
-      align="center"
-      justify="center"
-      maxHeight
-      createWrapper
-    >
+    <FlexBox wrap="wrap" column="column" align="center" maxHeight createWrapper>
       <Logo />
-      <SignUpForm />
+      <SignUpForm
+        identityValue={identityValue}
+        handleIdentityValue={handleIdentityValue}
+        passwordValue={passwordValue}
+        handlePasswordValue={handlePasswordValue}
+        passwordConfirmValue={passwordConfirmValue}
+        handlePasswordConfirmValue={handlePasswordConfirmValue}
+        nameValue={nameValue}
+        handleNameValue={handleNameValue}
+        birthdayValue={birthdayValue}
+        handleBirthdayValue={handleBirthdayValue}
+        nickNameValue={nickNameValue}
+        handleNickNameValue={handleNickNameValue}
+        genderValue={genderValue}
+        handleGenderValue={handleGenderValue}
+        schoolValue={schoolValue}
+        handleSchoolValue={handleSchoolValue}
+        emailValue={emailValue}
+        handleEmailValue={handleEmailValue}
+        phoneNumberValue={phoneNumberValue}
+        handlePhoneNumberValue={handlePhoneNumberValue}
+        handleSubmit={handleSubmit}
+      />
     </FlexBox>
   );
 };
