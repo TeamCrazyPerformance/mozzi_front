@@ -30,7 +30,7 @@ const SignInForm = props => {
     else setPasswordValueIsEmpty(false);
   };
 
-  const vaildationCheckAndHandleSubmit = event => {
+  const validationCheckAndHandleSubmit = event => {
     // Prevent browers refresh.
     event.preventDefault();
 
@@ -45,7 +45,7 @@ const SignInForm = props => {
     <div className="signin-form-component">
       <form
         className="signin-form-component__form"
-        onSubmit={vaildationCheckAndHandleSubmit}
+        onSubmit={validationCheckAndHandleSubmit}
       >
         <div className="signin-form-component__form__input-box-wrapper">
           <TextField
