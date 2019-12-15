@@ -17,28 +17,27 @@ const SignInForm = props => {
   const [identityValueIsEmpty, setIdentityValueIsEmpty] = useState(false);
   const [passwordValueIsEmpty, setPasswordValueIsEmpty] = useState(false);
 
-  const validationCheck = (idValue, pwValue) => {
-    if (idValue && pwValue) return true;
-    return false;
-  };
+  const validationCheck = () => {
+    let valueIsEmpty = false;
 
-  const setTextFieldToError = () => {
-    if (identityValue === "") setIdentityValueIsEmpty(true);
-    else setIdentityValueIsEmpty(false);
+    if (identityValue === "") {
+      setIdentityValueIsEmpty(true);
+      valueIsEmpty = true;
+    } else setIdentityValueIsEmpty(false);
 
-    if (passwordValue === "") setPasswordValueIsEmpty(true);
-    else setPasswordValueIsEmpty(false);
+    if (passwordValue === "") {
+      setPasswordValueIsEmpty(true);
+      valueIsEmpty = true;
+    } else setPasswordValueIsEmpty(false);
+
+    return !valueIsEmpty;
   };
 
   const validationCheckAndHandleSubmit = event => {
     // Prevent browers refresh.
     event.preventDefault();
 
-    if (validationCheck(identityValue, passwordValue)) {
-      handleSubmit();
-    } else {
-      setTextFieldToError();
-    }
+    if (validationCheck()) handleSubmit();
   };
 
   return (
