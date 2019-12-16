@@ -50,6 +50,7 @@ const SignInForm = props => {
           <TextField
             className="signin-form-component__form__input-box-wrapper__email-input-box"
             label="Email"
+            value={identityValue}
             onChange={handleIdentityValue || undefined}
             error={identityValueIsEmpty}
             helperText={identityValueIsEmpty ? "Please fill Email" : " "}
@@ -61,6 +62,7 @@ const SignInForm = props => {
             className="signin-form-component__form__input-box-wrapper__password-input-box"
             label="Password"
             type="password"
+            value={passwordValue}
             onChange={handlePasswordVaule || undefined}
             error={passwordValueIsEmpty}
             helperText={passwordValueIsEmpty ? "Please fill Password" : " "}

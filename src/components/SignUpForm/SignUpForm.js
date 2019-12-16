@@ -129,6 +129,7 @@ const SignUpForm = props => {
           <TextField
             className="signup-form-component__form__input-box-wrapper__id-input-box"
             label="ID"
+            value={identityValue}
             onChange={handleIdentityValue}
             error={identityValueIsEmpty}
             helperText={identityValueIsEmpty ? "Please fill ID" : " "}
@@ -140,6 +141,7 @@ const SignUpForm = props => {
             className="signup-form-component__form__input-box-wrapper__password-input-box"
             label="Password"
             type="password"
+            value={passwordValue}
             onChange={handlePasswordValue}
             error={passwordValueIsEmpty}
             helperText={passwordValueIsEmpty ? "Please fill password" : " "}
@@ -151,6 +153,7 @@ const SignUpForm = props => {
             className="signup-form-component__form__input-box-wrapper__password-confirm-input-box"
             label="Password confirm"
             type="password"
+            value={passwordConfirmValue}
             onChange={handlePasswordConfirmValue}
             error={passwordConfirmValueIsEmpty || !passwordConfirmIsSame}
             helperText={
@@ -165,6 +168,7 @@ const SignUpForm = props => {
           <TextField
             className="signup-form-component__form__input-box-wrapper__name-input-box"
             label="Name"
+            value={nameValue}
             onChange={handleNameValue}
             error={nameValueIsEmpty}
             helperText={nameValueIsEmpty ? "Please fill name" : " "}
@@ -175,6 +179,7 @@ const SignUpForm = props => {
           <TextField
             className="signup-form-component__form__input-box-wrapper__birthday-input-box"
             label="Birthday"
+            value={birthdayValue}
             onChange={handleBirthdayValue}
             error={birthdayValueIsEmpty}
             helperText={birthdayValueIsEmpty ? "Please fill birthday" : " "}
@@ -185,6 +190,7 @@ const SignUpForm = props => {
           <TextField
             className="signup-form-component__form__input-box-wrapper__nickname-input-box"
             label="Nickname"
+            value={nickNameValue}
             onChange={handleNickNameValue}
             error={nickNameValueIsEmpty}
             helperText={nickNameValueIsEmpty ? "Please fill nick name" : " "}
@@ -195,6 +201,7 @@ const SignUpForm = props => {
           <TextField
             className="signup-form-component__form__input-box-wrapper__gender-input-box"
             label="Gender"
+            value={genderValue}
             onChange={handleGenderValue}
             error={genderValueIsEmpty}
             helperText={genderValueIsEmpty ? "Please fill gender" : " "}
@@ -205,6 +212,7 @@ const SignUpForm = props => {
           <TextField
             className="signup-form-component__form__input-box-wrapper__school-input-box"
             label="School"
+            value={schoolValue}
             onChange={handleSchoolValue}
             error={schoolValueIsEmpty}
             helperText={schoolValueIsEmpty ? "Please fill school" : " "}
@@ -215,6 +223,7 @@ const SignUpForm = props => {
           <TextField
             className="signup-form-component__form__input-box-wrapper__email-input-box"
             label="Email"
+            value={emailValue}
             onChange={handleEmailValue}
             error={emailValueIsEmpty}
             helperText={emailValueIsEmpty ? "Please fill email" : " "}
@@ -225,6 +234,7 @@ const SignUpForm = props => {
           <TextField
             className="signup-form-component__form__input-box-wrapper__phoneNumber-input-box"
             label="Phone number"
+            value={phoneNumberValue}
             onChange={handlePhoneNumberValue}
             error={phoneNumberValueIsEmpty}
             helperText={
