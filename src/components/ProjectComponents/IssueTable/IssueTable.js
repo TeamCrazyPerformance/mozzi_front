@@ -1,17 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
 
 const IssueTable = ({ projectIssues, projectId }) => (
   <Table>
     <TableBody>
-      {projectIssues.map((issue) => (
+      {projectIssues.map(issue => (
         <TableRow id={issue.id}>
           <Link to={`./${issue.id}`}>
             <TableCell>{issue.title}</TableCell>
@@ -31,7 +30,7 @@ const IssueTable = ({ projectIssues, projectId }) => (
 
 IssueTable.propTypes = {
   projectIssues: PropTypes.array.isRequired,
-  projectId: PropTypes.string.isRequired,
+  projectId: PropTypes.string.isRequired
 };
 
 export default IssueTable;

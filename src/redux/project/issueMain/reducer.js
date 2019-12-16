@@ -1,10 +1,10 @@
-import * as actions from './actionTypes';
+import * as actions from "./actionTypes";
 
 const issueMainInitialState = {
   issues: [],
   loadingState: {
-    getIssues: false,
-  },
+    getIssues: false
+  }
 };
 
 const issueMainReducer = (state = issueMainInitialState, action) => {
@@ -14,8 +14,8 @@ const issueMainReducer = (state = issueMainInitialState, action) => {
         ...state,
         loadingState: {
           ...state.loadingState,
-          getIssues: true,
-        },
+          getIssues: true
+        }
       };
     }
 
@@ -25,8 +25,8 @@ const issueMainReducer = (state = issueMainInitialState, action) => {
         issues: action.issues,
         loadingState: {
           ...state.loadingState,
-          getIssues: false,
-        },
+          getIssues: false
+        }
       };
     }
 
@@ -35,8 +35,8 @@ const issueMainReducer = (state = issueMainInitialState, action) => {
         ...state,
         loadingState: {
           ...state.loadingState,
-          getIssues: false,
-        },
+          getIssues: false
+        }
       };
     }
 

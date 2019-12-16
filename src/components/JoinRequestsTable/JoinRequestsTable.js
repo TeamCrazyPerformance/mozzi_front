@@ -1,107 +1,106 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-
-import Fab from '@material-ui/core/Fab';
-import Done from '@material-ui/icons/Done';
-import Close from '@material-ui/icons/Close';
+import React from "react";
+import PropTypes from "prop-types";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import Fab from "@material-ui/core/Fab";
+import Done from "@material-ui/icons/Done";
+import Close from "@material-ui/icons/Close";
+import { makeStyles } from "@material-ui/core/styles";
 
 const rows = [
   {
-    id: 'name', numeric: false, disablePadding: true, label: 'Student Name',
+    id: "name",
+    numeric: false,
+    disablePadding: true,
+    label: "Student Name"
   },
   {
-    id: 'studenNumber', numeric: true, disablePadding: false, label: 'Student Number',
-  },
+    id: "studenNumber",
+    numeric: true,
+    disablePadding: false,
+    label: "Student Number"
+  }
 ];
 
 const EnhancedTableHead = () => (
   <TableHead>
     <TableRow role="checkbox">
-      {rows.map((row) => (
-        <TableCell
-          key={row.id}
-          align="center"
-        >
+      {rows.map(row => (
+        <TableCell key={row.id} align="center">
           {row.label}
         </TableCell>
       ))}
-      <TableCell align="center">
-          Approve/Reject
-      </TableCell>
+      <TableCell align="center">Approve/Reject</TableCell>
     </TableRow>
   </TableHead>
 );
 
-const JoinRequestTableStyles = (theme) => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
+const JoinRequestTableStyles = makeStyles(theme => ({
+  rootClassName: {
+    width: "100%",
+    marginTop: theme.spacing(3)
   },
-  table: {
-    minWidth: 400,
+  tableClassName: {
+    minWidth: 400
   },
-  tableWrapper: {
-    overflowX: 'auto',
+  tableWrapperClassName: {
+    overflowX: "auto"
   },
-  buttonPadding: {
-    marginRight: 10,
-  },
-});
+  buttonPaddingClassName: {
+    marginRight: 10
+  }
+}));
 
-const JoinRequestTable = (props) => {
+const JoinRequestTable = props => {
   const {
     data,
     page,
     count,
     total,
-    classes,
     handlePageChange,
-    joinRequestReview,
+    joinRequestReview
   } = props;
+  const {
+    rootClassName,
+    tableClassName,
+    tableWrapperClassName,
+    buttonPaddingClassName
+  } = JoinRequestTableStyles();
   const emptyRows = count - data.length;
 
   return (
-    <Paper className={classes.root}>
-      <div className={classes.tableWrapper}>
-        <Table
-          className={classes.table}
-          aria-labelledby="tableTitle"
-        >
+    <Paper className={rootClassName}>
+      <div className={tableWrapperClassName}>
+        <Table className={tableClassName} aria-labelledby="tableTitle">
           <EnhancedTableHead rowCount={count} />
           <TableBody>
-            {data.map((student, index) => (
+            {data.map(student => (
               <TableRow
                 hover
                 role="checkbox"
                 tabIndex={-1}
-                key={index}
+                key={student.stdNumber}
               >
-                <TableCell align="center">
-                  {student.name}
-                </TableCell>
-                <TableCell align="center">
-                  {student.stdNumber}
-                </TableCell>
+                <TableCell align="center">{student.name}</TableCell>
+                <TableCell align="center">{student.stdNumber}</TableCell>
                 <TableCell align="center">
                   <Fab
                     size="small"
                     color="primary"
                     aria-label="Approve"
-                    className={classes.buttonPadding}
-                    onClick={() => joinRequestReview({
-                      userId: student.userId,
-                      currentPage: page,
-                      joinRequestType: 'approve',
-                    })}
+                    className={buttonPaddingClassName}
+                    onClick={() =>
+                      joinRequestReview({
+                        userId: student.userId,
+                        currentPage: page,
+                        joinRequestType: "approve"
+                      })
+                    }
                   >
                     <Done />
                   </Fab>
@@ -109,11 +108,13 @@ const JoinRequestTable = (props) => {
                     size="small"
                     color="secondary"
                     aria-label="Reject"
-                    onClick={() => joinRequestReview({
-                      userId: student.userId,
-                      currentPage: page,
-                      joinRequestType: 'reject',
-                    })}
+                    onClick={() =>
+                      joinRequestReview({
+                        userId: student.userId,
+                        currentPage: page,
+                        joinRequestType: "reject"
+                      })
+                    }
                   >
                     <Close />
                   </Fab>
@@ -135,24 +136,26 @@ const JoinRequestTable = (props) => {
         rowsPerPage={count}
         page={page}
         onChangePage={handlePageChange}
-        backIconButtonProps={{ 'aria-label': 'Previous Page' }}
-        nextIconButtonProps={{ 'aria-label': 'Next Page' }}
+        backIconButtonProps={{ "aria-label": "Previous Page" }}
+        nextIconButtonProps={{ "aria-label": "Next Page" }}
       />
     </Paper>
   );
 };
 
 JoinRequestTable.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    stdNumber: PropTypes.string.isRequired,
-    userId: PropTypes.string.isRequired,
-  })),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string.isRequired,
+      stdNumber: PropTypes.string.isRequired,
+      userId: PropTypes.string.isRequired
+    })
+  ).isRequired,
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   handlePageChange: PropTypes.func.isRequired,
-  joinRequestReview: PropTypes.func.isRequired,
+  joinRequestReview: PropTypes.func.isRequired
 };
 
-export default withStyles(JoinRequestTableStyles)(JoinRequestTable);
+export default JoinRequestTable;

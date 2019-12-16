@@ -1,43 +1,52 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableHead from '@material-ui/core/TableHead';
-import TablePagination from '@material-ui/core/TablePagination';
-import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
-import { withStyles } from '@material-ui/core/styles';
-
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableHead from "@material-ui/core/TableHead";
+import TablePagination from "@material-ui/core/TablePagination";
+import TableRow from "@material-ui/core/TableRow";
+import Paper from "@material-ui/core/Paper";
+import { makeStyles } from "@material-ui/core/styles";
 
 const rows = [
   {
-    id: 'name', numeric: false, disablePadding: true, label: 'User Name',
+    id: "name",
+    numeric: false,
+    disablePadding: true,
+    label: "User Name"
   },
   {
-    id: 'nickname', numeric: true, disablePadding: false, label: 'User Nickname',
+    id: "nickname",
+    numeric: true,
+    disablePadding: false,
+    label: "User Nickname"
   },
   {
-    id: 'email', numeric: true, disablePadding: false, label: 'User Email',
+    id: "email",
+    numeric: true,
+    disablePadding: false,
+    label: "User Email"
   },
   {
-    id: 'stdNumber', numeric: true, disablePadding: false, label: 'User Student Number',
+    id: "stdNumber",
+    numeric: true,
+    disablePadding: false,
+    label: "User Student Number"
   },
   {
-    id: 'birthday', numeric: true, disablePadding: false, label: 'User Birthday',
-  },
+    id: "birthday",
+    numeric: true,
+    disablePadding: false,
+    label: "User Birthday"
+  }
 ];
 
 const EnhancedTableHead = () => (
   <TableHead>
     <TableRow role="checkbox">
-      {rows.map((row) => (
-        <TableCell
-          key={row.id}
-          align="center"
-        >
+      {rows.map(row => (
+        <TableCell key={row.id} align="center">
           {row.label}
         </TableCell>
       ))}
@@ -45,70 +54,55 @@ const EnhancedTableHead = () => (
   </TableHead>
 );
 
-const UsersTableStyles = (theme) => ({
-  root: {
-    width: '100%',
-    marginTop: theme.spacing.unit * 3,
+const UsersTableStyles = makeStyles(theme => ({
+  rootClassName: {
+    width: "100%",
+    marginTop: theme.spacing(3)
   },
-  table: {
-    minWidth: 400,
+  tableClassName: {
+    minWidth: 400
   },
-  tableWrapper: {
-    overflowX: 'auto',
-  },
-  buttonPadding: {
-    paddingRight: 5,
-  },
-});
+  tableWrapperClassName: {
+    overflowX: "auto"
+  }
+}));
 
-const UserTableRow = (user, index) => (
+const userPageRedirect = userId => {
+  const currentUrl = window.location.href;
+  const redirectUrl = currentUrl.split("/")[0];
+  window.location.href = `${redirectUrl}/admin/user/${userId}`;
+};
+
+const UserTableRow = user => (
   <TableRow
     hover
-    role="checkbox"
-    tabIndex={-1}
-    key={index}
+    key={user.stdNumber}
+    onClick={() => userPageRedirect(user.id)}
   >
-    <TableCell align="center">
-      <Link to={`/admin/user/${user.id}`}>
-        {user.name}
-      </Link>
-    </TableCell>
-    <TableCell align="center">
-      {user.nickname}
-    </TableCell>
-    <TableCell align="center">
-      {user.email}
-    </TableCell>
-    <TableCell align="center">
-      {user.stdNumber}
-    </TableCell>
-    <TableCell align="center">
-      {user.birthday}
-    </TableCell>
+    <TableCell align="center">{user.name}</TableCell>
+    <TableCell align="center">{user.nickname}</TableCell>
+    <TableCell align="center">{user.email}</TableCell>
+    <TableCell align="center">{user.stdNumber}</TableCell>
+    <TableCell align="center">{user.birthday}</TableCell>
   </TableRow>
 );
 
-const UsersTable = (props) => {
+const UsersTable = props => {
+  const { data, page, count, total, handlePageChange } = props;
   const {
-    data,
-    page,
-    count,
-    total,
-    classes,
-    handlePageChange,
-  } = props;
+    rootClassName,
+    tableClassName,
+    tableWrapperClassName
+  } = UsersTableStyles();
   const emptyRows = count - data.length;
 
   return (
-    <Paper className={classes.root}>
-      <div className={classes.tableWrapper}>
-        <Table
-          className={classes.table}
-          aria-labelledby="tableTitle"
-        >
+    <Paper className={rootClassName}>
+      <div className={tableWrapperClassName}>
+        <Table className={tableClassName} aria-labelledby="tableTitle">
           <EnhancedTableHead rowCount={count} />
           <TableBody>
-            {data.map((user, index) => UserTableRow(user, index))}
+            {data.map(user => UserTableRow(user))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -124,28 +118,30 @@ const UsersTable = (props) => {
         rowsPerPage={count}
         page={page}
         onChangePage={handlePageChange}
-        backIconButtonProps={{ 'aria-label': 'Previous Page' }}
-        nextIconButtonProps={{ 'aria-label': 'Next Page' }}
+        backIconButtonProps={{ "aria-label": "Previous Page" }}
+        nextIconButtonProps={{ "aria-label": "Next Page" }}
       />
     </Paper>
   );
 };
 
 UsersTable.propTypes = {
-  data: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
-    nickname: PropTypes.string.isRequired,
-    stdNumber: PropTypes.string.isRequired,
-    phoneNum: PropTypes.string.isRequired,
-    email: PropTypes.string.isRequired,
-    birthday: PropTypes.string.isRequired,
-  })),
+  data: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      password: PropTypes.string.isRequired,
+      nickname: PropTypes.string.isRequired,
+      stdNumber: PropTypes.string.isRequired,
+      phoneNum: PropTypes.string.isRequired,
+      email: PropTypes.string.isRequired,
+      birthday: PropTypes.string.isRequired
+    })
+  ).isRequired,
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
-  handlePageChange: PropTypes.func.isRequired,
+  handlePageChange: PropTypes.func.isRequired
 };
 
-export default withStyles(UsersTableStyles)(UsersTable);
+export default UsersTable;

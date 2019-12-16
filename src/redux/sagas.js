@@ -1,17 +1,17 @@
-import { all } from 'redux-saga/effects';
-import authSaga from './auth/saga';
-import projectMainSaga from './project/projectMain/saga';
-import projectViewSaga from './project/projectView/saga';
-import projectManipulationSaga from './project/projectManipulation/saga';
-import issueMainSaga from './project/issueMain/saga';
+import { all } from "redux-saga/effects";
+import authSaga from "./auth/saga";
+import projectMainSaga from "./project/projectMain/saga";
+import projectViewSaga from "./project/projectView/saga";
+import projectManipulationSaga from "./project/projectManipulation/saga";
+import issueMainSaga from "./project/issueMain/saga";
 
 // Combine all sagas.
-export default function* rootSaga(getState) {
+export default function* rootSaga() {
   yield all([
     authSaga(),
     projectMainSaga(),
     projectViewSaga(),
     projectManipulationSaga(),
-    issueMainSaga(),
+    issueMainSaga()
   ]);
 }

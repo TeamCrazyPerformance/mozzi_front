@@ -1,73 +1,107 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useState } from "react";
+import PropTypes from "prop-types";
+import Button from "@material-ui/core/Button";
+import TextField from "@material-ui/core/TextField";
+import "./SignInForm.css";
 
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+const SignInForm = props => {
+  const {
+    handleSubmit,
+    identityValue,
+    handleIdentityValue,
+    passwordValue,
+    handlePasswordVaule,
+    signupUrl
+  } = props;
 
-import './SignInForm.css';
+  const [identityValueIsEmpty, setIdentityValueIsEmpty] = useState(false);
+  const [passwordValueIsEmpty, setPasswordValueIsEmpty] = useState(false);
 
-const SignInForm = ({
-  handleSubmit, handleIdentityValue, handlePasswordVaule, signupUrl = '',
-}) => (
-  <div className="signin-form-component">
-    <form
-      className="signin-form-component__form"
-      onSubmit={handleSubmit || undefined}
-    >
-      <div className="signin-form-component__form__input-box-wrapper">
-        <TextField
-          className="signin-form-component__form__input-box-wrapper__email-input-box"
-          label="Email"
-          type="email"
-          autoComplete="email"
-          onChange={handleIdentityValue || undefined}
-          fullWidth
-          required
-        />
-      </div>
+  const validationCheck = () => {
+    let valueIsEmpty = false;
 
-      <div className="signin-form-component__form__input-box-wrapper">
-        <TextField
-          className="signin-form-component__form__input-box-wrapper__password-input-box"
-          label="Password"
-          type="password"
-          onChange={handlePasswordVaule || undefined}
-          fullWidth
-          required
-        />
-      </div>
+    if (identityValue === "") {
+      setIdentityValueIsEmpty(true);
+      valueIsEmpty = true;
+    } else setIdentityValueIsEmpty(false);
 
-      <div className="signin-form-component__form__button-box-wrapper">
-        <div className="signin-form-component__form__button-box-wrapper__button-wrapper">
-          <Button
-            className="signin-form-component__form__button-box-wrapper__button-wrapper__signup-button"
-            color="primary"
-            href={signupUrl || ''}
-          >
+    if (passwordValue === "") {
+      setPasswordValueIsEmpty(true);
+      valueIsEmpty = true;
+    } else setPasswordValueIsEmpty(false);
+
+    return !valueIsEmpty;
+  };
+
+  const validationCheckAndHandleSubmit = event => {
+    // Prevent browers refresh.
+    event.preventDefault();
+
+    if (validationCheck()) handleSubmit();
+  };
+
+  return (
+    <div className="signin-form-component">
+      <form
+        className="signin-form-component__form"
+        onSubmit={validationCheckAndHandleSubmit}
+      >
+        <div className="signin-form-component__form__input-box-wrapper">
+          <TextField
+            className="signin-form-component__form__input-box-wrapper__email-input-box"
+            label="Email"
+            onChange={handleIdentityValue || undefined}
+            error={identityValueIsEmpty}
+            helperText={identityValueIsEmpty ? "Please fill Email" : " "}
+            fullWidth
+          />
+        </div>
+        <div className="signin-form-component__form__input-box-wrapper">
+          <TextField
+            className="signin-form-component__form__input-box-wrapper__password-input-box"
+            label="Password"
+            type="password"
+            onChange={handlePasswordVaule || undefined}
+            error={passwordValueIsEmpty}
+            helperText={passwordValueIsEmpty ? "Please fill Password" : " "}
+            fullWidth
+          />
+        </div>
+
+        <div className="signin-form-component__form__button-box-wrapper">
+          <div className="signin-form-component__form__button-box-wrapper__button-wrapper">
+            <Button
+              className="signin-form-component__form__button-box-wrapper__button-wrapper__signup-button"
+              color="primary"
+              href={signupUrl || ""}
+            >
               Sign-up in tcp
-          </Button>
-        </div>
+            </Button>
+          </div>
 
-        <div className="signin-form-component__form__button-box-wrapper__button-wrapper">
-          <Button
-            className="signin-form-component__form__button-box-wrapper__button-wrapper__signin-button"
-            variant="contained"
-            color="primary"
-            type="submit"
-          >
+          <div className="signin-form-component__form__button-box-wrapper__button-wrapper">
+            <Button
+              className="signin-form-component__form__button-box-wrapper__button-wrapper__signin-button"
+              variant="contained"
+              color="primary"
+              type="submit"
+            >
               Sign-in
-          </Button>
+            </Button>
+          </div>
         </div>
-      </div>
-    </form>
-  </div>
-);
+      </form>
+    </div>
+  );
+};
 
 SignInForm.propTypes = {
   handleSubmit: PropTypes.func.isRequired,
+  identityValue: PropTypes.string.isRequired,
   handleIdentityValue: PropTypes.func.isRequired,
+  passwordValue: PropTypes.string.isRequired,
   handlePasswordVaule: PropTypes.func.isRequired,
-  signupUrl: PropTypes.string.isRequired,
+  signupUrl: PropTypes.string.isRequired
 };
 
 export default SignInForm;

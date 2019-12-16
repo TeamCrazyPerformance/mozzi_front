@@ -6,9 +6,8 @@ export const getUser = ({
   apiCallStart,
   apiCallSuccess,
   apiCallFailure,
-  setResponseToState,
+  setResponseToState
 }) => {
-  console.log('GET: User call.');
   apiCallStart();
 
   // const getJoinRequetsResponse = await fetchHelper.get(`/admin/user/${userId}`)
@@ -18,23 +17,21 @@ export const getUser = ({
   const getUserResponse = {
     success: true,
     user: {
-      id: 'kangkangjiji',
-      name: 'KangJiHoon',
-      password: 'qwerty123',
-      nickname: 'KangJi',
-      stdNumber: '16101340',
-      phoneNum: '01083838453',
-      email: 'kangkang@naver.com',
-      birthday: '1997/12/26',
-    },
+      id: "kangkangjiji",
+      name: "KangJiHoon",
+      password: "qwerty123",
+      nickname: "KangJi",
+      stdNumber: "16101340",
+      phoneNum: "01083838453",
+      email: "kangkang@naver.com",
+      birthday: "1997/12/26"
+    }
   };
 
   if (getUserResponse.success) {
-    console.log('GET: User success');
     setResponseToState({ getUserResponse });
     apiCallSuccess();
   } else {
-    console.log('GET: User failure');
     apiCallFailure();
   }
 };

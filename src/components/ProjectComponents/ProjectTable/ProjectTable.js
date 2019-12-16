@@ -1,23 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import React from "react";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableRow from '@material-ui/core/TableRow';
-import TableFooter from '@material-ui/core/TableFooter';
-import TablePagination from '@material-ui/core/TablePagination';
-import Button from '@material-ui/core/Button';
+import Table from "@material-ui/core/Table";
+import TableBody from "@material-ui/core/TableBody";
+import TableCell from "@material-ui/core/TableCell";
+import TableRow from "@material-ui/core/TableRow";
+import TableFooter from "@material-ui/core/TableFooter";
+import TablePagination from "@material-ui/core/TablePagination";
+import Button from "@material-ui/core/Button";
 
 const ProjectTable = ({
-  projects, page, limit, total, handleChangePage, handleChangeRowsPerPage,
+  projects,
+  page,
+  limit,
+  total,
+  handleChangePage,
+  handleChangeRowsPerPage
 }) => {
   const emptyRows = limit - projects.length;
   return (
     <Table>
       <TableBody>
-        {projects.map((project) => (
+        {projects.map(project => (
           <TableRow id={project.projectId}>
             <Link to={`project/${project.projectId}`}>
               <TableCell>{project.name}</TableCell>
@@ -39,7 +44,7 @@ const ProjectTable = ({
         <TableRow id="tableFooter">
           <Link to="project/create">
             <Button variant="contained" color="primary">
-            생성
+              생성
             </Button>
           </Link>
           <TablePagination
@@ -48,7 +53,7 @@ const ProjectTable = ({
             rowsPerPageOptions={[5, 10]}
             count={total}
             SelectProps={{
-              native: true,
+              native: true
             }}
             onChangePage={handleChangePage}
             onChangeRowsPerPage={handleChangeRowsPerPage}
@@ -59,14 +64,13 @@ const ProjectTable = ({
   );
 };
 
-
 ProjectTable.propTypes = {
   page: PropTypes.number.isRequired,
   limit: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   projects: PropTypes.array.isRequired,
   handleChangePage: PropTypes.func.isRequired,
-  handleChangeRowsPerPage: PropTypes.func.isRequired,
+  handleChangeRowsPerPage: PropTypes.func.isRequired
 };
 
 export default ProjectTable;

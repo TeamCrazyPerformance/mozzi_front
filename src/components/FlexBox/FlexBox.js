@@ -1,26 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
+import "./FlexBox.css";
 
-import './FlexBox.css';
-
-const FlexBox = ({
-  wrap = 'wrap', column = 'row', align = 'flex-start', justify = 'flex-start', maxHeight = false, children,
+const changePropsToClassName = ({
+  wrap,
+  column,
+  align,
+  justify,
+  maxHeight
 }) => {
-  const flexBoxClassNames = _changePropsToClassName({
-    wrap, column, align, justify, maxHeight,
-  });
-
-  return (
-    <div className={flexBoxClassNames}>
-      {children || ''}
-    </div>
-  );
-};
-
-const _changePropsToClassName = ({
-  wrap, column, align, justify, maxHeight,
-}) => {
-  let classNames = 'flex-box';
+  let classNames = "flex-box";
 
   // flex-wrap
   classNames = classNames.concat(` flex-box--flex-wrap--${wrap}`);
@@ -36,37 +25,66 @@ const _changePropsToClassName = ({
   return classNames;
 };
 
+const FlexBox = props => {
+  const {
+    wrap,
+    column,
+    align,
+    justify,
+    maxHeight,
+    createWrapper,
+    children
+  } = props;
+  const flexBoxClassNames = changePropsToClassName({
+    wrap,
+    column,
+    align,
+    justify,
+    maxHeight
+  });
+
+  return (
+    <div className={flexBoxClassNames}>
+      {createWrapper ? (
+        <div className="flexBoxChildrenWrapper">{children}</div>
+      ) : (
+        children
+      )}
+    </div>
+  );
+
+  // return <div className={flexBoxClassNames}>{children || ""}</div>;
+};
+
 FlexBox.propTypes = {
-  wrap: PropTypes.oneOf([
-    'wrap',
-    'no-wrap',
-    'wrap-reverse',
-  ]),
-  column: PropTypes.oneOf([
-    'row',
-    'column',
-    'row-reverse',
-    'column-reverse',
-  ]),
+  wrap: PropTypes.oneOf(["wrap", "no-wrap", "wrap-reverse"]),
+  column: PropTypes.oneOf(["row", "column", "row-reverse", "column-reverse"]),
   align: PropTypes.oneOf([
-    'flex-start',
-    'flex-end',
-    'center',
-    'stretch',
-    'baseline',
+    "flex-start",
+    "flex-end",
+    "center",
+    "stretch",
+    "baseline"
   ]),
   justify: PropTypes.oneOf([
-    'flex-start',
-    'flex-end',
-    'center',
-    'space-between',
-    'space-around',
+    "flex-start",
+    "flex-end",
+    "center",
+    "space-between",
+    "space-around"
   ]),
   maxHeight: PropTypes.bool,
-  children: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.array,
-  ]).isRequired,
+  createWrapper: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]).isRequired
+};
+
+FlexBox.defaultProps = {
+  wrap: "wrap",
+  column: "row",
+  align: "flex-start",
+  justify: "flex-start",
+  maxHeight: false,
+  createWrapper: false
 };
 
 export default FlexBox;

@@ -1,22 +1,22 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from "react";
+import UsersTable from "../../../components/UsersTable/UsersTable";
+import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
+import Error from "../../../components/Error/Error";
+import * as usersApi from "./UsersApi";
 
-import UsersTable from '../../../components/UsersTable/UsersTable.js';
-import LoadingSpinner from '../../../components/LoadingSpinner/LoadingSpinner';
-import Error from '../../../components/Error/Error';
-
-import * as usersApi from './UsersApi';
-
-const Users = (props) => {
-  const [users, setUsers] = useState([{
-    id: '',
-    name: '',
-    password: '',
-    nickname: '',
-    stdNumber: '',
-    phoneNum: '',
-    email: '',
-    birthday: '',
-  }]);
+const Users = () => {
+  const [users, setUsers] = useState([
+    {
+      id: "",
+      name: "",
+      password: "",
+      nickname: "",
+      stdNumber: "",
+      phoneNum: "",
+      email: "",
+      birthday: ""
+    }
+  ]);
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
@@ -49,35 +49,34 @@ const Users = (props) => {
     setErrorToTrue();
   };
 
-  const handlePageChange = (event, newPage) => {
+  const handlePageChange = (event, newPage = 0) => {
     usersApi.getUsers({
       page: newPage,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
       apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
-      setResponseToState: setGetUsersResponse,
+      setResponseToState: setGetUsersResponse
     });
   };
 
-  useEffect(() => handlePageChange(null, 0), []);
+  // Component did mount
+  useEffect(handlePageChange, []);
 
   return (
     <div>
       <div>Users</div>
       <LoadingSpinner loadingState={loadingState}>
-        {
-          error
-            ? <Error />
-            : (
-              <UsersTable
-                data={users}
-                page={page}
-                count={count}
-                total={total}
-                handlePageChange={handlePageChange}
-              />
-            )
-        }
+        {error ? (
+          <Error />
+        ) : (
+          <UsersTable
+            data={users}
+            page={page}
+            count={count}
+            total={total}
+            handlePageChange={handlePageChange}
+          />
+        )}
       </LoadingSpinner>
     </div>
   );
