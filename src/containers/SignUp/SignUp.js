@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import FlexBox from "../../components/FlexBox/FlexBox";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import Logo from "../../components/Logo/Logo";
+import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
+import * as signUpApi from "./SignUpApi";
 
 const SignUp = () => {
   const [identityValue, setIdentityValue] = useState("");
@@ -27,6 +29,28 @@ const SignUp = () => {
   const handleEmailValue = event => setEmailValue(event.target.value);
   const handlePhoneNumberValue = event =>
     setPhoneNumberValue(event.target.value);
+  const [loadingState, setLoadingState] = useState(false);
+  const [error, setError] = useState(false);
+
+  const setLoadingStateToTrue = () => setLoadingState(true);
+  const setLoadingStateToFalse = () => setLoadingState(false);
+  const setErrorToTrue = () => setError(true);
+  const setErrorToFalse = () => setError(false);
+
+  const setLoadingStateAndErrorWhenApiCallStart = () => {
+    setLoadingStateToTrue();
+    setErrorToFalse();
+  };
+
+  const setLoadingStateAndErrorWhenApiCallSuccess = () => {
+    setLoadingStateToFalse();
+    setErrorToFalse();
+  };
+
+  const setLoadingStateAndErrorWhenApiCallFailure = () => {
+    setLoadingStateToFalse();
+    setErrorToTrue();
+  };
 
   const handleSubmit = () => {
     const userInformation = {
@@ -41,35 +65,42 @@ const SignUp = () => {
       phoneNumber: phoneNumberValue
     };
 
-    console.log(userInformation);
+    signUpApi.postSignUp({
+      userInformation,
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
+    });
   };
 
   return (
     <FlexBox wrap="wrap" column="column" align="center" maxHeight createWrapper>
-      <Logo />
-      <SignUpForm
-        identityValue={identityValue}
-        handleIdentityValue={handleIdentityValue}
-        passwordValue={passwordValue}
-        handlePasswordValue={handlePasswordValue}
-        passwordConfirmValue={passwordConfirmValue}
-        handlePasswordConfirmValue={handlePasswordConfirmValue}
-        nameValue={nameValue}
-        handleNameValue={handleNameValue}
-        birthdayValue={birthdayValue}
-        handleBirthdayValue={handleBirthdayValue}
-        nickNameValue={nickNameValue}
-        handleNickNameValue={handleNickNameValue}
-        genderValue={genderValue}
-        handleGenderValue={handleGenderValue}
-        schoolValue={schoolValue}
-        handleSchoolValue={handleSchoolValue}
-        emailValue={emailValue}
-        handleEmailValue={handleEmailValue}
-        phoneNumberValue={phoneNumberValue}
-        handlePhoneNumberValue={handlePhoneNumberValue}
-        handleSubmit={handleSubmit}
-      />
+      <LoadingSpinner loadingState={loadingState}>
+        <Logo />
+        <SignUpForm
+          identityValue={identityValue}
+          handleIdentityValue={handleIdentityValue}
+          passwordValue={passwordValue}
+          handlePasswordValue={handlePasswordValue}
+          passwordConfirmValue={passwordConfirmValue}
+          handlePasswordConfirmValue={handlePasswordConfirmValue}
+          nameValue={nameValue}
+          handleNameValue={handleNameValue}
+          birthdayValue={birthdayValue}
+          handleBirthdayValue={handleBirthdayValue}
+          nickNameValue={nickNameValue}
+          handleNickNameValue={handleNickNameValue}
+          genderValue={genderValue}
+          handleGenderValue={handleGenderValue}
+          schoolValue={schoolValue}
+          handleSchoolValue={handleSchoolValue}
+          emailValue={emailValue}
+          handleEmailValue={handleEmailValue}
+          phoneNumberValue={phoneNumberValue}
+          handlePhoneNumberValue={handlePhoneNumberValue}
+          handleSubmit={handleSubmit}
+        />
+      </LoadingSpinner>
     </FlexBox>
   );
 };
