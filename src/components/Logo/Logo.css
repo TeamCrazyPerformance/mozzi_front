@@ -1,5 +1,6 @@
 .logo-component {
-
+  width: 100%;
+  margin: auto;
 }
 
 .logo-component--size-small {

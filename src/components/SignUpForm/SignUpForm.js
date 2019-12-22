@@ -1,8 +1,16 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import "./SignUpForm.css";
+
+const signUpFormStyles = makeStyles(() => ({
+  signUpFormWrapperClassName: {
+    width: "30vw",
+    marginBottom: "20px"
+  }
+}));
 
 const SignUpForm = props => {
   const {
@@ -28,6 +36,8 @@ const SignUpForm = props => {
     handlePhoneNumberValue,
     handleSubmit
   } = props;
+
+  const { signUpFormWrapperClassName } = signUpFormStyles();
 
   const [identityValueIsEmpty, setIdentityValueIsEmpty] = useState(false);
   const [passwordValueIsEmpty, setPasswordValueIsEmpty] = useState(false);
@@ -120,7 +130,7 @@ const SignUpForm = props => {
   };
 
   return (
-    <div className="signup-form-component">
+    <div className={`signup-form-component ${signUpFormWrapperClassName}`}>
       <form
         className="signup-form-component__form"
         onSubmit={vaildationCheckAndHandleSubmit}
