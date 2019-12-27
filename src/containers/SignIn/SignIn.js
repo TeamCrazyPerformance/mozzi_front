@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Redirect } from "react-router";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import FlexBox from "../../components/FlexBox/FlexBox";
@@ -10,7 +9,7 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import * as authActions from "../../redux/auth/actions";
 
 const SignIn = props => {
-  const { isSignIn, loadingState = true, postSignIn } = props;
+  const { loadingState = true, postSignIn } = props;
   const [identityValue, setIdentityValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
 
@@ -26,38 +25,31 @@ const SignIn = props => {
     postSignIn({ userInformation });
   };
 
-  // When client sign in successed or try to access the SignIn page after signin.
-  const checkSignIn = () => (isSignIn ? <Redirect to="/main" /> : <></>);
-
   return (
-    <>
-      {checkSignIn()}
-      <FlexBox
-        wrap="wrap"
-        column="column"
-        align="center"
-        justify="center"
-        maxHeight
-        createWrapper
-      >
-        <LoadingSpinner loadingState={loadingState.signIn}>
-          <Logo size="large" spin />
-          <SignInForm
-            handleSubmit={handleSubmit}
-            identityValue={identityValue}
-            handleIdentityValue={handleIdentityValue}
-            passwordValue={passwordValue}
-            handlePasswordVaule={handlePasswordValue}
-            signupUrl="/signup"
-          />
-        </LoadingSpinner>
-      </FlexBox>
-    </>
+    <FlexBox
+      wrap="wrap"
+      column="column"
+      align="center"
+      justify="center"
+      maxHeight
+      createWrapper
+    >
+      <LoadingSpinner loadingState={loadingState.signIn}>
+        <Logo size="large" spin />
+        <SignInForm
+          handleSubmit={handleSubmit}
+          identityValue={identityValue}
+          handleIdentityValue={handleIdentityValue}
+          passwordValue={passwordValue}
+          handlePasswordVaule={handlePasswordValue}
+          signupUrl="/signup"
+        />
+      </LoadingSpinner>
+    </FlexBox>
   );
 };
 
 SignIn.propTypes = {
-  isSignIn: PropTypes.bool.isRequired,
   postSignIn: PropTypes.func.isRequired,
   loadingState: PropTypes.shape({
     signIn: PropTypes.bool

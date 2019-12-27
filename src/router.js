@@ -21,10 +21,23 @@ import Users from "./containers/Admin/Users/Users";
 import User from "./containers/Admin/User/User";
 import ErrorPage404 from "./containers/Pages/404";
 
+const PublicRouter = () => (
+  <Switch>
+    {/* Sign in page */}
+    <Route exact path="/" component={SignIn} />
+    <Route exact path="/signin" component={SignIn} />
+    {/* Sign up page */}
+    <Route exact path="/signup" component={SignUp} />
+    {/* 404 Error page */}
+    <Route component={ErrorPage404} />
+  </Switch>
+);
+
 const PrivateRouter = () => (
   <Header>
     <Switch>
       {/* Main page */}
+      <Route exact path="/" component={Main} />
       <Route exact path="/main" component={Main} />
       {/* Project page */}
       <Route exact path="/project" component={ProjectMain} />
@@ -43,20 +56,12 @@ const PrivateRouter = () => (
   </Header>
 );
 
-// Router before login.
 const AppRouter = props => {
   const { isSignIn } = props;
   return (
     <Router>
       <Switch>
-        <Route exact path="/" component={SignIn} />
-        <Route exact path="/signin" component={SignIn} />
-        <Route exact path="/signup" component={SignUp} />
-        <PrivateRouterComponent
-          isSignIn={isSignIn}
-          privateRouterComponent={PrivateRouter}
-        />
-        <Route component={ErrorPage404} />
+        <RouterSelectorComponent isSignIn={isSignIn} />
       </Switch>
     </Router>
   );
@@ -66,24 +71,23 @@ AppRouter.propTypes = {
   isSignIn: PropTypes.bool.isRequired
 };
 
-const PrivateRouterComponent = props => {
-  const { isSignIn } = props;
-  return (
-    <Route
-      render={() =>
-        // Check is signin.
-        isSignIn === true ? (
-          <PrivateRouter exact />
-        ) : (
-          <Redirect to={{ pathname: "/signin" }} />
-        )
-      }
-    />
-  );
+const RouterSelectorComponent = props => {
+  const { isSignIn, location } = props;
+
+  if (isSignIn === true) {
+    if (location.pathname === "/signin") return <Redirect to="main" />;
+
+    return <PrivateRouter />;
+  }
+
+  return <PublicRouter />;
 };
 
-PrivateRouterComponent.propTypes = {
-  isSignIn: PropTypes.bool.isRequired
+RouterSelectorComponent.propTypes = {
+  isSignIn: PropTypes.bool.isRequired,
+  location: PropTypes.shape({
+    pathname: PropTypes.string.isRequired
+  }).isRequired
 };
 
 const mapStateToProps = state => {
