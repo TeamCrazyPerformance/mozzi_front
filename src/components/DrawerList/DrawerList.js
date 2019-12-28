@@ -32,17 +32,12 @@ const drawerList = [
     },
     {
       iconComponent: <LaptopWindows />,
-      text: "Project",
-      link: "/project"
+      text: "Projects",
+      link: "/project/projects"
     }
   ],
   // Exam drawer list.
   [
-    {
-      iconComponent: <LibraryBooks />,
-      text: "Exam",
-      link: "/exam"
-    },
     {
       iconComponent: <LibraryBooks />,
       text: "Exam",

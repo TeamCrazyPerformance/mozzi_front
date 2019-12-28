@@ -11,9 +11,10 @@ import SignIn from "./containers/SignIn/SignIn";
 import SignUp from "./containers/SignUp/SignUp";
 import Header from "./components/Header/Header";
 import Main from "./containers/Main/Main";
-import ProjectMain from "./containers/Project/ProjectMain";
-import ProjectCreate from "./containers/Project/ProjectCreate";
-import ProjectView from "./containers/Project/ProjectVIew";
+import ProjectMain from "./containers/Project/ProjectMain/ProjectMain";
+import Projects from "./containers/Project/Projects/Projects";
+import ProjectEdit from "./containers/Project/ProjectEdit/ProjectEdit";
+import Project from "./containers/Project/Project/Project";
 import Exam from "./containers/Exam/Exam";
 import Admin from "./containers/Admin/Admin/Admin";
 import JoinRequests from "./containers/Admin/JoinRequests/JoinRequests";
@@ -41,8 +42,10 @@ const PrivateRouter = () => (
       <Route exact path="/main" component={Main} />
       {/* Project page */}
       <Route exact path="/project" component={ProjectMain} />
-      <Route exact path="/project/create" component={ProjectCreate} />
-      <Route exact path="/project/:projectId" component={ProjectView} />
+      <Route exact path="/project/projects" component={Projects} />
+      <Route exact path="/project/create" component={ProjectEdit} />
+      <Route exact path="/project/:projectId" component={Project} />
+      <Route exact path="/project/:projectId/edit" component={ProjectEdit} />
       {/* Exam page */}
       <Route exact path="/exam" component={Exam} />
       {/* Admin page */}
