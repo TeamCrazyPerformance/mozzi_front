@@ -43,9 +43,13 @@ const PrivateRouter = () => (
       {/* Project page */}
       <Route exact path="/project" component={ProjectMain} />
       <Route exact path="/project/projects" component={Projects} />
-      <Route exact path="/project/create" component={ProjectEdit} />
-      <Route exact path="/project/:projectId" component={Project} />
-      <Route exact path="/project/:projectId/edit" component={ProjectEdit} />
+      <Route exact path="/project/project/create" component={ProjectEdit} />
+      <Route exact path="/project/project/:projectId" component={Project} />
+      <Route
+        exact
+        path="/project/project/:projectId/edit"
+        component={ProjectEdit}
+      />
       {/* Exam page */}
       <Route exact path="/exam" component={Exam} />
       {/* Admin page */}
