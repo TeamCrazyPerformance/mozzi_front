@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProjectsTable from "../../../components/ProjectsTable/ProjectsTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
+import * as projectsApi from "./ProjectsApi";
 
 const Projects = () => {
   const [projects, setProjects] = useState([
@@ -43,7 +44,15 @@ const Projects = () => {
     setErrorToTrue();
   };
 
-  const handlePageChange = (event, newPage = 0) => {};
+  const handlePageChange = (event, newPage = 0) => {
+    projectsApi.getProjects({
+      page: newPage,
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
+      setResponseToState: setGetProjectsResponse
+    });
+  };
 
   // Component did mount
   useEffect(handlePageChange, []);
