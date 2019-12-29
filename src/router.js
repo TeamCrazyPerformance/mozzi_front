@@ -93,8 +93,14 @@ const RouterSelectorComponent = props => {
 RouterSelectorComponent.propTypes = {
   isSignIn: PropTypes.bool.isRequired,
   location: PropTypes.shape({
-    pathname: PropTypes.string.isRequired
-  }).isRequired
+    pathname: PropTypes.string
+  })
+};
+
+RouterSelectorComponent.defaultProps = {
+  location: {
+    pathName: "/"
+  }
 };
 
 const mapStateToProps = state => {
