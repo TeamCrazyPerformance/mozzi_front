@@ -17,7 +17,7 @@ const createTableRows = projectInformation => [
   createProjectInformationRow(
     Description,
     "Project Name",
-    projectInformation.projectname
+    projectInformation.projectName
   ),
   createProjectInformationRow(
     AccessibilityNew,
@@ -34,8 +34,9 @@ const projectInformationStyles = makeStyles(theme => ({
   }
 }));
 
-const ProjectInformation = projectInformation => {
+const ProjectInformation = props => {
   const { rootClassName } = projectInformationStyles();
+  const { projectInformation } = props;
   const tableRow = createTableRows(projectInformation);
 
   return (

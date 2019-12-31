@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import ProjectInformation from "../../../components/ProjectInformation/ProjectInformation";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
+import * as projectApi from "./projectApi";
 
 const Project = ({
   match: {
@@ -19,7 +20,7 @@ const Project = ({
   const [error, setError] = useState(false);
 
   const setGetProjectResponse = ({ getProjectResponse }) =>
-    setProject({ ...getProjectResponse });
+    setProject({ ...getProjectResponse.project });
   const setLoadingStateToTrue = () => setLoadingState(true);
   const setLoadingStateToFalse = () => setLoadingState(false);
   const setErrorToTrue = () => setError(true);
@@ -40,7 +41,15 @@ const Project = ({
     setErrorToTrue();
   };
 
-  const getProjectInformation = () => {};
+  const getProjectInformation = () => {
+    projectApi.getProject({
+      projectId,
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
+      setResponseToState: setGetProjectResponse
+    });
+  };
 
   useEffect(getProjectInformation, []);
 
