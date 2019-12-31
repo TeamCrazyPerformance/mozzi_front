@@ -61,7 +61,7 @@ const User = ({
     <div>
       <div>User</div>
       <LoadingSpinner loadingState={loadingState}>
-        {error ? <Error /> : <UserInformation data={user} />}
+        {error ? <Error /> : <UserInformation userInformation={user} />}
       </LoadingSpinner>
     </div>
   );
