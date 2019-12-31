@@ -22,15 +22,19 @@ const createUserInformationRow = (icon, dataName, data) => {
   return { icon, dataName, data };
 };
 
-const rows = [
-  createUserInformationRow(AccountCircle, "Identity", "a"),
-  createUserInformationRow(Face, "Name", "b"),
-  createUserInformationRow(VpnKey, "Password", "c"),
-  createUserInformationRow(InsertEmoticon, "Nickname", "d"),
-  createUserInformationRow(School, "Student Number", "e"),
-  createUserInformationRow(Phone, "Phone Number", "f"),
-  createUserInformationRow(Email, "E-mail", "g"),
-  createUserInformationRow(Cake, "Birthday", "h")
+const createTableRows = userInformation => [
+  createUserInformationRow(AccountCircle, "Identity", userInformation.id),
+  createUserInformationRow(Face, "Name", userInformation.name),
+  createUserInformationRow(VpnKey, "Password", userInformation.password),
+  createUserInformationRow(
+    InsertEmoticon,
+    "Nickname",
+    userInformation.nickname
+  ),
+  createUserInformationRow(School, "Student Number", userInformation.stdNumber),
+  createUserInformationRow(Phone, "Phone Number", userInformation.phoneNum),
+  createUserInformationRow(Email, "E-mail", userInformation.email),
+  createUserInformationRow(Cake, "Birthday", userInformation.birthday)
 ];
 
 const userInformationStyles = makeStyles(theme => ({
@@ -40,12 +44,14 @@ const userInformationStyles = makeStyles(theme => ({
   }
 }));
 
-const UserInformation = () => {
+const UserInformation = props => {
   const { rootClassName } = userInformationStyles();
+  const { userInformation } = props;
+  const tableRow = createTableRows(userInformation);
 
   return (
     <List className={rootClassName}>
-      {rows.map(row => (
+      {tableRow.map(row => (
         <Fragment key={row.dataName}>
           <ListItem>
             <ListItemAvatar>
@@ -63,7 +69,7 @@ const UserInformation = () => {
 };
 
 UserInformation.propTypes = {
-  data: PropTypes.shape({
+  userInformation: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     password: PropTypes.string.isRequired,
