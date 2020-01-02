@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import FlexBox from "../../components/FlexBox/FlexBox";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import Logo from "../../components/Logo/Logo";
+import Error from "../../components/Error/Error";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import * as signUpApi from "./SignUpApi";
 
@@ -76,30 +77,36 @@ const SignUp = () => {
   return (
     <FlexBox wrap="wrap" column="column" align="center" maxHeight createWrapper>
       <LoadingSpinner loadingState={loadingState}>
-        <Logo />
-        <SignUpForm
-          identityValue={identityValue}
-          handleIdentityValue={handleIdentityValue}
-          passwordValue={passwordValue}
-          handlePasswordValue={handlePasswordValue}
-          passwordConfirmValue={passwordConfirmValue}
-          handlePasswordConfirmValue={handlePasswordConfirmValue}
-          nameValue={nameValue}
-          handleNameValue={handleNameValue}
-          birthdayValue={birthdayValue}
-          handleBirthdayValue={handleBirthdayValue}
-          nickNameValue={nickNameValue}
-          handleNickNameValue={handleNickNameValue}
-          genderValue={genderValue}
-          handleGenderValue={handleGenderValue}
-          schoolValue={schoolValue}
-          handleSchoolValue={handleSchoolValue}
-          emailValue={emailValue}
-          handleEmailValue={handleEmailValue}
-          phoneNumberValue={phoneNumberValue}
-          handlePhoneNumberValue={handlePhoneNumberValue}
-          handleSubmit={handleSubmit}
-        />
+        {error ? (
+          <Error />
+        ) : (
+          <>
+            <Logo />
+            <SignUpForm
+              identityValue={identityValue}
+              handleIdentityValue={handleIdentityValue}
+              passwordValue={passwordValue}
+              handlePasswordValue={handlePasswordValue}
+              passwordConfirmValue={passwordConfirmValue}
+              handlePasswordConfirmValue={handlePasswordConfirmValue}
+              nameValue={nameValue}
+              handleNameValue={handleNameValue}
+              birthdayValue={birthdayValue}
+              handleBirthdayValue={handleBirthdayValue}
+              nickNameValue={nickNameValue}
+              handleNickNameValue={handleNickNameValue}
+              genderValue={genderValue}
+              handleGenderValue={handleGenderValue}
+              schoolValue={schoolValue}
+              handleSchoolValue={handleSchoolValue}
+              emailValue={emailValue}
+              handleEmailValue={handleEmailValue}
+              phoneNumberValue={phoneNumberValue}
+              handlePhoneNumberValue={handlePhoneNumberValue}
+              handleSubmit={handleSubmit}
+            />
+          </>
+        )}
       </LoadingSpinner>
     </FlexBox>
   );

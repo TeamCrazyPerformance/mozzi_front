@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
+import { withRouter } from "react-router-dom";
 import "./SignUpForm.css";
 
 const signUpFormStyles = makeStyles(() => ({
@@ -34,7 +35,8 @@ const SignUpForm = props => {
     handleEmailValue,
     phoneNumberValue,
     handlePhoneNumberValue,
-    handleSubmit
+    handleSubmit,
+    history
   } = props;
 
   const { signUpFormWrapperClassName } = signUpFormStyles();
@@ -126,7 +128,10 @@ const SignUpForm = props => {
 
     const emptyValidation = validationCheck();
     const passwordConfirmValidation = passwordConfirmCheck();
-    if (emptyValidation && passwordConfirmValidation) handleSubmit();
+    if (emptyValidation && passwordConfirmValidation) {
+      handleSubmit();
+      history.push("/signin");
+    }
   };
 
   return (
@@ -291,7 +296,14 @@ SignUpForm.propTypes = {
   handleEmailValue: PropTypes.func.isRequired,
   phoneNumberValue: PropTypes.string.isRequired,
   handlePhoneNumberValue: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired
+  handleSubmit: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  })
 };
 
-export default SignUpForm;
+SignUpForm.defaultProps = {
+  history: {}
+};
+
+export default withRouter(SignUpForm);
