@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import FlexBox from "../../components/FlexBox/FlexBox";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import Logo from "../../components/Logo/Logo";
@@ -6,7 +7,9 @@ import Error from "../../components/Error/Error";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import * as signUpApi from "./SignUpApi";
 
-const SignUp = () => {
+const SignUp = props => {
+  const { history } = props;
+
   const [identityValue, setIdentityValue] = useState("");
   const [passwordValue, setPasswordValue] = useState("");
   const [passwordConfirmValue, setPasswordConfirmValue] = useState("");
@@ -46,6 +49,7 @@ const SignUp = () => {
   const setLoadingStateAndErrorWhenApiCallSuccess = () => {
     setLoadingStateToFalse();
     setErrorToFalse();
+    history.push("/signin");
   };
 
   const setLoadingStateAndErrorWhenApiCallFailure = () => {
@@ -110,6 +114,12 @@ const SignUp = () => {
       </LoadingSpinner>
     </FlexBox>
   );
+};
+
+SignUp.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default SignUp;

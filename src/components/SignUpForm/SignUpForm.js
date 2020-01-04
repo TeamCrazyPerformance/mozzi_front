@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
-import { withRouter } from "react-router-dom";
 import "./SignUpForm.css";
 
 const signUpFormStyles = makeStyles(() => ({
@@ -35,8 +34,7 @@ const SignUpForm = props => {
     handleEmailValue,
     phoneNumberValue,
     handlePhoneNumberValue,
-    handleSubmit,
-    history
+    handleSubmit
   } = props;
 
   const { signUpFormWrapperClassName } = signUpFormStyles();
@@ -122,23 +120,20 @@ const SignUpForm = props => {
     return false;
   };
 
-  const vaildationCheckAndHandleSubmit = event => {
+  const validationCheckAndHandleSubmit = event => {
     // Prevent browers refresh.
     event.preventDefault();
 
     const emptyValidation = validationCheck();
     const passwordConfirmValidation = passwordConfirmCheck();
-    if (emptyValidation && passwordConfirmValidation) {
-      handleSubmit();
-      history.push("/signin");
-    }
+    if (emptyValidation && passwordConfirmValidation) handleSubmit();
   };
 
   return (
     <div className={`signup-form-component ${signUpFormWrapperClassName}`}>
       <form
         className="signup-form-component__form"
-        onSubmit={vaildationCheckAndHandleSubmit}
+        onSubmit={validationCheckAndHandleSubmit}
       >
         <div className="signup-form-component__form__input-box-wrapper">
           <TextField
@@ -296,14 +291,7 @@ SignUpForm.propTypes = {
   handleEmailValue: PropTypes.func.isRequired,
   phoneNumberValue: PropTypes.string.isRequired,
   handlePhoneNumberValue: PropTypes.func.isRequired,
-  handleSubmit: PropTypes.func.isRequired,
-  history: PropTypes.shape({
-    push: PropTypes.func.isRequired
-  })
+  handleSubmit: PropTypes.func.isRequired
 };
 
-SignUpForm.defaultProps = {
-  history: {}
-};
-
-export default withRouter(SignUpForm);
+export default SignUpForm;
