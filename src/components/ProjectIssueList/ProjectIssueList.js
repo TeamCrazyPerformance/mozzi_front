@@ -21,7 +21,7 @@ const ProjectIssueList = props => {
         <div>
           <List dense>
             {projectIssues.map(element => (
-              <ListItem key={element.issueName} button>
+              <ListItem key={element.issueId} button>
                 <ListItemAvatar>
                   <Avatar>
                     <Build />
@@ -50,6 +50,7 @@ const ProjectIssueList = props => {
 ProjectIssueList.propTypes = {
   projectIssues: PropTypes.arrayOf(
     PropTypes.shape({
+      issueId: PropTypes.string.isRequired,
       issueName: PropTypes.string.isRequired,
       issueContent: PropTypes.string.isRequired
     })
@@ -57,7 +58,7 @@ ProjectIssueList.propTypes = {
 };
 
 ProjectIssueList.defaultProps = {
-  projectIssues: []
+  projectIssues: [{ issueId: "1" }]
 };
 
 export default ProjectIssueList;

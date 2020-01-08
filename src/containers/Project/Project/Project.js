@@ -17,7 +17,7 @@ const Project = ({
     projectName: "",
     projectLeader: "",
     projectContent: "",
-    projectIssues: [{ issueName: "", issueContent: "" }]
+    projectIssues: [{ issueId: "", issueName: "", issueContent: "" }]
   });
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
