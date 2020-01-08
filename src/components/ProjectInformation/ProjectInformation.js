@@ -23,6 +23,11 @@ const createTableRows = projectInformation => [
     AccessibilityNew,
     "Project Leader",
     projectInformation.projectLeader
+  ),
+  createProjectInformationRow(
+    AccessibilityNew,
+    "Project dicription",
+    projectInformation.projectContent
   )
 ];
 
