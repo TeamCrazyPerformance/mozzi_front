@@ -10,6 +10,7 @@ import Home from "@material-ui/icons/Home";
 import LaptopWindows from "@material-ui/icons/LaptopWindows";
 import Description from "@material-ui/icons/Description";
 import NoteAdd from "@material-ui/icons/NoteAdd";
+import Create from "@material-ui/icons/Create";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import Memory from "@material-ui/icons/Memory";
 import GroupAdd from "@material-ui/icons/GroupAdd";
@@ -46,9 +47,14 @@ const drawerList = [
   // Exam drawer list.
   [
     {
-      iconComponent: <LibraryBooks />,
+      iconComponent: <Create />,
       text: "Exam",
       link: "/exam"
+    },
+    {
+      iconComponent: <LibraryBooks />,
+      text: "Exams",
+      link: "/exam/exams"
     }
   ],
   // Admin drawer list.

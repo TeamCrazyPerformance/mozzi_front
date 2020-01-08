@@ -15,7 +15,8 @@ import ProjectMain from "./containers/Project/ProjectMain/ProjectMain";
 import Projects from "./containers/Project/Projects/Projects";
 import ProjectEdit from "./containers/Project/ProjectEdit/ProjectEdit";
 import Project from "./containers/Project/Project/Project";
-import Exam from "./containers/Exam/Exam";
+import Exam from "./containers/Exam/Exam/Exam";
+import Exams from "./containers/Exam/Exams/Exams";
 import Admin from "./containers/Admin/Admin/Admin";
 import JoinRequests from "./containers/Admin/JoinRequests/JoinRequests";
 import Users from "./containers/Admin/Users/Users";
@@ -52,6 +53,7 @@ const PrivateRouter = () => (
       />
       {/* Exam page */}
       <Route exact path="/exam" component={Exam} />
+      <Route exact path="/exam/exams" component={Exams} />
       {/* Admin page */}
       <Route exact path="/admin" component={Admin} />
       <Route exact path="/admin/joinrequests" component={JoinRequests} />
