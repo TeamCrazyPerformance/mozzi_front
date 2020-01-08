@@ -8,6 +8,8 @@ import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/core/styles";
 import Home from "@material-ui/icons/Home";
 import LaptopWindows from "@material-ui/icons/LaptopWindows";
+import Description from "@material-ui/icons/Description";
+import NoteAdd from "@material-ui/icons/NoteAdd";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
 import Memory from "@material-ui/icons/Memory";
 import GroupAdd from "@material-ui/icons/GroupAdd";
@@ -31,9 +33,14 @@ const drawerList = [
       link: "/project"
     },
     {
-      iconComponent: <LaptopWindows />,
+      iconComponent: <Description />,
       text: "Projects",
       link: "/project/projects"
+    },
+    {
+      iconComponent: <NoteAdd />,
+      text: "New Project",
+      link: "/project/project/create"
     }
   ],
   // Exam drawer list.

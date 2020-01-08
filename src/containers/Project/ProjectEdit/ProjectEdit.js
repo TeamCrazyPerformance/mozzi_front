@@ -44,6 +44,7 @@ const ProjectEdit = props => {
       history.push("/project/projects");
     }
   };
+
   const setStateHandleSubmitFailure = () => {
     setLoadingState(false);
     setError(true);
@@ -75,12 +76,21 @@ const ProjectEdit = props => {
       content
     };
 
-    projectEditApi.postProject({
-      projectInformation,
-      apiCallStart: setStateApiCallStart,
-      apiCallSuccess: setStateHandleSubmitSuccess,
-      apiCallFailure: setStateHandleSubmitFailure
-    });
+    if (projectId) {
+      projectEditApi.putProject({
+        projectInformation,
+        apiCallStart: setStateApiCallStart,
+        apiCallSuccess: setStateHandleSubmitSuccess,
+        apiCallFailure: setStateHandleSubmitFailure
+      });
+    } else {
+      projectEditApi.postProject({
+        projectInformation,
+        apiCallStart: setStateApiCallStart,
+        apiCallSuccess: setStateHandleSubmitSuccess,
+        apiCallFailure: setStateHandleSubmitFailure
+      });
+    }
   };
 
   // Component did mount.

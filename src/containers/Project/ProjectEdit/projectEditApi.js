@@ -32,6 +32,30 @@ export const getProject = ({
 };
 
 // export const getProject = async ({
+export const putProject = ({
+  projectInformation,
+  apiCallStart,
+  apiCallSuccess,
+  apiCallFailure
+}) => {
+  apiCallStart();
+
+  // const getJoinRequetsResponse = await fetchHelper.get(`/admin/user/${userId}`)
+  // .then(response => response)
+  // .catch(error => ({error: JSON.stringify(error)}))
+
+  const getProjectResponse = {
+    success: true
+  };
+
+  if (getProjectResponse.success) {
+    apiCallSuccess();
+  } else {
+    apiCallFailure();
+  }
+};
+
+// export const getProject = async ({
 export const postProject = ({
   projectInformation,
   apiCallStart,
