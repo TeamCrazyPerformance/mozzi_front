@@ -24,6 +24,12 @@ const rows = [
     numeric: true,
     disablePadding: false,
     label: "Student Number"
+  },
+  {
+    id: "id",
+    numeric: true,
+    disablePadding: false,
+    label: "ID"
   }
 ];
 
@@ -87,7 +93,8 @@ const JoinRequestTable = props => {
                 key={student.stdNumber}
               >
                 <TableCell align="center">{student.name}</TableCell>
-                <TableCell align="center">{student.stdNumber}</TableCell>
+                <TableCell align="center">{student.studentNumber}</TableCell>
+                <TableCell align="center">{student.id}</TableCell>
                 <TableCell align="center">
                   <Fab
                     size="small"
@@ -148,6 +155,7 @@ JoinRequestTable.propTypes = {
     PropTypes.shape({
       name: PropTypes.string.isRequired,
       stdNumber: PropTypes.string.isRequired,
+      id: PropTypes.string.isRequired,
       userId: PropTypes.string.isRequired
     })
   ).isRequired,
