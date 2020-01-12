@@ -32,17 +32,17 @@ export const checkExpirity = token => {
 
   try {
     const decodedJwt = jwtDecode(token);
-    const exp = decodedJwt.exp * 1000;
+    const { expiredAt } = decodedJwt;
 
-    if (exp > new Date().getTime()) {
+    if (expiredAt > new Date().getTime()) {
       return {
         ...decodedJwt,
         token,
-        exp: new Date(exp)
+        exp: new Date(expiredAt)
       };
     }
 
-    return { error: "Token expired" };
+    return { timeoutError: true };
   } catch (error) {
     return { error: "Server Error" };
   }

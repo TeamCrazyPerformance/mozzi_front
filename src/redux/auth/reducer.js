@@ -2,6 +2,7 @@ import * as AuthActions from "./actionTypes";
 
 const authInitialState = {
   isSignIn: false,
+  role: "",
   loadingState: {
     signIn: false,
     signOut: false
@@ -19,10 +20,22 @@ const authReducer = (state = authInitialState, action) => {
         }
       };
     }
-    case AuthActions.POST_SIGN_IN_SUCCESS: {
+    case AuthActions.POST_SIGN_IN_SUCCESS_USER: {
       return {
         ...state,
         isSignIn: true,
+        role: "user",
+        loadingState: {
+          ...state.loadingState,
+          signIn: false
+        }
+      };
+    }
+    case AuthActions.POST_SIGN_IN_SUCCESS_ADMIN: {
+      return {
+        ...state,
+        isSignIn: true,
+        role: "admin",
         loadingState: {
           ...state.loadingState,
           signIn: false
@@ -33,18 +46,10 @@ const authReducer = (state = authInitialState, action) => {
       return {
         ...state,
         isSignIn: false,
+        role: "",
         loadingState: {
           ...state.loadingState,
           signIn: false
-        }
-      };
-    }
-    case AuthActions.SIGN_OUT_PENDING: {
-      return {
-        ...state,
-        loadingState: {
-          ...state.loadingState,
-          signOut: true
         }
       };
     }
@@ -52,19 +57,14 @@ const authReducer = (state = authInitialState, action) => {
       return {
         ...state,
         isSignIn: false,
-        loadingState: {
-          ...state.loadingState,
-          signOut: false
-        }
+        role: ""
       };
     }
     case AuthActions.SIGN_OUT_FAILURE: {
       return {
         ...state,
-        loadingState: {
-          ...state.loadingState,
-          signOut: false
-        }
+        isSignIn: false,
+        role: ""
       };
     }
     default:

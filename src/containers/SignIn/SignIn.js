@@ -10,15 +10,15 @@ import * as authActions from "../../redux/auth/actions";
 
 const SignIn = props => {
   const { loadingState = true, postSignIn } = props;
-  const [identityValue, setIdentityValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
+  const [identityValue, setIdentityValue] = useState("ruru14");
+  const [passwordValue, setPasswordValue] = useState("1q2w3e");
 
   const handleIdentityValue = event => setIdentityValue(event.target.value);
   const handlePasswordValue = event => setPasswordValue(event.target.value);
 
   const handleSubmit = () => {
     const userInformation = {
-      identity: identityValue,
+      id: identityValue,
       password: passwordValue
     };
 

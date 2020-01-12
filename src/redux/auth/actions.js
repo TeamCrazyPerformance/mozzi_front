@@ -1,8 +1,8 @@
 import * as AuthActions from "./actionTypes";
 
-export const postSignIn = ({ identity, password }) => ({
+export const postSignIn = ({ id, password }) => ({
   type: AuthActions.POST_SIGN_IN,
-  identity,
+  id,
   password
 });
 

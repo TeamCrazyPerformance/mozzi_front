@@ -1,6 +1,5 @@
 export const jwtConfig = {
-  fetchUrl: "",
-  secretKey: ""
+  fetchUrl: "http://117.17.198.44:8080"
 };
 
 export const jwtLocalStorageVariableName = "tcpWebJwt";
