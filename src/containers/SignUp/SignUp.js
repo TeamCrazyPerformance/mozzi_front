@@ -16,8 +16,9 @@ const SignUp = props => {
   const [nameValue, setNameValue] = useState("");
   const [birthdayValue, setBirthdayValue] = useState("");
   const [nickNameValue, setNickNameValue] = useState("");
-  const [genderValue, setGenderValue] = useState("");
   const [schoolValue, setSchoolValue] = useState("");
+  const [studentNumberValue, setStudentNumberValue] = useState("");
+  const [majorValue, setMajorValue] = useState("");
   const [emailValue, setEmailValue] = useState("");
   const [phoneNumberValue, setPhoneNumberValue] = useState("");
 
@@ -28,8 +29,10 @@ const SignUp = props => {
   const handleNameValue = event => setNameValue(event.target.value);
   const handleBirthdayValue = event => setBirthdayValue(event.target.value);
   const handleNickNameValue = event => setNickNameValue(event.target.value);
-  const handleGenderValue = event => setGenderValue(event.target.value);
   const handleSchoolValue = event => setSchoolValue(event.target.value);
+  const handleStudentNumberValue = event =>
+    setStudentNumberValue(event.target.value);
+  const handleMajorValue = event => setMajorValue(event.target.value);
   const handleEmailValue = event => setEmailValue(event.target.value);
   const handlePhoneNumberValue = event =>
     setPhoneNumberValue(event.target.value);
@@ -59,13 +62,14 @@ const SignUp = props => {
 
   const handleSubmit = () => {
     const userInformation = {
-      identity: identityValue,
+      id: identityValue,
       password: passwordValue,
       name: nameValue,
       birthday: birthdayValue,
       nickName: nickNameValue,
-      gender: genderValue,
       school: schoolValue,
+      studentNumber: studentNumberValue,
+      major: majorValue,
       email: emailValue,
       phoneNumber: phoneNumberValue
     };
@@ -99,10 +103,12 @@ const SignUp = props => {
               handleBirthdayValue={handleBirthdayValue}
               nickNameValue={nickNameValue}
               handleNickNameValue={handleNickNameValue}
-              genderValue={genderValue}
-              handleGenderValue={handleGenderValue}
               schoolValue={schoolValue}
               handleSchoolValue={handleSchoolValue}
+              studentNumberValue={studentNumberValue}
+              handleStudentNumberValue={handleStudentNumberValue}
+              majorValue={majorValue}
+              handleMajorValue={handleMajorValue}
               emailValue={emailValue}
               handleEmailValue={handleEmailValue}
               phoneNumberValue={phoneNumberValue}

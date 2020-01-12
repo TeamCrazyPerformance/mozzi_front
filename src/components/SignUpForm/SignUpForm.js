@@ -26,10 +26,12 @@ const SignUpForm = props => {
     handleBirthdayValue,
     nickNameValue,
     handleNickNameValue,
-    genderValue,
-    handleGenderValue,
     schoolValue,
     handleSchoolValue,
+    studentNumberValue,
+    handleStudentNumberValue,
+    majorValue,
+    handleMajorValue,
     emailValue,
     handleEmailValue,
     phoneNumberValue,
@@ -49,8 +51,11 @@ const SignUpForm = props => {
   const [nameValueIsEmpty, setNameValueIsEmpty] = useState(false);
   const [birthdayValueIsEmpty, setBirthdayValueIsEmpty] = useState(false);
   const [nickNameValueIsEmpty, setNickNameValueIsEmpty] = useState(false);
-  const [genderValueIsEmpty, setGenderValueIsEmpty] = useState(false);
   const [schoolValueIsEmpty, setSchoolValueIsEmpty] = useState(false);
+  const [studentNumberValueIsEmpty, setStudentNumberValueIsEmpty] = useState(
+    false
+  );
+  const [majorValueIsEmpty, setMajorValueIsEmpty] = useState(false);
   const [emailValueIsEmpty, setEmailValueIsEmpty] = useState(false);
   const [phoneNumberValueIsEmpty, setPhoneNumberValueIsEmpty] = useState(false);
 
@@ -87,15 +92,20 @@ const SignUpForm = props => {
       valueIsEmpty = true;
     } else setNickNameValueIsEmpty(false);
 
-    if (genderValue === "") {
-      setGenderValueIsEmpty(true);
-      valueIsEmpty = true;
-    } else setGenderValueIsEmpty(false);
-
     if (schoolValue === "") {
       setSchoolValueIsEmpty(true);
       valueIsEmpty = true;
     } else setSchoolValueIsEmpty(false);
+
+    if (studentNumberValue === "") {
+      setStudentNumberValueIsEmpty(true);
+      valueIsEmpty = true;
+    } else setStudentNumberValueIsEmpty(false);
+
+    if (majorValue === "") {
+      setMajorValueIsEmpty(true);
+      valueIsEmpty = true;
+    } else setMajorValueIsEmpty(false);
 
     if (emailValue === "") {
       setEmailValueIsEmpty(true);
@@ -209,23 +219,36 @@ const SignUpForm = props => {
         </div>
         <div className="signup-form-component__form__input-box-wrapper">
           <TextField
-            className="signup-form-component__form__input-box-wrapper__gender-input-box"
-            label="Gender"
-            value={genderValue}
-            onChange={handleGenderValue}
-            error={genderValueIsEmpty}
-            helperText={genderValueIsEmpty ? "Please fill gender" : " "}
-            fullWidth
-          />
-        </div>
-        <div className="signup-form-component__form__input-box-wrapper">
-          <TextField
             className="signup-form-component__form__input-box-wrapper__school-input-box"
             label="School"
             value={schoolValue}
             onChange={handleSchoolValue}
             error={schoolValueIsEmpty}
             helperText={schoolValueIsEmpty ? "Please fill school" : " "}
+            fullWidth
+          />
+        </div>
+        <div className="signup-form-component__form__input-box-wrapper">
+          <TextField
+            className="signup-form-component__form__input-box-wrapper__student-number-input-box"
+            label="Student Number"
+            value={studentNumberValue}
+            onChange={handleStudentNumberValue}
+            error={studentNumberValueIsEmpty}
+            helperText={
+              studentNumberValueIsEmpty ? "Please fill student number" : " "
+            }
+            fullWidth
+          />
+        </div>
+        <div className="signup-form-component__form__input-box-wrapper">
+          <TextField
+            className="signup-form-component__form__input-box-wrapper__major-input-box"
+            label="Major"
+            value={majorValue}
+            onChange={handleMajorValue}
+            error={majorValueIsEmpty}
+            helperText={majorValueIsEmpty ? "Please fill major" : " "}
             fullWidth
           />
         </div>
@@ -283,10 +306,12 @@ SignUpForm.propTypes = {
   handleBirthdayValue: PropTypes.func.isRequired,
   nickNameValue: PropTypes.string.isRequired,
   handleNickNameValue: PropTypes.func.isRequired,
-  genderValue: PropTypes.string.isRequired,
-  handleGenderValue: PropTypes.func.isRequired,
   schoolValue: PropTypes.string.isRequired,
   handleSchoolValue: PropTypes.func.isRequired,
+  studentNumberValue: PropTypes.string.isRequired,
+  handleStudentNumberValue: PropTypes.func.isRequired,
+  majorValue: PropTypes.string.isRequired,
+  handleMajorValue: PropTypes.func.isRequired,
   emailValue: PropTypes.string.isRequired,
   handleEmailValue: PropTypes.func.isRequired,
   phoneNumberValue: PropTypes.string.isRequired,
