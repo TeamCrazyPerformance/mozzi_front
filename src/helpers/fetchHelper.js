@@ -18,7 +18,7 @@ const customHeader = () => {
 
 // Make http request with fetch api.
 const base = (method, url, data) =>
-  fetch(`${jwtConfig.fetchUrl + url}`, {
+  fetch(url, {
     method,
     headers: customHeader(),
     body: JSON.stringify(data)
