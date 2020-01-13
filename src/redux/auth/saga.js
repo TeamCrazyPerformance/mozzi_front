@@ -70,7 +70,7 @@ const tokenRefresh = function* tokenRefresh() {
     } else {
       yield call(() => jwtHelper.clearJwt());
       yield put({
-        type: AuthActions.POST_SIGN_IN_FAILURE
+        type: AuthActions.TOKEN_AUTH_ERROR
       });
     }
   });
@@ -89,7 +89,7 @@ const checkAuthorization = function* checkAuthorization() {
         });
       } else if (isAuthorization.error) {
         yield put({
-          type: AuthActions.POST_SIGN_IN_FAILURE
+          type: AuthActions.TOKEN_AUTH_ERROR
         });
       }
     }
