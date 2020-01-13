@@ -22,7 +22,7 @@ const SignIn = props => {
       password: passwordValue
     };
 
-    postSignIn({ userInformation });
+    postSignIn(userInformation);
   };
 
   return (

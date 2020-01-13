@@ -11,6 +11,7 @@ const SignUp = props => {
   const { history } = props;
 
   const [identityValue, setIdentityValue] = useState("");
+  const [identityValueUseable, setIdentityValueUseable] = useState(true);
   const [passwordValue, setPasswordValue] = useState("");
   const [passwordConfirmValue, setPasswordConfirmValue] = useState("");
   const [nameValue, setNameValue] = useState("");
@@ -22,7 +23,13 @@ const SignUp = props => {
   const [emailValue, setEmailValue] = useState("");
   const [phoneNumberValue, setPhoneNumberValue] = useState("");
 
-  const handleIdentityValue = event => setIdentityValue(event.target.value);
+  const handleIdentityValue = event => {
+    signUpApi
+      .putIdCheck(event.target.value)
+      .then(setIdentityValueUseable(true))
+      .catch(() => setIdentityValueUseable(false));
+    setIdentityValue(event.target.value);
+  };
   const handlePasswordValue = event => setPasswordValue(event.target.value);
   const handlePasswordConfirmValue = event =>
     setPasswordConfirmValue(event.target.value);
@@ -61,7 +68,7 @@ const SignUp = props => {
   };
 
   const handleSubmit = () => {
-    const userInformation = {
+    signUpApi.postSignUp({
       id: identityValue,
       password: passwordValue,
       name: nameValue,
@@ -71,11 +78,7 @@ const SignUp = props => {
       studentNumber: studentNumberValue,
       major: majorValue,
       email: emailValue,
-      phoneNumber: phoneNumberValue
-    };
-
-    signUpApi.postSignUp({
-      userInformation,
+      phoneNumber: phoneNumberValue,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
       apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
@@ -93,6 +96,7 @@ const SignUp = props => {
             <SignUpForm
               identityValue={identityValue}
               handleIdentityValue={handleIdentityValue}
+              identityValueUseable={identityValueUseable}
               passwordValue={passwordValue}
               handlePasswordValue={handlePasswordValue}
               passwordConfirmValue={passwordConfirmValue}

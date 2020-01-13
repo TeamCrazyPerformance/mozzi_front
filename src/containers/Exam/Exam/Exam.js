@@ -1,5 +1,13 @@
 import React from "react";
 
-const Exam = () => <div>Exam</div>;
+const Exam = () => {
+  return (
+    <div>
+      Exam information
+      Exam delete
+      Exam edit
+    </div>
+  );
+};
 
 export default Exam;

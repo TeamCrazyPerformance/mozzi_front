@@ -16,6 +16,7 @@ const SignUpForm = props => {
   const {
     identityValue,
     handleIdentityValue,
+    identityValueUseable,
     passwordValue,
     handlePasswordValue,
     passwordConfirmValue,
@@ -136,7 +137,8 @@ const SignUpForm = props => {
 
     const emptyValidation = validationCheck();
     const passwordConfirmValidation = passwordConfirmCheck();
-    if (emptyValidation && passwordConfirmValidation) handleSubmit();
+    if (emptyValidation && passwordConfirmValidation && identityValueUseable)
+      handleSubmit();
   };
 
   return (
@@ -151,8 +153,12 @@ const SignUpForm = props => {
             label="ID"
             value={identityValue}
             onChange={handleIdentityValue}
-            error={identityValueIsEmpty}
-            helperText={identityValueIsEmpty ? "Please fill ID" : " "}
+            error={identityValueIsEmpty || !identityValueUseable}
+            helperText={(() => {
+              if (!identityValueUseable) return "This ID can't use";
+              if (identityValueIsEmpty) return "Please fill password";
+              return " ";
+            })()}
             fullWidth
           />
         </div>
@@ -176,11 +182,13 @@ const SignUpForm = props => {
             value={passwordConfirmValue}
             onChange={handlePasswordConfirmValue}
             error={passwordConfirmValueIsEmpty || !passwordConfirmIsSame}
-            helperText={
-              passwordConfirmValueIsEmpty || !passwordConfirmIsSame
-                ? "Please check password confirm"
-                : " "
-            }
+            helperText={(() => {
+              if (passwordConfirmValueIsEmpty)
+                return "Please fill password confirm";
+              if (!passwordConfirmIsSame)
+                return "Please check password confirm";
+              return " ";
+            })()}
             fullWidth
           />
         </div>
@@ -296,6 +304,7 @@ const SignUpForm = props => {
 SignUpForm.propTypes = {
   identityValue: PropTypes.string.isRequired,
   handleIdentityValue: PropTypes.func.isRequired,
+  identityValueUseable: PropTypes.bool.isRequired,
   passwordValue: PropTypes.string.isRequired,
   handlePasswordValue: PropTypes.func.isRequired,
   passwordConfirmValue: PropTypes.string.isRequired,

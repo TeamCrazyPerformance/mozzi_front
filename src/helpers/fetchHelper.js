@@ -23,7 +23,7 @@ const base = (method, url, data) =>
     headers: customHeader(),
     body: JSON.stringify(data)
   })
-    .then(response => (response.ok ? response.json() : { error: "Error" }))
+    .then(response => (response.success ? response.json() : { error: "Error" }))
     .then(response => response)
     .catch(() => ({ error: "Server Error" }));
 

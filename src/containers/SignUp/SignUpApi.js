@@ -1,7 +1,16 @@
 // import fetchHelper from './../../../helpers/fetchHelper';
 
 export const postSignUp = ({
-  userInformation,
+  id,
+  password,
+  name,
+  birthday,
+  nickName,
+  school,
+  studentNumber,
+  major,
+  email,
+  phoneNumber,
   apiCallStart,
   apiCallSuccess,
   apiCallFailure
@@ -21,4 +30,16 @@ export const postSignUp = ({
   } else {
     apiCallFailure();
   }
+};
+
+export const putIdCheck = identityValue => {
+  return new Promise((resolve, reject) => {
+    const getResult = { useable: true };
+    if (identityValue === "fuck") getResult.useable = false;
+    if (getResult.useable) {
+      resolve(true);
+    } else {
+      reject(new Error("Can't use this ID"));
+    }
+  });
 };

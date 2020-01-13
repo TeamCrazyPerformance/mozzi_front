@@ -12,12 +12,7 @@ const postSignIn = function* postSignIn() {
       type: AuthActions.POST_SIGN_IN_PENDING
     });
 
-    const userInformation = {
-      id,
-      password
-    };
-
-    const getResult = yield call(() => AuthApi.postSignIn(userInformation));
+    const getResult = yield call(() => AuthApi.postSignIn({ id, password }));
 
     if (getResult.success === true && getResult.token) {
       yield call(() => jwtHelper.setJwt(getResult.token));
@@ -58,7 +53,7 @@ const signOut = function* signOut() {
 
 const tokenRefresh = function* tokenRefresh() {
   yield takeEvery(AuthActions.TOKEN_REFRESH, function* signOutSaga() {
-    const getResult = yield call(() => AuthApi.postSignIn());
+    const getResult = yield call(() => AuthApi.tokenRefresh());
 
     if (getResult.success === true && getResult.token) {
       yield call(() => jwtHelper.setJwt(getResult.token));
