@@ -1,4 +1,4 @@
-import { jwtConfig, jwtLocalStorageVariableName } from "../setting/jwtSetting";
+import { jwtLocalStorageVariableName } from "../setting/jwtSetting";
 
 const customHeader = () => {
   if (sessionStorage.getItem(jwtLocalStorageVariableName)) {
@@ -23,7 +23,7 @@ const base = (method, url, data) =>
     headers: customHeader(),
     body: JSON.stringify(data)
   })
-    .then(response => (response.success ? response.json() : { error: "Error" }))
+    .then(response => (response.ok ? response.json() : { error: "Error" }))
     .then(response => response)
     .catch(() => ({ error: "Server Error" }));
 
