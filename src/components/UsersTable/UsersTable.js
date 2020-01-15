@@ -70,7 +70,7 @@ const UsersTableStyles = makeStyles(theme => ({
 const userPageRedirect = userId => {
   const currentUrl = window.location.href;
   const redirectUrl = currentUrl.split("/")[0];
-  window.location.href = `${redirectUrl}/admin/user/${userId}`;
+  window.location.href = `${redirectUrl}/user/${userId}`;
 };
 
 const UserTableRow = user => (
