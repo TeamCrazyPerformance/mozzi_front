@@ -10,25 +10,26 @@ import * as signUpApi from "./SignUpApi";
 const SignUp = props => {
   const { history } = props;
 
-  const [identityValue, setIdentityValue] = useState("");
+  const [identityValue, setIdentityValue] = useState("a");
   const [identityValueUseable, setIdentityValueUseable] = useState(true);
-  const [passwordValue, setPasswordValue] = useState("");
-  const [passwordConfirmValue, setPasswordConfirmValue] = useState("");
-  const [nameValue, setNameValue] = useState("");
-  const [birthdayValue, setBirthdayValue] = useState("");
-  const [nickNameValue, setNickNameValue] = useState("");
-  const [schoolValue, setSchoolValue] = useState("");
-  const [studentNumberValue, setStudentNumberValue] = useState("");
-  const [majorValue, setMajorValue] = useState("");
-  const [emailValue, setEmailValue] = useState("");
-  const [phoneNumberValue, setPhoneNumberValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("a");
+  const [passwordConfirmValue, setPasswordConfirmValue] = useState("a");
+  const [nameValue, setNameValue] = useState("a");
+  const [birthdayValue, setBirthdayValue] = useState("a");
+  const [nickNameValue, setNickNameValue] = useState("a");
+  const [schoolValue, setSchoolValue] = useState("a");
+  const [studentNumberValue, setStudentNumberValue] = useState("a");
+  const [majorValue, setMajorValue] = useState("a");
+  const [emailValue, setEmailValue] = useState("a");
+  const [phoneNumberValue, setPhoneNumberValue] = useState("a");
 
   const handleIdentityValue = event => {
-    signUpApi
-      .putIdCheck(event.target.value)
-      .then(setIdentityValueUseable(true))
-      .catch(() => setIdentityValueUseable(false));
     setIdentityValue(event.target.value);
+    signUpApi.putIdCheck({
+      identityValue: event.target.value,
+      idCanUseState: () => setIdentityValueUseable(true),
+      idCanNotUseState: () => setIdentityValueUseable(false)
+    });
   };
   const handlePasswordValue = event => setPasswordValue(event.target.value);
   const handlePasswordConfirmValue = event =>
@@ -46,25 +47,20 @@ const SignUp = props => {
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
 
-  const setLoadingStateToTrue = () => setLoadingState(true);
-  const setLoadingStateToFalse = () => setLoadingState(false);
-  const setErrorToTrue = () => setError(true);
-  const setErrorToFalse = () => setError(false);
-
   const setLoadingStateAndErrorWhenApiCallStart = () => {
-    setLoadingStateToTrue();
-    setErrorToFalse();
+    setLoadingState(true);
+    setError(false);
   };
 
   const setLoadingStateAndErrorWhenApiCallSuccess = () => {
-    setLoadingStateToFalse();
-    setErrorToFalse();
+    setLoadingState(false);
+    setError(false);
     history.push("/signin");
   };
 
   const setLoadingStateAndErrorWhenApiCallFailure = () => {
-    setLoadingStateToFalse();
-    setErrorToTrue();
+    setLoadingState(false);
+    setError(true);
   };
 
   const handleSubmit = () => {
