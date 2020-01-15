@@ -23,8 +23,11 @@ const base = (method, url, data) =>
     headers: customHeader(),
     body: JSON.stringify(data)
   })
-    .then(response => (response.ok ? response.json() : { error: "Error" }))
-    .then(response => response)
+    .then(response => {
+      console.log(response);
+      if (response.ok) return response.json();
+      return { error: "Error" };
+    })
     .catch(() => ({ error: "Server Error" }));
 
 const fetchHelper = {};

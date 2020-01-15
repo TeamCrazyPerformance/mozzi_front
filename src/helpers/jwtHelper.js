@@ -26,24 +26,20 @@ export const getJwt = () => {
 export const checkExpirity = token => {
   if (!token) {
     return {
-      error: "not matched"
+      error: "There is no token"
     };
   }
 
-  try {
-    const decodedJwt = jwtDecode(token);
-    const { expiredAt } = decodedJwt;
+  const decodedJwt = jwtDecode(token);
+  const { expiredAt } = decodedJwt;
 
-    if (expiredAt > new Date().getTime()) {
-      return {
-        ...decodedJwt,
-        token,
-        exp: new Date(expiredAt)
-      };
-    }
-
-    return { timeoutError: true };
-  } catch (error) {
-    return { error: "Server Error" };
+  if (expiredAt > new Date().getTime()) {
+    return {
+      ...decodedJwt,
+      token,
+      exp: new Date(expiredAt)
+    };
   }
+
+  return { timeoutError: true };
 };
