@@ -24,7 +24,6 @@ const base = (method, url, data) =>
     body: JSON.stringify(data)
   })
     .then(response => {
-      console.log(response);
       if (response.ok) return response.json();
       return { error: "Error" };
     })

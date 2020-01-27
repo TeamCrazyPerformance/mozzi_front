@@ -7,6 +7,7 @@ import {
   Redirect
 } from "react-router-dom";
 import { connect } from "react-redux";
+import checkSignIn from "./redux/checkSignIn";
 import SignIn from "./containers/SignIn/SignIn";
 import SignUp from "./containers/SignUp/SignUp";
 import Header from "./components/Header/Header";
@@ -90,6 +91,8 @@ AppRouter.propTypes = {
 
 const RouterSelectorComponent = props => {
   const { isSignIn, location } = props;
+
+  checkSignIn();
 
   if (isSignIn === true) {
     if (location.pathname === "/signin") return <Redirect to="main" />;

@@ -83,7 +83,14 @@ const checkAuthorization = function* checkAuthorization() {
       const jwt = jwtHelper.getJwt();
       const isAuthorization = jwtHelper.checkExpirity(jwt);
 
-      if (isAuthorization.timeoutError) {
+      if (isAuthorization.success) {
+        // Check login state when the page refreshes.
+        if (isAuthorization.role === "admin") {
+          yield put({ type: AuthActions.POST_SIGN_IN_SUCCESS_ADMIN });
+        } else if (isAuthorization.role === "user") {
+          yield put({ type: AuthActions.POST_SIGN_IN_SUCCESS_USER });
+        }
+      } else if (isAuthorization.timeoutError) {
         yield put({
           type: AuthActions.TOKEN_REFRESH
         });
