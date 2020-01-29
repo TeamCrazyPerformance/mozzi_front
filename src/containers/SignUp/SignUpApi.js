@@ -39,18 +39,8 @@ export const postSignUp = async ({
   }
 };
 
-export const putIdCheck = async ({
-  identityValue,
-  idCanUseState,
-  idCanNotUseState
-}) => {
-  const getResult = await fetchHelper
-    .post(`/user`, { identityValue })
-    .then(response => response);
-
-  if (getResult.useable) {
-    idCanUseState();
-  } else {
-    idCanNotUseState();
-  }
+export const putIdCheck = ({ identityValue }) => {
+  return fetchHelper
+    .put(`/user/check`, { id: identityValue })
+    .then(response => response.useable);
 };
