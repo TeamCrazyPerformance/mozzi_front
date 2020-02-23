@@ -19,8 +19,7 @@ const SignUpForm = props => {
   const validationCheckAndHandleSubmit = event => {
     // Prevent browers refresh.
     event.preventDefault();
-    console.log(event);
-    // handleSubmit();
+    handleSubmit();
   };
 
   return (

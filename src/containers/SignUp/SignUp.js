@@ -100,7 +100,7 @@ const SignUp = props => {
     const birthdayValueIsEmpty = value === "";
     if (birthdayValueIsEmpty) return "Please fill birthday";
 
-    const birthdayRegex = /^\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|[3][01])$/.test(
+    const birthdayRegex = /^\d{2}(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])$/.test(
       value
     );
     if (!birthdayRegex) return "Input YYMMDD format";
@@ -119,7 +119,7 @@ const SignUp = props => {
     const nickNameValueIsEmpty = value === "";
     if (nickNameValueIsEmpty) return "Please fill nick name";
 
-    const nickNameRegex = /^[가-힣a-zA-Z0-9~!@#$%^&*()_+|<>?:{}+]*$/.test(
+    const nickNameRegex = /^[가-힣ㄱ-ㅎㅏ-ㅣa-zA-Z0-9~!@#$%^&*()_+|<>?:{}+]*$/.test(
       value
     );
     if (!nickNameRegex)
@@ -310,12 +310,29 @@ const SignUp = props => {
   ];
 
   const handleSubmit = () => {
-    signUpApi.postSignUp({
-      signupFormData,
-      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
-      apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
-      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
+    let err = false;
+
+    signupFormData.forEach(data => {
+      if (data.value === "" || data.valueErrMessage) err = true;
     });
+
+    if (!err) {
+      signUpApi.postSignUp({
+        id: identityValue,
+        password: passwordValue,
+        name: nameValue,
+        birthday: birthdayValue,
+        nickName: nickNameValue,
+        school: schoolValue,
+        studentNumber: stdNumValue,
+        major: majorValue,
+        email: emailValue,
+        phoneNumber: phoneNumValue,
+        apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+        apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
+        apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
+      });
+    }
   };
 
   return (
