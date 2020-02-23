@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import ProjectInformation from "../../../components/ProjectInformation/ProjectInformation";
+import ProjectIssueList from "../../../components/ProjectIssueList/ProjectIssueList";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
 import * as projectApi from "./projectApi";
@@ -14,7 +15,9 @@ const Project = ({
   const [project, setProject] = useState({
     projectId: "",
     projectName: "",
-    projectLeader: ""
+    projectLeader: "",
+    projectContent: "",
+    projectIssues: [{ issueId: "", issueName: "", issueContent: "" }]
   });
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
@@ -62,6 +65,7 @@ const Project = ({
         ) : (
           <>
             <ProjectInformation projectInformation={project} />
+            <ProjectIssueList projectIssues={project.projectIssues} />
             <Button
               variant="contained"
               color="primary"

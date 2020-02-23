@@ -11,6 +11,7 @@ const SignInForm = props => {
     handleIdentityValue,
     passwordValue,
     handlePasswordVaule,
+    idPasswordError,
     signupUrl
   } = props;
 
@@ -52,8 +53,12 @@ const SignInForm = props => {
             label="Email"
             value={identityValue}
             onChange={handleIdentityValue || undefined}
-            error={identityValueIsEmpty}
-            helperText={identityValueIsEmpty ? "Please fill Email" : " "}
+            error={identityValueIsEmpty || idPasswordError}
+            helperText={(() => {
+              if (idPasswordError) return "ID or password error";
+              if (identityValueIsEmpty) return "Please fill ID";
+              return " ";
+            })()}
             fullWidth
           />
         </div>
@@ -64,8 +69,12 @@ const SignInForm = props => {
             type="password"
             value={passwordValue}
             onChange={handlePasswordVaule || undefined}
-            error={passwordValueIsEmpty}
-            helperText={passwordValueIsEmpty ? "Please fill Password" : " "}
+            error={passwordValueIsEmpty || idPasswordError}
+            helperText={(() => {
+              if (idPasswordError) return "ID or password error";
+              if (passwordValueIsEmpty) return "Please fill password";
+              return " ";
+            })()}
             fullWidth
           />
         </div>
@@ -103,6 +112,7 @@ SignInForm.propTypes = {
   handleIdentityValue: PropTypes.func.isRequired,
   passwordValue: PropTypes.string.isRequired,
   handlePasswordVaule: PropTypes.func.isRequired,
+  idPasswordError: PropTypes.bool.isRequired,
   signupUrl: PropTypes.string.isRequired
 };
 

@@ -1,12 +1,12 @@
-import { jwtConfig, jwtLocalStorageVariableName } from "../setting/jwtSetting";
+import { jwtLocalStorageVariableName } from "../setting/jwtSetting";
 
 const customHeader = () => {
-  if (localStorage.getItem(jwtLocalStorageVariableName)) {
+  if (sessionStorage.getItem(jwtLocalStorageVariableName)) {
     return {
       "Content-Type": "application/json",
       Accept: "application/json",
       Authorization: "Bearer ".concat(
-        localStorage.getItem(jwtLocalStorageVariableName)
+        sessionStorage.getItem(jwtLocalStorageVariableName)
       )
     };
   }
@@ -18,13 +18,15 @@ const customHeader = () => {
 
 // Make http request with fetch api.
 const base = (method, url, data) =>
-  fetch(`${jwtConfig.fetchUrl + url}`, {
+  fetch(url, {
     method,
     headers: customHeader(),
     body: JSON.stringify(data)
   })
-    .then(response => (response.ok ? response.json() : { error: "Error" }))
-    .then(response => response)
+    .then(response => {
+      if (response.ok) return response.json();
+      return { error: "Error" };
+    })
     .catch(() => ({ error: "Server Error" }));
 
 const fetchHelper = {};

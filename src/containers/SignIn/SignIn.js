@@ -9,20 +9,20 @@ import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import * as authActions from "../../redux/auth/actions";
 
 const SignIn = props => {
-  const { loadingState = true, postSignIn } = props;
-  const [identityValue, setIdentityValue] = useState("");
-  const [passwordValue, setPasswordValue] = useState("");
+  const { loadingState, postSignIn, idPasswordError } = props;
+  const [identityValue, setIdentityValue] = useState("ruru14");
+  const [passwordValue, setPasswordValue] = useState("1q2w3e");
 
   const handleIdentityValue = event => setIdentityValue(event.target.value);
   const handlePasswordValue = event => setPasswordValue(event.target.value);
 
   const handleSubmit = () => {
     const userInformation = {
-      identity: identityValue,
+      id: identityValue,
       password: passwordValue
     };
 
-    postSignIn({ userInformation });
+    postSignIn(userInformation);
   };
 
   return (
@@ -34,13 +34,14 @@ const SignIn = props => {
       maxHeight
       createWrapper
     >
-      <LoadingSpinner loadingState={loadingState.signIn}>
+      <LoadingSpinner loadingState={loadingState}>
         <Logo size="large" spin />
         <SignInForm
           handleSubmit={handleSubmit}
           identityValue={identityValue}
           handleIdentityValue={handleIdentityValue}
           passwordValue={passwordValue}
+          idPasswordError={idPasswordError}
           handlePasswordVaule={handlePasswordValue}
           signupUrl="/signup"
         />
@@ -51,18 +52,17 @@ const SignIn = props => {
 
 SignIn.propTypes = {
   postSignIn: PropTypes.func.isRequired,
-  loadingState: PropTypes.shape({
-    signIn: PropTypes.bool
-  }).isRequired
+  loadingState: PropTypes.bool.isRequired,
+  idPasswordError: PropTypes.bool.isRequired
 };
 
 const mapStateToProps = state => {
   const { auth } = state;
+
   return {
     isSignIn: auth.isSignIn,
-    loadingState: {
-      signIn: auth.loadingState.signIn
-    }
+    loadingState: auth.loadingState,
+    idPasswordError: auth.idPasswordError
   };
 };
 

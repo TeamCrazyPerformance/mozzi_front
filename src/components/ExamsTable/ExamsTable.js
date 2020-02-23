@@ -9,43 +9,25 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { makeStyles } from "@material-ui/core/styles";
 
-const rows = [
+const examsTableRows = [
   {
-    id: "name",
+    id: "examName",
     numeric: false,
     disablePadding: true,
-    label: "User Name"
+    label: "Exam Name"
   },
   {
-    id: "nickname",
+    id: "Professor",
     numeric: true,
     disablePadding: false,
-    label: "User Nickname"
-  },
-  {
-    id: "email",
-    numeric: true,
-    disablePadding: false,
-    label: "User Email"
-  },
-  {
-    id: "stdNumber",
-    numeric: true,
-    disablePadding: false,
-    label: "User Student Number"
-  },
-  {
-    id: "birthday",
-    numeric: true,
-    disablePadding: false,
-    label: "User Birthday"
+    label: "Professor"
   }
 ];
 
 const EnhancedTableHead = () => (
   <TableHead>
     <TableRow role="checkbox">
-      {rows.map(row => (
+      {examsTableRows.map(row => (
         <TableCell key={row.id} align="center">
           {row.label}
         </TableCell>
@@ -54,7 +36,7 @@ const EnhancedTableHead = () => (
   </TableHead>
 );
 
-const UsersTableStyles = makeStyles(theme => ({
+const ExamsTableStyles = makeStyles(theme => ({
   rootClassName: {
     width: "100%",
     marginTop: theme.spacing(3)
@@ -67,33 +49,20 @@ const UsersTableStyles = makeStyles(theme => ({
   }
 }));
 
-const userPageRedirect = userId => {
-  const currentUrl = window.location.href;
-  const redirectUrl = currentUrl.split("/")[0];
-  window.location.href = `${redirectUrl}/user/${userId}`;
-};
-
-const UserTableRow = user => (
-  <TableRow
-    hover
-    key={user.stdNumber}
-    onClick={() => userPageRedirect(user.id)}
-  >
-    <TableCell align="center">{user.name}</TableCell>
-    <TableCell align="center">{user.nickname}</TableCell>
-    <TableCell align="center">{user.email}</TableCell>
-    <TableCell align="center">{user.stdNumber}</TableCell>
-    <TableCell align="center">{user.birthday}</TableCell>
+const examTableRow = exam => (
+  <TableRow hover key={exam.examId} onClick={() => {}}>
+    <TableCell align="center">{exam.examName}</TableCell>
+    <TableCell align="center">{exam.professor}</TableCell>
   </TableRow>
 );
 
-const UsersTable = props => {
+const ExamsTable = props => {
   const { data, page, count, total, handlePageChange } = props;
   const {
     rootClassName,
     tableClassName,
     tableWrapperClassName
-  } = UsersTableStyles();
+  } = ExamsTableStyles();
   const emptyRows = count - data.length;
 
   return (
@@ -102,7 +71,7 @@ const UsersTable = props => {
         <Table className={tableClassName} aria-labelledby="tableTitle">
           <EnhancedTableHead rowCount={count} />
           <TableBody>
-            {data.map(user => UserTableRow(user))}
+            {data.map(exam => examTableRow(exam))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -125,17 +94,18 @@ const UsersTable = props => {
   );
 };
 
-UsersTable.propTypes = {
+ExamsTable.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.string.isRequired,
+      examId: PropTypes.number.isRequired,
+      authorId: PropTypes.number.isRequired,
+      year: PropTypes.string.isRequired,
+      major: PropTypes.string.isRequired,
+      garde: PropTypes.number.isRequired,
+      semeter: PropTypes.number.isRequired,
+      term: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
-      nickname: PropTypes.string.isRequired,
-      stdNumber: PropTypes.string.isRequired,
-      phoneNum: PropTypes.string.isRequired,
-      email: PropTypes.string.isRequired,
-      birthday: PropTypes.string.isRequired
+      professor: PropTypes.string.isRequired
     })
   ).isRequired,
   page: PropTypes.number.isRequired,
@@ -144,4 +114,4 @@ UsersTable.propTypes = {
   handlePageChange: PropTypes.func.isRequired
 };
 
-export default UsersTable;
+export default ExamsTable;

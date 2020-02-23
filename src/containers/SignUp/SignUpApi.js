@@ -1,24 +1,46 @@
-// import fetchHelper from './../../../helpers/fetchHelper';
+import fetchHelper from "../../helpers/fetchHelper";
 
-export const postSignUp = ({
-  userInformation,
+export const postSignUp = async ({
+  id,
+  password,
+  name,
+  birthday,
+  nickName,
+  school,
+  studentNumber,
+  major,
+  email,
+  phoneNumber,
   apiCallStart,
   apiCallSuccess,
   apiCallFailure
 }) => {
   apiCallStart();
 
-  // const postSignUpResponse = await fetchHelper.post(`/user`, userInformation)
-  // .then(response => response)
-  // .catch(error => ({error: JSON.stringify(error)}))
+  const postSignUpResponse = await fetchHelper
+    .post(`/user`, {
+      id,
+      password,
+      name,
+      birthday,
+      nickName,
+      school,
+      studentNumber,
+      major,
+      email,
+      phoneNumber
+    })
+    .then(response => response);
 
-  const postSignUpResponse = {
-    success: true
-  };
-
-  if (postSignUpResponse.success) {
+  if (postSignUpResponse.success === true) {
     apiCallSuccess();
   } else {
     apiCallFailure();
   }
+};
+
+export const putIdCheck = ({ identityValue }) => {
+  return fetchHelper
+    .put(`/user/check`, { id: identityValue })
+    .then(response => response.useable);
 };

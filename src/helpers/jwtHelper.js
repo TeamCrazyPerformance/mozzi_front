@@ -26,24 +26,20 @@ export const getJwt = () => {
 export const checkExpirity = token => {
   if (!token) {
     return {
-      error: "not matched"
+      error: "Login Fail"
     };
   }
 
-  try {
-    const decodedJwt = jwtDecode(token);
-    const exp = decodedJwt.exp * 1000;
-
-    if (exp > new Date().getTime()) {
-      return {
-        ...decodedJwt,
-        token,
-        exp: new Date(exp)
-      };
-    }
-
-    return { error: "Token expired" };
-  } catch (error) {
-    return { error: "Server Error" };
+  const decodedJwt = jwtDecode(token);
+  const currentTime = new Date().getTime();
+  // new Date().getTime() return millisecond(1/1000 second)
+  if (decodedJwt.exp > currentTime / 1000) {
+    return {
+      ...decodedJwt,
+      token,
+      success: true
+    };
   }
+
+  return { timeoutError: true };
 };

@@ -8,7 +8,11 @@ import Divider from "@material-ui/core/Divider";
 import { makeStyles } from "@material-ui/core/styles";
 import Home from "@material-ui/icons/Home";
 import LaptopWindows from "@material-ui/icons/LaptopWindows";
+// import Description from "@material-ui/icons/Description";
+// import NoteAdd from "@material-ui/icons/NoteAdd";
+import Create from "@material-ui/icons/Create";
 import LibraryBooks from "@material-ui/icons/LibraryBooks";
+import PostAdd from "@material-ui/icons/PostAdd";
 import Memory from "@material-ui/icons/Memory";
 import GroupAdd from "@material-ui/icons/GroupAdd";
 import Group from "@material-ui/icons/Group";
@@ -29,19 +33,34 @@ const drawerList = [
       iconComponent: <LaptopWindows />,
       text: "Project",
       link: "/project"
-    },
-    {
-      iconComponent: <LaptopWindows />,
-      text: "Projects",
-      link: "/project/projects"
     }
+    // {
+    //   iconComponent: <Description />,
+    //   text: "Projects",
+    //   link: "/project/projects"
+    // },
+    // {
+    //   iconComponent: <NoteAdd />,
+    //   text: "New Project",
+    //   link: "/project/project/create"
+    // }
   ],
   // Exam drawer list.
   [
     {
-      iconComponent: <LibraryBooks />,
+      iconComponent: <Create />,
       text: "Exam",
       link: "/exam"
+    },
+    {
+      iconComponent: <LibraryBooks />,
+      text: "Exams",
+      link: "/exam/exams"
+    },
+    {
+      iconComponent: <PostAdd />,
+      text: "New Exam",
+      link: "/exam/exam/create"
     }
   ],
   // Admin drawer list.

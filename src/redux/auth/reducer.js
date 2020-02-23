@@ -2,10 +2,9 @@ import * as AuthActions from "./actionTypes";
 
 const authInitialState = {
   isSignIn: false,
-  loadingState: {
-    signIn: false,
-    signOut: false
-  }
+  role: "",
+  loadingState: false,
+  idPasswordError: false
 };
 
 const authReducer = (state = authInitialState, action) => {
@@ -13,58 +12,62 @@ const authReducer = (state = authInitialState, action) => {
     case AuthActions.POST_SIGN_IN_PENDING: {
       return {
         ...state,
-        loadingState: {
-          ...state.loadingState,
-          signIn: true
-        }
+        loadingState: true,
+        idPasswordError: false
       };
     }
-    case AuthActions.POST_SIGN_IN_SUCCESS: {
+    case AuthActions.POST_SIGN_IN_SUCCESS_USER: {
       return {
         ...state,
         isSignIn: true,
-        loadingState: {
-          ...state.loadingState,
-          signIn: false
-        }
+        role: "user",
+        loadingState: false,
+        idPasswordError: false
+      };
+    }
+    case AuthActions.POST_SIGN_IN_SUCCESS_ADMIN: {
+      return {
+        ...state,
+        isSignIn: true,
+        role: "admin",
+        loadingState: false,
+        idPasswordError: false
       };
     }
     case AuthActions.POST_SIGN_IN_FAILURE: {
       return {
         ...state,
         isSignIn: false,
-        loadingState: {
-          ...state.loadingState,
-          signIn: false
-        }
-      };
-    }
-    case AuthActions.SIGN_OUT_PENDING: {
-      return {
-        ...state,
-        loadingState: {
-          ...state.loadingState,
-          signOut: true
-        }
+        role: "",
+        loadingState: false,
+        idPasswordError: true
       };
     }
     case AuthActions.SIGN_OUT_SUCCESS: {
       return {
         ...state,
         isSignIn: false,
-        loadingState: {
-          ...state.loadingState,
-          signOut: false
-        }
+        role: "",
+        loadingState: false,
+        idPasswordError: false
       };
     }
     case AuthActions.SIGN_OUT_FAILURE: {
       return {
         ...state,
-        loadingState: {
-          ...state.loadingState,
-          signOut: false
-        }
+        isSignIn: false,
+        role: "",
+        loadingState: false,
+        idPasswordError: false
+      };
+    }
+    case AuthActions.TOKEN_AUTH_ERROR: {
+      return {
+        ...state,
+        isSignIn: false,
+        role: "",
+        loadingState: false,
+        idPasswordError: false
       };
     }
     default:

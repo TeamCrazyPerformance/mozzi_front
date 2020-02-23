@@ -44,7 +44,7 @@ const userInformationStyles = makeStyles(theme => ({
   }
 }));
 
-const UserInformation = props => {
+const UserInformationList = props => {
   const { rootClassName } = userInformationStyles();
   const { userInformation } = props;
   const tableRow = createTableRows(userInformation);
@@ -68,7 +68,7 @@ const UserInformation = props => {
   );
 };
 
-UserInformation.propTypes = {
+UserInformationList.propTypes = {
   userInformation: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
@@ -81,4 +81,4 @@ UserInformation.propTypes = {
   }).isRequired
 };
 
-export default UserInformation;
+export default UserInformationList;

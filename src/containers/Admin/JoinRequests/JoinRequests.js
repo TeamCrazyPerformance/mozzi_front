@@ -8,7 +8,8 @@ const JoinRequests = () => {
   const [joinRequests, setJoinRequests] = useState([
     {
       name: "",
-      stdNumber: "",
+      studentNumber: "",
+      id: "",
       userId: ""
     }
   ]);
