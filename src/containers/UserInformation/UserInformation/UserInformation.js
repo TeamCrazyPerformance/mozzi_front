@@ -12,15 +12,15 @@ const UserInformation = ({
   }
 }) => {
   const [userInformation, setUserInformation] = useState({
-    nickname: "",
     id: "",
-    email: "",
-    role: "",
     name: "",
-    birthday: "",
-    phoneNumber: "",
+    nickname: "",
+    role: "",
+    stdNumber: "",
+    phoneNum: "",
+    email: "",
     major: "",
-    studentNumber: "",
+    birthday: "",
     createAt: "",
     allow: []
   });
@@ -58,7 +58,7 @@ const UserInformation = ({
 
   return (
     <div>
-      <div>User</div>
+      <div>User information</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
           <Error />
@@ -71,6 +71,7 @@ const UserInformation = ({
               className="edit-button-wrapper__edit-button"
               variant="contained"
               color="primary"
+              href={`/user/${userId}/edit`}
             >
               Edit
             </Button>

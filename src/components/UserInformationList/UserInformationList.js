@@ -10,12 +10,14 @@ import Avatar from "@material-ui/core/Avatar";
 import {
   AccountCircle,
   Face,
-  VpnKey,
   InsertEmoticon,
+  SupervisorAccount,
   School,
+  MenuBook,
   Phone,
   Email,
-  Cake
+  Cake,
+  GroupAdd
 } from "@material-ui/icons";
 
 const createUserInformationRow = (icon, dataName, data) => {
@@ -23,18 +25,20 @@ const createUserInformationRow = (icon, dataName, data) => {
 };
 
 const createTableRows = userInformation => [
-  createUserInformationRow(AccountCircle, "Identity", userInformation.id),
+  createUserInformationRow(AccountCircle, "ID", userInformation.id),
   createUserInformationRow(Face, "Name", userInformation.name),
-  createUserInformationRow(VpnKey, "Password", userInformation.password),
   createUserInformationRow(
     InsertEmoticon,
     "Nickname",
     userInformation.nickname
   ),
+  createUserInformationRow(SupervisorAccount, "Role", userInformation.role),
   createUserInformationRow(School, "Student Number", userInformation.stdNumber),
+  createUserInformationRow(MenuBook, "Major", userInformation.major),
   createUserInformationRow(Phone, "Phone Number", userInformation.phoneNum),
   createUserInformationRow(Email, "E-mail", userInformation.email),
-  createUserInformationRow(Cake, "Birthday", userInformation.birthday)
+  createUserInformationRow(Cake, "Birthday", userInformation.birthday),
+  createUserInformationRow(GroupAdd, "Join date", userInformation.createAt)
 ];
 
 const userInformationStyles = makeStyles(theme => ({
@@ -72,12 +76,14 @@ UserInformationList.propTypes = {
   userInformation: PropTypes.shape({
     id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    password: PropTypes.string.isRequired,
     nickname: PropTypes.string.isRequired,
+    role: PropTypes.string.isRequired,
     stdNumber: PropTypes.string.isRequired,
+    major: PropTypes.string.isRequired,
     phoneNum: PropTypes.string.isRequired,
     email: PropTypes.string.isRequired,
-    birthday: PropTypes.string.isRequired
+    birthday: PropTypes.string.isRequired,
+    createAt: PropTypes.string.isRequired
   }).isRequired
 };
 
