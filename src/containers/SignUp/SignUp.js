@@ -30,6 +30,7 @@ const SignUp = props => {
 
   const handleIdentityValue = async event => {
     setIdentityValue(event.target.value);
+    setIdentityValueErrMessage("Wait please");
     setIdentityValueErrMessage(await identityValueCheck(event.target.value));
   };
 
