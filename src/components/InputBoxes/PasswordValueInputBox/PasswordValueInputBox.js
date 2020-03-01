@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 
 const PasswordValueInputBox = props => {
   const {
+    label,
     value,
     setValue,
     valueErrMessage,
@@ -29,7 +30,7 @@ const PasswordValueInputBox = props => {
     setValue(event.target.value);
     setValueErrMessage(passwordValueCheck(event.target.value));
     setPasswordConfirmValueErrMessage(
-      value === passwordConfirmValue
+      event.target.value === passwordConfirmValue
         ? ""
         : "Please check Password and Password confirm"
     );
@@ -38,7 +39,7 @@ const PasswordValueInputBox = props => {
   return (
     <TextField
       className="signup-form-component__form__input-box"
-      label="Password"
+      label={label}
       type="password"
       value={value}
       onChange={handlePasswordValue}
@@ -50,12 +51,19 @@ const PasswordValueInputBox = props => {
 };
 
 PasswordValueInputBox.propTypes = {
+  label: PropTypes.string,
   value: PropTypes.string.isRequired,
   setValue: PropTypes.func.isRequired,
   valueErrMessage: PropTypes.string.isRequired,
   setValueErrMessage: PropTypes.func.isRequired,
-  passwordConfirmValue: PropTypes.string.isRequired,
-  setPasswordConfirmValueErrMessage: PropTypes.func.isRequired
+  passwordConfirmValue: PropTypes.string,
+  setPasswordConfirmValueErrMessage: PropTypes.func
+};
+
+PasswordValueInputBox.defaultProps = {
+  label: "Password",
+  passwordConfirmValue: "",
+  setPasswordConfirmValueErrMessage: () => {}
 };
 
 export default PasswordValueInputBox;
