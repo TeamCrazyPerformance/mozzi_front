@@ -9,7 +9,7 @@ import PhoneNumberValueInputBox from "../InputBoxes/PhoneNumberValueInputBox/Pho
 
 const userInformationEditFormStyles = makeStyles(() => ({
   userInformationEditFormWrapperClassName: {
-    width: "50vw",
+    width: "100%",
     marginBottom: "20px"
   }
 }));

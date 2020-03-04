@@ -8,7 +8,7 @@ import PasswordConfirmValueInputBox from "../InputBoxes/PasswordConfirmValueInpu
 
 const userPasswordEditFormStyles = makeStyles(() => ({
   userPasswordEditFormWrapperClassName: {
-    width: "50vw",
+    width: "100%",
     marginBottom: "20px"
   }
 }));
