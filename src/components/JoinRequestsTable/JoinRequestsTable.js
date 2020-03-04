@@ -90,11 +90,11 @@ const JoinRequestTable = props => {
                 hover
                 role="checkbox"
                 tabIndex={-1}
-                key={student.stdNumber}
+                key={student.userId}
               >
                 <TableCell align="center">{student.name}</TableCell>
-                <TableCell align="center">{student.studentNumber}</TableCell>
-                <TableCell align="center">{student.id}</TableCell>
+                <TableCell align="center">{student.stdNumber}</TableCell>
+                <TableCell align="center">{student.userId}</TableCell>
                 <TableCell align="center">
                   <Fab
                     size="small"
@@ -153,17 +153,20 @@ const JoinRequestTable = props => {
 JoinRequestTable.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      stdNumber: PropTypes.string.isRequired,
-      id: PropTypes.string.isRequired,
-      userId: PropTypes.string.isRequired
+      name: PropTypes.string,
+      stdNumber: PropTypes.string,
+      userId: PropTypes.string
     })
-  ).isRequired,
+  ),
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
   handlePageChange: PropTypes.func.isRequired,
   joinRequestReview: PropTypes.func.isRequired
+};
+
+JoinRequestTable.defaultProps = {
+  data: [{ name: "", stdNumber: "", userId: "" }]
 };
 
 export default JoinRequestTable;

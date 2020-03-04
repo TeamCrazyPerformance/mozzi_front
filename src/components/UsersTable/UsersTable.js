@@ -64,6 +64,9 @@ const UsersTableStyles = makeStyles(theme => ({
   },
   tableWrapperClassName: {
     overflowX: "auto"
+  },
+  tableRowClassName: {
+    cursor: "pointer"
   }
 }));
 
@@ -73,26 +76,13 @@ const userPageRedirect = userId => {
   window.location.href = `${redirectUrl}/user/${userId}`;
 };
 
-const UserTableRow = user => (
-  <TableRow
-    hover
-    key={user.stdNumber}
-    onClick={() => userPageRedirect(user.id)}
-  >
-    <TableCell align="center">{user.name}</TableCell>
-    <TableCell align="center">{user.nickname}</TableCell>
-    <TableCell align="center">{user.email}</TableCell>
-    <TableCell align="center">{user.stdNumber}</TableCell>
-    <TableCell align="center">{user.birthday}</TableCell>
-  </TableRow>
-);
-
 const UsersTable = props => {
   const { data, page, count, total, handlePageChange } = props;
   const {
     rootClassName,
     tableClassName,
-    tableWrapperClassName
+    tableWrapperClassName,
+    tableRowClassName
   } = UsersTableStyles();
   const emptyRows = count - data.length;
 
@@ -102,7 +92,20 @@ const UsersTable = props => {
         <Table className={tableClassName} aria-labelledby="tableTitle">
           <EnhancedTableHead rowCount={count} />
           <TableBody>
-            {data.map(user => UserTableRow(user))}
+            {data.map(user => (
+              <TableRow
+                hover
+                key={user.stdNumber}
+                className={tableRowClassName}
+                onClick={() => userPageRedirect(user.id)}
+              >
+                <TableCell align="center">{user.name}</TableCell>
+                <TableCell align="center">{user.nickname}</TableCell>
+                <TableCell align="center">{user.email}</TableCell>
+                <TableCell align="center">{user.stdNumber}</TableCell>
+                <TableCell align="center">{user.birthday}</TableCell>
+              </TableRow>
+            ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
