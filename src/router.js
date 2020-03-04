@@ -7,7 +7,10 @@ import {
   Redirect
 } from "react-router-dom";
 import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import * as authActions from "./redux/auth/actions";
 import checkSignIn from "./redux/checkSignIn";
+
 import SignIn from "./containers/SignIn/SignIn";
 import SignUp from "./containers/SignUp/SignUp";
 import Header from "./components/Header/Header";
@@ -39,8 +42,8 @@ const PublicRouter = () => (
   </Switch>
 );
 
-const PrivateRouter = () => (
-  <Header>
+const PrivateRouter = ({ signOut, userId, role }) => (
+  <Header signOut={signOut} userId={userId} role={role}>
     <Switch>
       {/* Main page */}
       <Route exact path="/" component={Main} />
@@ -75,11 +78,16 @@ const PrivateRouter = () => (
 );
 
 const AppRouter = props => {
-  const { isSignIn } = props;
+  const { isSignIn, signOut, userId, role } = props;
   return (
     <Router>
       <Switch>
-        <RouterSelectorComponent isSignIn={isSignIn} />
+        <RouterSelectorComponent
+          isSignIn={isSignIn}
+          signOut={signOut}
+          userId={userId}
+          role={role}
+        />
       </Switch>
     </Router>
   );
@@ -90,24 +98,39 @@ AppRouter.propTypes = {
 };
 
 const RouterSelectorComponent = props => {
-  const { isSignIn, location } = props;
+  const { isSignIn, location, signOut, userId, role } = props;
 
   checkSignIn();
 
   if (isSignIn === true) {
     if (location.pathname === "/signin") return <Redirect to="main" />;
 
-    return <PrivateRouter />;
+    return <PrivateRouter signOut={signOut} userId={userId} role={role} />;
   }
 
   return <PublicRouter />;
+};
+
+PrivateRouter.propTypes = {
+  signOut: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired
+};
+
+AppRouter.propTypes = {
+  signOut: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired
 };
 
 RouterSelectorComponent.propTypes = {
   isSignIn: PropTypes.bool.isRequired,
   location: PropTypes.shape({
     pathname: PropTypes.string
-  })
+  }),
+  signOut: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired
 };
 
 RouterSelectorComponent.defaultProps = {
@@ -118,7 +141,10 @@ RouterSelectorComponent.defaultProps = {
 
 const mapStateToProps = state => {
   const { auth } = state;
-  return { isSignIn: auth.isSignIn };
+  return { isSignIn: auth.isSignIn, userId: auth.userId, role: auth.role };
 };
 
-export default connect(mapStateToProps)(AppRouter);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(authActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppRouter);

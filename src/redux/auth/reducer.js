@@ -3,6 +3,7 @@ import * as AuthActions from "./actionTypes";
 const authInitialState = {
   isSignIn: false,
   role: "",
+  userId: "",
   loadingState: false,
   idPasswordError: false
 };
@@ -14,6 +15,12 @@ const authReducer = (state = authInitialState, action) => {
         ...state,
         loadingState: true,
         idPasswordError: false
+      };
+    }
+    case AuthActions.UPDATE_USER_ID: {
+      return {
+        ...state,
+        userId: action.userId
       };
     }
     case AuthActions.POST_SIGN_IN_SUCCESS_USER: {
@@ -39,6 +46,7 @@ const authReducer = (state = authInitialState, action) => {
         ...state,
         isSignIn: false,
         role: "",
+        userId: "",
         loadingState: false,
         idPasswordError: true
       };
@@ -48,6 +56,7 @@ const authReducer = (state = authInitialState, action) => {
         ...state,
         isSignIn: false,
         role: "",
+        userId: "",
         loadingState: false,
         idPasswordError: false
       };
@@ -57,6 +66,7 @@ const authReducer = (state = authInitialState, action) => {
         ...state,
         isSignIn: false,
         role: "",
+        userId: "",
         loadingState: false,
         idPasswordError: false
       };
@@ -66,6 +76,7 @@ const authReducer = (state = authInitialState, action) => {
         ...state,
         isSignIn: false,
         role: "",
+        userId: "",
         loadingState: false,
         idPasswordError: false
       };

@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -24,7 +25,8 @@ const drawerList = [
     {
       iconComponent: <Home />,
       text: "Main",
-      link: "/main"
+      link: "/main",
+      sort: "user"
     }
   ],
   // Project drawer list.
@@ -32,7 +34,8 @@ const drawerList = [
     {
       iconComponent: <LaptopWindows />,
       text: "Project",
-      link: "/project"
+      link: "/project",
+      sort: "user"
     }
     // {
     //   iconComponent: <Description />,
@@ -50,17 +53,20 @@ const drawerList = [
     {
       iconComponent: <Create />,
       text: "Exam",
-      link: "/exam"
+      link: "/exam",
+      sort: "user"
     },
     {
       iconComponent: <LibraryBooks />,
       text: "Exams",
-      link: "/exam/exams"
+      link: "/exam/exams",
+      sort: "user"
     },
     {
       iconComponent: <PostAdd />,
       text: "New Exam",
-      link: "/exam/exam/create"
+      link: "/exam/exam/create",
+      sort: "user"
     }
   ],
   // Admin drawer list.
@@ -68,17 +74,20 @@ const drawerList = [
     {
       iconComponent: <Memory />,
       text: "Admin",
-      link: "/admin"
+      link: "/admin",
+      sort: "admin"
     },
     {
       iconComponent: <GroupAdd />,
       text: "Join Requests",
-      link: "/admin/joinrequests"
+      link: "/admin/joinrequests",
+      sort: "admin"
     },
     {
       iconComponent: <Group />,
       text: "Users",
-      link: "/admin/users"
+      link: "/admin/users",
+      sort: "admin"
     }
   ]
 ];
@@ -92,34 +101,37 @@ const drawerListStyles = makeStyles(() => ({
   }
 }));
 
-const DrawerList = () => {
+const DrawerList = ({ role }) => {
   const { drawerWrapperClassName, toolbarClassName } = drawerListStyles();
 
   return (
     <div className={`${drawerWrapperClassName} drawer-wrapper`}>
       <div className={`${toolbarClassName} drawer-wrapper__empty-space`} />
       <List>
-        {drawerList.map((list, listIndex) =>
-          list.map(({ iconComponent, text, link }, index) => {
-            // Create uniqe key value.
-            const uniqueKeyValue = Number(
-              listIndex.toString() + index.toString()
-            );
-            return (
-              <div key={uniqueKeyValue}>
-                {/* Check first index for divider */}
-                {index === 0 ? <Divider /> : <></>}
-                <ListItem component={Link} to={link} button>
-                  <ListItemIcon>{iconComponent}</ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItem>
-              </div>
-            );
+        {drawerList.map(list =>
+          list.map(({ iconComponent, text, link, sort }, index) => {
+            if (!(sort === "admin" && role === "user")) {
+              return (
+                <div key={text}>
+                  {/* Check first index for divider */}
+                  {index === 0 ? <Divider /> : <></>}
+                  <ListItem component={Link} to={link} button>
+                    <ListItemIcon>{iconComponent}</ListItemIcon>
+                    <ListItemText primary={text} />
+                  </ListItem>
+                </div>
+              );
+            }
+            return <></>;
           })
         )}
       </List>
     </div>
   );
+};
+
+DrawerList.propTypes = {
+  role: PropTypes.string.isRequired
 };
 
 export default DrawerList;
