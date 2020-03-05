@@ -71,7 +71,8 @@ const UserInformation = props => {
               className="edit-button-wrapper__edit-button"
               variant="contained"
               color="primary"
-              href={`/user/${userId}/edit`}
+              component={Link}
+              to={`/user/${userId}/edit`}
             >
               Edit
             </Button>
