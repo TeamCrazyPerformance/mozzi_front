@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import * as authActions from "./redux/auth/actions";
 import checkSignIn from "./redux/checkSignIn";
+import ScrollOnTopHelper from "./helpers/scrollOnTopHelper";
 
 import SignIn from "./containers/SignIn/SignIn";
 import SignUp from "./containers/SignUp/SignUp";
@@ -81,6 +82,7 @@ const AppRouter = props => {
   const { isSignIn, signOut, userId, role } = props;
   return (
     <Router>
+      <ScrollOnTopHelper />
       <Switch>
         <RouterSelectorComponent
           isSignIn={isSignIn}
