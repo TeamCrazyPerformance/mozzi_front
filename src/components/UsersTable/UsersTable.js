@@ -70,14 +70,8 @@ const UsersTableStyles = makeStyles(theme => ({
   }
 }));
 
-const userPageRedirect = userId => {
-  const currentUrl = window.location.href;
-  const redirectUrl = currentUrl.split("/")[0];
-  window.location.href = `${redirectUrl}/user/${userId}`;
-};
-
 const UsersTable = props => {
-  const { data, page, count, total, handlePageChange } = props;
+  const { data, page, count, total, handlePageChange, moveToUserPage } = props;
   const {
     rootClassName,
     tableClassName,
@@ -97,7 +91,7 @@ const UsersTable = props => {
                 hover
                 key={user.stdNumber}
                 className={tableRowClassName}
-                onClick={() => userPageRedirect(user.id)}
+                onClick={() => moveToUserPage(user.id)}
               >
                 <TableCell align="center">{user.name}</TableCell>
                 <TableCell align="center">{user.nickname}</TableCell>
@@ -144,6 +138,7 @@ UsersTable.propTypes = {
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
+  moveToUserPage: PropTypes.func.isRequired,
   handlePageChange: PropTypes.func.isRequired
 };
 

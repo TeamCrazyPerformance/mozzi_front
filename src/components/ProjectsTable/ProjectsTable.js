@@ -49,17 +49,11 @@ const ProjectsTableStyles = makeStyles(theme => ({
   }
 }));
 
-const projectPageRedirect = projectId => {
-  const currentUrl = window.location.href;
-  const redirectUrl = currentUrl.split("/")[0];
-  window.location.href = `${redirectUrl}/project/project/${projectId}`;
-};
-
-const projectTableRow = project => (
+const projectTableRow = (project, moveToProjectPage) => (
   <TableRow
     hover
     key={project.projectId}
-    onClick={() => projectPageRedirect(project.projectId)}
+    onClick={() => moveToProjectPage(project.projectId)}
   >
     <TableCell align="center">{project.projectName}</TableCell>
     <TableCell align="center">{project.projectLeader}</TableCell>
@@ -67,7 +61,14 @@ const projectTableRow = project => (
 );
 
 const ProjectsTable = props => {
-  const { data, page, count, total, handlePageChange } = props;
+  const {
+    data,
+    page,
+    count,
+    total,
+    handlePageChange,
+    moveToProjectPage
+  } = props;
   const {
     rootClassName,
     tableClassName,
@@ -81,7 +82,7 @@ const ProjectsTable = props => {
         <Table className={tableClassName} aria-labelledby="tableTitle">
           <EnhancedTableHead rowCount={count} />
           <TableBody>
-            {data.map(project => projectTableRow(project))}
+            {data.map(project => projectTableRow(project, moveToProjectPage))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -115,6 +116,7 @@ ProjectsTable.propTypes = {
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
   total: PropTypes.number.isRequired,
+  moveToProjectPage: PropTypes.func.isRequired,
   handlePageChange: PropTypes.func.isRequired
 };
 

@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import ProjectsTable from "../../../components/ProjectsTable/ProjectsTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
 import * as projectsApi from "./ProjectsApi";
 
-const Projects = () => {
+const Projects = props => {
+  const { history } = props;
   const [projects, setProjects] = useState([
     {
       projectId: "",
@@ -44,6 +46,10 @@ const Projects = () => {
     setErrorToTrue();
   };
 
+  const moveToProjectPage = projectId => {
+    history.push(`/project/project/${projectId}`);
+  };
+
   const handlePageChange = (event, newPage = 0) => {
     projectsApi.getProjects({
       page: newPage,
@@ -69,12 +75,19 @@ const Projects = () => {
             page={page}
             count={count}
             total={total}
+            moveToProjectPage={moveToProjectPage}
             handlePageChange={handlePageChange}
           />
         )}
       </LoadingSpinner>
     </div>
   );
+};
+
+Projects.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default Projects;

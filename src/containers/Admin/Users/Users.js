@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import UsersTable from "../../../components/UsersTable/UsersTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
 import * as usersApi from "./UsersApi";
 
-const Users = () => {
+const Users = props => {
+  const { history } = props;
   const [users, setUsers] = useState([
     {
       id: "",
@@ -49,6 +51,10 @@ const Users = () => {
     setErrorToTrue();
   };
 
+  const moveToUserPage = userId => {
+    history.push(`/user/${userId}`);
+  };
+
   const handlePageChange = (event, newPage = 0) => {
     usersApi.getUsers({
       page: newPage,
@@ -74,12 +80,19 @@ const Users = () => {
             page={page}
             count={count}
             total={total}
+            moveToUserPage={moveToUserPage}
             handlePageChange={handlePageChange}
           />
         )}
       </LoadingSpinner>
     </div>
   );
+};
+
+Users.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default Users;
