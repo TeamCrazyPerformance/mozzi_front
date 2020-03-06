@@ -129,20 +129,6 @@ const Header = props => {
               open={accountCircleMenuOpen}
               onClose={handleAccountCircleMenuClose}
             >
-              {/* <MenuItem onClick={handleAccountCircleMenuClose}>
-                <Link to={`/user/${userId}`} className={menuItemClassName}>
-                  My profile
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={handleAccountCircleMenuClose}>
-                <Link
-                  to="/"
-                  onClick={signOutHandler}
-                  className={menuItemClassName}
-                >
-                  Logout
-                </Link>
-              </MenuItem> */}
               <MenuItem
                 className={menuItemClassName}
                 component={Link}
