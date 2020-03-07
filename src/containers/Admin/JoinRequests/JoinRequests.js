@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import JoinRequestsTable from "../../../components/JoinRequestsTable/JoinRequestsTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
-import * as joinRequestsApi from "./JoinRequestsApi";
+import * as joinRequestsApi from "./joinRequestsApi";
 
-const JoinRequests = () => {
+const JoinRequests = props => {
+  const { history } = props;
   const [joinRequests, setJoinRequests] = useState([
     {
       name: "",
@@ -15,34 +17,27 @@ const JoinRequests = () => {
   ]);
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(0);
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
 
-  const setJoinRequestsResponse = ({ getJoinRequestsResponse }) => {
-    setJoinRequests([...getJoinRequestsResponse.users]);
-    setPage(getJoinRequestsResponse.page);
-    setCount(getJoinRequestsResponse.count);
-    setTotal(getJoinRequestsResponse.total);
-  };
-  const setLoadingStateToTrue = () => setLoadingState(true);
-  const setLoadingStateToFalse = () => setLoadingState(false);
-  const setErrorToTrue = () => setError(true);
-  const setErrorToFalse = () => setError(false);
-
   const setLoadingStateAndErrorWhenApiCallStart = () => {
-    setLoadingStateToTrue();
-    setErrorToFalse();
+    setLoadingState(true);
+    setError(false);
   };
 
-  const setLoadingStateAndErrorWhenApiCallSuccess = () => {
-    setLoadingStateToFalse();
-    setErrorToFalse();
+  const setLoadingStateAndErrorWhenApiCallSuccess = response => {
+    setJoinRequests([...response.users]);
+    setPage(response.page);
+    setCount(response.total);
+    setRowsPerPage(response.count);
+    setLoadingState(false);
+    setError(false);
   };
 
   const setLoadingStateAndErrorWhenApiCallFailure = () => {
-    setLoadingStateToFalse();
-    setErrorToTrue();
+    setLoadingState(false);
+    setError(true);
   };
 
   const handlePageChange = (event, newPage = 0) => {
@@ -50,8 +45,7 @@ const JoinRequests = () => {
       page: newPage,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
-      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
-      setResponseToState: setJoinRequestsResponse
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
     });
   };
 
@@ -66,12 +60,16 @@ const JoinRequests = () => {
     });
   };
 
+  const moveToUserPage = userId => {
+    history.push(`/user/${userId}`);
+  };
+
   // Component did mount
   useEffect(handlePageChange, []);
 
   return (
     <div>
-      <div>Join Request</div>
+      <div>Join request</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
           <Error />
@@ -80,14 +78,21 @@ const JoinRequests = () => {
             data={joinRequests}
             page={page}
             count={count}
-            total={total}
+            rowsPerPage={rowsPerPage}
             handlePageChange={handlePageChange}
+            moveToUserPage={moveToUserPage}
             joinRequestReview={joinRequestReview}
           />
         )}
       </LoadingSpinner>
     </div>
   );
+};
+
+JoinRequests.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default JoinRequests;

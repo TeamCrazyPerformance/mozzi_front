@@ -17,13 +17,13 @@ const rows = [
     id: "name",
     numeric: false,
     disablePadding: true,
-    label: "Student Name"
+    label: "Student name"
   },
   {
     id: "studenNumber",
     numeric: true,
     disablePadding: false,
-    label: "Student Number"
+    label: "Student number"
   },
   {
     id: "id",
@@ -59,6 +59,9 @@ const JoinRequestTableStyles = makeStyles(theme => ({
   },
   buttonPaddingClassName: {
     marginRight: 10
+  },
+  tableRowClassName: {
+    cursor: "pointer"
   }
 }));
 
@@ -67,30 +70,35 @@ const JoinRequestTable = props => {
     data,
     page,
     count,
-    total,
+    rowsPerPage,
     handlePageChange,
+    moveToUserPage,
     joinRequestReview
   } = props;
   const {
     rootClassName,
     tableClassName,
     tableWrapperClassName,
-    buttonPaddingClassName
+    buttonPaddingClassName,
+    tableRowClassName
   } = JoinRequestTableStyles();
-  const emptyRows = count - data.length;
+  const emptyRows = rowsPerPage - data.length;
 
   return (
     <Paper className={rootClassName}>
       <div className={tableWrapperClassName}>
         <Table className={tableClassName} aria-labelledby="tableTitle">
-          <EnhancedTableHead rowCount={count} />
+          <EnhancedTableHead rowCount={rowsPerPage} />
           <TableBody>
             {data.map(student => (
               <TableRow
                 hover
-                role="checkbox"
-                tabIndex={-1}
                 key={student.userId}
+                className={tableRowClassName}
+                onClick={event => {
+                  if (event.target.tagName === "TD")
+                    moveToUserPage(student.userId);
+                }}
               >
                 <TableCell align="center">{student.name}</TableCell>
                 <TableCell align="center">{student.stdNumber}</TableCell>
@@ -139,9 +147,9 @@ const JoinRequestTable = props => {
       <TablePagination
         rowsPerPageOptions={[]}
         component="div"
-        count={total}
-        rowsPerPage={count}
         page={page}
+        count={count}
+        rowsPerPage={rowsPerPage}
         onChangePage={handlePageChange}
         backIconButtonProps={{ "aria-label": "Previous Page" }}
         nextIconButtonProps={{ "aria-label": "Next Page" }}
@@ -160,8 +168,9 @@ JoinRequestTable.propTypes = {
   ),
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
   handlePageChange: PropTypes.func.isRequired,
+  moveToUserPage: PropTypes.func.isRequired,
   joinRequestReview: PropTypes.func.isRequired
 };
 

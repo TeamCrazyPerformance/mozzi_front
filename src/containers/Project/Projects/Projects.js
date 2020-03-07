@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ProjectsTable from "../../../components/ProjectsTable/ProjectsTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
-import * as projectsApi from "./ProjectsApi";
+import getProjects from "./ProjectsApi";
 
 const Projects = props => {
   const { history } = props;
@@ -16,34 +16,27 @@ const Projects = props => {
   ]);
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(0);
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
 
-  const setGetProjectsResponse = ({ getProjectsResponse }) => {
-    setProjects([...getProjectsResponse.projects]);
-    setPage(getProjectsResponse.page);
-    setCount(getProjectsResponse.count);
-    setTotal(getProjectsResponse.total);
-  };
-  const setLoadingStateToTrue = () => setLoadingState(true);
-  const setLoadingStateToFalse = () => setLoadingState(false);
-  const setErrorToTrue = () => setError(true);
-  const setErrorToFalse = () => setError(false);
-
   const setLoadingStateAndErrorWhenApiCallStart = () => {
-    setLoadingStateToTrue();
-    setErrorToFalse();
+    setLoadingState(true);
+    setError(false);
   };
 
-  const setLoadingStateAndErrorWhenApiCallSuccess = () => {
-    setLoadingStateToFalse();
-    setErrorToFalse();
+  const setLoadingStateAndErrorWhenApiCallSuccess = response => {
+    setProjects([...response.projects]);
+    setPage(response.page);
+    setCount(response.total);
+    setRowsPerPage(response.count);
+    setLoadingState(false);
+    setError(false);
   };
 
   const setLoadingStateAndErrorWhenApiCallFailure = () => {
-    setLoadingStateToFalse();
-    setErrorToTrue();
+    setLoadingState(false);
+    setError(true);
   };
 
   const moveToProjectPage = projectId => {
@@ -51,12 +44,11 @@ const Projects = props => {
   };
 
   const handlePageChange = (event, newPage = 0) => {
-    projectsApi.getProjects({
+    getProjects({
       page: newPage,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
-      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
-      setResponseToState: setGetProjectsResponse
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
     });
   };
 
@@ -74,7 +66,7 @@ const Projects = props => {
             data={projects}
             page={page}
             count={count}
-            total={total}
+            rowsPerPage={rowsPerPage}
             moveToProjectPage={moveToProjectPage}
             handlePageChange={handlePageChange}
           />

@@ -5,8 +5,7 @@ export const getProject = ({
   projectId,
   apiCallStart,
   apiCallSuccess,
-  apiCallFailure,
-  setResponseToState
+  apiCallFailure
 }) => {
   apiCallStart();
 
@@ -58,8 +57,7 @@ export const getProject = ({
   };
 
   if (getProjectResponse.success) {
-    setResponseToState({ getProjectResponse });
-    apiCallSuccess();
+    apiCallSuccess(getProjectResponse.project);
   } else {
     apiCallFailure();
   }

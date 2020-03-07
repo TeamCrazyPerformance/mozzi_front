@@ -1,82 +1,80 @@
-// import fetchHelper from './../../../helpers/fetchHelper';
+import fetchHelper from "../../../helpers/fakeFetchHelper";
 
-// export const getUsers = async ({
-export const getExams = ({
-  page = 1,
-  limit = 10,
+const getExams = async ({
+  rowsPerPage = 10,
+  page = 0,
   sort = "asc",
   apiCallStart,
   apiCallSuccess,
-  apiCallFailure,
-  setResponseToState
+  apiCallFailure
 }) => {
-  apiCallStart();
-
-  // const getJoinRequetsResponse = await fetchHelper.get(`/admin/user/getall?limit=${limit}&page=${page}`)
-  // .then(response => response)
-  // .catch(error => ({error: JSON.stringify(error)}))
-
-  const getProjectsResponse = {
+  const apiResponse = {
     success: true,
     exams: [
       {
         examId: "1",
-        authorId: "kang",
+        authorId: "kangji1610",
         year: "2016",
-        major: "Computer science and engineering",
+        major: "컴퓨터공학과",
         grade: "1",
-        semester: "1",
-        term: "1",
-        name: "Unix",
-        professor: "Lee",
+        semester: "1학기",
+        term: "중간고사",
+        name: "컴퓨터공학개론",
+        professor: "김재수",
         content: ""
       },
       {
         examId: "2",
-        authorId: "Lee",
+        authorId: "dongha1810",
         year: "2017",
-        major: "Computer science and engineering",
+        major: "컴퓨터공학과",
         grade: "3",
-        semester: "1",
-        term: "1",
-        name: "Network",
-        professor: "Lee",
+        semester: "2학기",
+        term: "기말고사",
+        name: "네트워크",
+        professor: "이길흥",
         content: ""
       },
       {
         examId: "3",
-        authorId: "Song",
+        authorId: "gw1741",
         year: "2019",
-        major: "Computer science and engineering",
+        major: "기계공학과",
         grade: "2",
-        semester: "1",
-        term: "1",
-        name: "Data communication",
-        professor: "Lee",
+        semester: "1학기",
+        term: "기말고사",
+        name: "정역학",
+        professor: "이지수",
         content: ""
       },
       {
         examId: "4",
-        authorId: "Kim",
+        authorId: "jjj391",
         year: "2012",
-        major: "Computer science and engineering",
+        major: "컴퓨터공학과",
         grade: "2",
-        semester: "1",
-        term: "1",
-        name: "Java",
-        professor: "Lee",
+        semester: "1학기",
+        term: "중간고사",
+        name: "객체지향프로그래밍",
+        professor: "한지영",
         content: ""
       }
     ],
-    page: 1,
-    count: 10,
-    total: 500
+    page,
+    count: rowsPerPage,
+    total: 4
   };
 
-  if (getProjectsResponse.success) {
-    setResponseToState({ getProjectsResponse });
-    apiCallSuccess();
-  } else {
-    apiCallFailure();
-  }
+  await apiCallStart();
+
+  await fetchHelper
+    .get(
+      `/exam?limit=${rowsPerPage}&page=${page}&sort=${sort}`,
+      null,
+      apiResponse
+    )
+    .then(response => apiCallSuccess(response))
+    .catch(() => apiCallFailure());
 };
+
+export default getExams;

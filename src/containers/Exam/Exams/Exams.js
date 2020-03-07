@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ExamsTable from "../../../components/ExamsTable/ExamsTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
-import * as ExamsApi from "./ExamsApi";
+import getExams from "./examsApi";
 
 const Exams = props => {
   const { history } = props;
@@ -23,23 +23,20 @@ const Exams = props => {
   ]);
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(0);
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
-
-  const setGetExamsResponse = ({ getProjectsResponse }) => {
-    setExams([...getProjectsResponse.exams]);
-    setPage(getProjectsResponse.page);
-    setCount(getProjectsResponse.count);
-    setTotal(getProjectsResponse.total);
-  };
 
   const setLoadingStateAndErrorWhenApiCallStart = () => {
     setLoadingState(true);
     setError(false);
   };
 
-  const setLoadingStateAndErrorWhenApiCallSuccess = () => {
+  const setLoadingStateAndErrorWhenApiCallSuccess = response => {
+    setExams([...response.exams]);
+    setPage(response.page);
+    setCount(response.total);
+    setRowsPerPage(response.count);
     setLoadingState(false);
     setError(false);
   };
@@ -54,12 +51,11 @@ const Exams = props => {
   };
 
   const handlePageChange = (event, newPage = 0) => {
-    ExamsApi.getExams({
+    getExams({
       page: newPage,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
-      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
-      setResponseToState: setGetExamsResponse
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
     });
   };
 
@@ -76,7 +72,7 @@ const Exams = props => {
             data={exams}
             page={page}
             count={count}
-            total={total}
+            rowsPerPage={rowsPerPage}
             moveToEaxmPage={moveToEaxmPage}
             handlePageChange={handlePageChange}
           />

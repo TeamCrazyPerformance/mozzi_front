@@ -49,23 +49,12 @@ const ProjectsTableStyles = makeStyles(theme => ({
   }
 }));
 
-const projectTableRow = (project, moveToProjectPage) => (
-  <TableRow
-    hover
-    key={project.projectId}
-    onClick={() => moveToProjectPage(project.projectId)}
-  >
-    <TableCell align="center">{project.projectName}</TableCell>
-    <TableCell align="center">{project.projectLeader}</TableCell>
-  </TableRow>
-);
-
 const ProjectsTable = props => {
   const {
     data,
     page,
     count,
-    total,
+    rowsPerPage,
     handlePageChange,
     moveToProjectPage
   } = props;
@@ -74,15 +63,24 @@ const ProjectsTable = props => {
     tableClassName,
     tableWrapperClassName
   } = ProjectsTableStyles();
-  const emptyRows = count - data.length;
+  const emptyRows = rowsPerPage - data.length;
 
   return (
     <Paper className={rootClassName}>
       <div className={tableWrapperClassName}>
         <Table className={tableClassName} aria-labelledby="tableTitle">
-          <EnhancedTableHead rowCount={count} />
+          <EnhancedTableHead rowCount={rowsPerPage} />
           <TableBody>
-            {data.map(project => projectTableRow(project, moveToProjectPage))}
+            {data.map(project => (
+              <TableRow
+                hover
+                key={project.projectId}
+                onClick={() => moveToProjectPage(project.projectId)}
+              >
+                <TableCell align="center">{project.projectName}</TableCell>
+                <TableCell align="center">{project.projectLeader}</TableCell>
+              </TableRow>
+            ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -94,9 +92,9 @@ const ProjectsTable = props => {
       <TablePagination
         rowsPerPageOptions={[]}
         component="div"
-        count={total}
-        rowsPerPage={count}
+        count={count}
         page={page}
+        rowsPerPage={rowsPerPage}
         onChangePage={handlePageChange}
         backIconButtonProps={{ "aria-label": "Previous Page" }}
         nextIconButtonProps={{ "aria-label": "Next Page" }}
@@ -115,7 +113,7 @@ ProjectsTable.propTypes = {
   ).isRequired,
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
   moveToProjectPage: PropTypes.func.isRequired,
   handlePageChange: PropTypes.func.isRequired
 };

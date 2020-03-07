@@ -71,20 +71,27 @@ const UsersTableStyles = makeStyles(theme => ({
 }));
 
 const UsersTable = props => {
-  const { data, page, count, total, handlePageChange, moveToUserPage } = props;
+  const {
+    data,
+    page,
+    count,
+    rowsPerPage,
+    handlePageChange,
+    moveToUserPage
+  } = props;
   const {
     rootClassName,
     tableClassName,
     tableWrapperClassName,
     tableRowClassName
   } = UsersTableStyles();
-  const emptyRows = count - data.length;
+  const emptyRows = rowsPerPage - data.length;
 
   return (
     <Paper className={rootClassName}>
       <div className={tableWrapperClassName}>
         <Table className={tableClassName} aria-labelledby="tableTitle">
-          <EnhancedTableHead rowCount={count} />
+          <EnhancedTableHead rowCount={rowsPerPage} />
           <TableBody>
             {data.map(user => (
               <TableRow
@@ -111,9 +118,9 @@ const UsersTable = props => {
       <TablePagination
         rowsPerPageOptions={[]}
         component="div"
-        count={total}
-        rowsPerPage={count}
+        count={count}
         page={page}
+        rowsPerPage={rowsPerPage}
         onChangePage={handlePageChange}
         backIconButtonProps={{ "aria-label": "Previous Page" }}
         nextIconButtonProps={{ "aria-label": "Next Page" }}
@@ -127,7 +134,6 @@ UsersTable.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
       nickname: PropTypes.string.isRequired,
       stdNumber: PropTypes.string.isRequired,
       phoneNum: PropTypes.string.isRequired,
@@ -137,7 +143,7 @@ UsersTable.propTypes = {
   ).isRequired,
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
   moveToUserPage: PropTypes.func.isRequired,
   handlePageChange: PropTypes.func.isRequired
 };

@@ -1,54 +1,82 @@
-// import fetchHelper from './../../../helpers/fetchHelper';
+import fetchHelper from "../../../helpers/fakeFetchHelper";
 
-// export const getUsers = async ({
-export const getProjects = ({
-  page = 1,
-  limit = 10,
+const getProjects = async ({
+  rowsPerPage = 10,
+  page = 0,
   sort = "asc",
   apiCallStart,
   apiCallSuccess,
-  apiCallFailure,
-  setResponseToState
+  apiCallFailure
 }) => {
-  apiCallStart();
-
-  // const getJoinRequetsResponse = await fetchHelper.get(`/admin/user/getall?limit=${limit}&page=${page}`)
-  // .then(response => response)
-  // .catch(error => ({error: JSON.stringify(error)}))
-
-  const getProjectsResponse = {
+  const apiResponse = {
     success: true,
-    projects: [
+    users: [
       {
         projectId: "1",
-        projectName: "project1",
-        projectLeader: "kang"
+        projectName: "mozzi_front",
+        projectLeader: "강민준"
       },
       {
         projectId: "2",
-        projectName: "project2",
-        projectLeader: "lee"
+        projectName: "toefl-server",
+        projectLeader: "이서준"
       },
       {
         projectId: "3",
-        projectName: "project3",
-        projectLeader: "song"
+        projectName: "toefl-front",
+        projectLeader: "정예준"
       },
       {
         projectId: "4",
-        projectName: "project4",
-        projectLeader: "june"
+        projectName: "iamlazy-front",
+        projectLeader: "김도윤"
       },
+      {
+        projectId: "5",
+        projectName: "LazyPeoplesProject",
+        projectLeader: "이시우"
+      },
+      {
+        projectId: "6",
+        projectName: "hangman",
+        projectLeader: "김주원"
+      },
+      {
+        projectId: "7",
+        projectName: "thisable",
+        projectLeader: "전소율"
+      },
+      {
+        projectId: "8",
+        projectName: "ssonga",
+        projectLeader: "윤지호"
+      },
+      {
+        projectId: "9",
+        projectName: "artemis",
+        projectLeader: "임현우"
+      },
+      {
+        projectId: "10",
+        projectName: "isEmpty",
+        projectLeader: "고연우"
+      }
     ],
-    page: 1,
-    count: 10,
-    total: 500
+    page,
+    count: rowsPerPage,
+    total: 12
   };
 
-  if (getProjectsResponse.success) {
-    setResponseToState({ getProjectsResponse });
-    apiCallSuccess();
-  } else {
-    apiCallFailure();
-  }
+  await apiCallStart();
+
+  await fetchHelper
+    .get(
+      `/project?limit=${rowsPerPage}&page=${page}&sort=${sort}`,
+      null,
+      apiResponse
+    )
+    .then(response => apiCallSuccess(response))
+    .catch(() => apiCallFailure());
 };
+
+export default getProjects;

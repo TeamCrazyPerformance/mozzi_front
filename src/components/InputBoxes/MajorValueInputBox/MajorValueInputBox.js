@@ -17,8 +17,8 @@ const MajorValueInputBox = props => {
     const majorValueIsEmpty = targetValue === "";
     if (majorValueIsEmpty) return "Please fill major";
 
-    const majorRegex = /^[가-힣+]*(전공)$/.test(targetValue);
-    if (!majorRegex) return "Input XX전공 format";
+    const majorRegex = /^[가-힣+]*(학과)$/.test(targetValue);
+    if (!majorRegex) return "Input XX학과 format";
 
     return "";
   };

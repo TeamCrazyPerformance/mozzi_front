@@ -67,32 +67,41 @@ const ExamsTableStyles = makeStyles(theme => ({
   }
 }));
 
-const examTableRow = (exam, moveToEaxmPage) => (
-  <TableRow hover key={exam.examId} onClick={() => moveToEaxmPage(exam.examId)}>
-    <TableCell align="center">{exam.name}</TableCell>
-    <TableCell align="center">{exam.major}</TableCell>
-    <TableCell align="center">{exam.year}</TableCell>
-    <TableCell align="center">{exam.professor}</TableCell>
-    <TableCell align="center">{exam.authorId}</TableCell>
-  </TableRow>
-);
-
 const ExamsTable = props => {
-  const { data, page, count, total, moveToEaxmPage, handlePageChange } = props;
+  const {
+    data,
+    page,
+    count,
+    rowsPerPage,
+    moveToEaxmPage,
+    handlePageChange
+  } = props;
   const {
     rootClassName,
     tableClassName,
     tableWrapperClassName
   } = ExamsTableStyles();
-  const emptyRows = count - data.length;
+  const emptyRows = rowsPerPage - data.length;
 
   return (
     <Paper className={rootClassName}>
       <div className={tableWrapperClassName}>
         <Table className={tableClassName} aria-labelledby="tableTitle">
-          <EnhancedTableHead rowCount={count} />
+          <EnhancedTableHead rowCount={rowsPerPage} />
           <TableBody>
-            {data.map(exam => examTableRow(exam, moveToEaxmPage))}
+            {data.map(exam => (
+              <TableRow
+                hover
+                key={exam.examId}
+                onClick={() => moveToEaxmPage(exam.examId)}
+              >
+                <TableCell align="center">{exam.name}</TableCell>
+                <TableCell align="center">{exam.major}</TableCell>
+                <TableCell align="center">{exam.year}</TableCell>
+                <TableCell align="center">{exam.professor}</TableCell>
+                <TableCell align="center">{exam.authorId}</TableCell>
+              </TableRow>
+            ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -104,8 +113,8 @@ const ExamsTable = props => {
       <TablePagination
         rowsPerPageOptions={[]}
         component="div"
-        count={total}
-        rowsPerPage={count}
+        count={count}
+        rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handlePageChange}
         backIconButtonProps={{ "aria-label": "Previous Page" }}
@@ -132,7 +141,7 @@ ExamsTable.propTypes = {
   ).isRequired,
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
   moveToEaxmPage: PropTypes.func.isRequired,
   handlePageChange: PropTypes.func.isRequired
 };

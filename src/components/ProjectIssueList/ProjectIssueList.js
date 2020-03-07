@@ -21,7 +21,7 @@ const ProjectIssueList = props => {
         <div>
           <List dense>
             {projectIssues.map(element => (
-              <ListItem key={element.issueId} button>
+              <ListItem key={element.issueId}>
                 <ListItemAvatar>
                   <Avatar>
                     <Build />

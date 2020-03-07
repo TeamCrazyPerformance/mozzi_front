@@ -1,50 +1,44 @@
-// import fetchHelper from './../../../helpers/fetchHelper';
+import fetchHelper from "../../../helpers/fakeFetchHelper";
 
-// export const getJoinRequests = async ({
-export const getJoinRequests = ({
-  limit = 10,
-  page = 1,
+export const getJoinRequests = async ({
+  rowsPerPage = 10,
+  page = 0,
   sort = "asc",
   apiCallStart,
   apiCallSuccess,
-  apiCallFailure,
-  setResponseToState
+  apiCallFailure
 }) => {
-  apiCallStart();
-
-  // const getJoinRequetsResponse = await fetchHelper.get(`/admin/user?limit=${limit}&page=${page}&sort=${sort}`)
-  // .then(response => response)
-  // .catch(error => ({error: JSON.stringify(error)}))
-
-  const getJoinRequestsResponse = {
+  const apiResponse = {
     success: true,
     users: [
-      { name: "Kang", stdNumber: "16101341", userId: "001" },
-      { name: "Ji", stdNumber: "16101342", userId: "002" },
-      { name: "Hoon", stdNumber: "16101343", userId: "003" },
-      { name: "zzang", stdNumber: "16101344", userId: "004" },
-      { name: "Lee", stdNumber: "16101345", userId: "005" },
-      { name: "Song", stdNumber: "16101346", userId: "006" },
-      { name: "Yeol", stdNumber: "16101347", userId: "007" },
-      { name: "zzangzzang", stdNumber: "16101348", userId: "008" },
-      { name: "man", stdNumber: "16101349", userId: "009" },
-      { name: "gkgkgkgk", stdNumber: "16101340", userId: "010" }
+      { name: "강민준", stdNumber: "16101341", userId: "kangji1610" },
+      { name: "이서준", stdNumber: "15101261", userId: "sy1510" },
+      { name: "정예준", stdNumber: "18101826", userId: "dongha1810" },
+      { name: "김도윤", stdNumber: "18101926", userId: "doh18" },
+      { name: "이시우", stdNumber: "15101729", userId: "gw1741" },
+      { name: "김주원", stdNumber: "16101274", userId: "kimkim715" },
+      { name: "전하준", stdNumber: "16101037", userId: "jjj391" },
+      { name: "윤지호", stdNumber: "12101348", userId: "yjs1013" },
+      { name: "임현우", stdNumber: "14101242", userId: "ijh34879" }
     ],
-    page: 1,
-    count: 10,
-    total: 500
+    page,
+    count: rowsPerPage,
+    total: 9
   };
 
-  if (getJoinRequestsResponse.success) {
-    setResponseToState({ getJoinRequestsResponse });
-    apiCallSuccess();
-  } else {
-    apiCallFailure();
-  }
+  await apiCallStart();
+
+  await fetchHelper
+    .get(
+      `/admin/user?limit=${rowsPerPage}&page=${page}&sort=${sort}`,
+      null,
+      apiResponse
+    )
+    .then(response => apiCallSuccess(response))
+    .catch(() => apiCallFailure());
 };
 
-// export const postJoinRequestReview = async ({
-export const postJoinRequestReview = ({
+export const postJoinRequestReview = async ({
   userId,
   joinRequestType,
   currentPage = 1,
@@ -52,29 +46,16 @@ export const postJoinRequestReview = ({
   apiCallSuccess,
   apiCallFailure
 }) => {
-  let postJoinRequestApprove = { success: false };
-  let postJoinRequestReject = { success: false };
-  apiCallStart();
+  const apiResponse = { success: true };
 
-  if (joinRequestType === "approve") {
-    postJoinRequestApprove = { success: true };
-    // const postJoinRequestApprove = await fetchHelper.post(`/admin/user/approve/${userId}/`)
-    // .then(response => response)
-    // .catch(error => ({error: JSON.stringify(error)}))
-  } else if (joinRequestType === "reject") {
-    postJoinRequestReject = { success: true };
-    // const postJoinRequestReject = await fetchHelper.post(`/admin/user/reject/${userId}/`)
-    // .then(response => response)
-    // .catch(error => ({error: JSON.stringify(error)}))
+  await apiCallStart();
+
+  if (joinRequestType === "approve" || joinRequestType === "reject") {
+    await fetchHelper
+      .put(`/admin/user/${joinRequestType}/${userId}/`, { userId }, apiResponse)
+      .then(() => apiCallSuccess(null, currentPage))
+      .catch(() => apiCallFailure());
   } else {
     console.log("POST: Join request review type error");
-  }
-
-  if (postJoinRequestApprove.success) {
-    apiCallSuccess(null, currentPage);
-  } else if (postJoinRequestReject.success) {
-    apiCallSuccess(null, currentPage);
-  } else {
-    apiCallFailure();
   }
 };

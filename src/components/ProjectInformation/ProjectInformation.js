@@ -6,6 +6,7 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import Button from "@material-ui/core/Button";
 import Avatar from "@material-ui/core/Avatar";
 import { AccessibilityNew, Description } from "@material-ui/icons";
 
@@ -41,25 +42,34 @@ const projectInformationStyles = makeStyles(theme => ({
 
 const ProjectInformation = props => {
   const { rootClassName } = projectInformationStyles();
-  const { projectInformation } = props;
+  const { projectInformation, moveToProjectEditPage } = props;
   const tableRow = createTableRows(projectInformation);
 
   return (
-    <List className={rootClassName}>
-      {tableRow.map(row => (
-        <Fragment key={row.dataName}>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <row.icon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={row.dataName} secondary={row.data} />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-        </Fragment>
-      ))}
-    </List>
+    <>
+      <List className={rootClassName}>
+        {tableRow.map(row => (
+          <Fragment key={row.dataName}>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <row.icon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={row.dataName} secondary={row.data} />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </Fragment>
+        ))}
+      </List>
+      <Button
+        variant="contained"
+        color="primary"
+        onClick={() => moveToProjectEditPage(projectInformation.projectId)}
+      >
+        Edit
+      </Button>
+    </>
   );
 };
 
@@ -68,7 +78,8 @@ ProjectInformation.propTypes = {
     projectId: PropTypes.string.isRequired,
     projectName: PropTypes.string.isRequired,
     projectLeader: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  moveToProjectEditPage: PropTypes.func.isRequired
 };
 
 export default ProjectInformation;
