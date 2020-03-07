@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ProjectsTable from "../../../components/ProjectsTable/ProjectsTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import Error from "../../../components/Error/Error";
-import getProjects from "./ProjectsApi";
+import getProjects from "./projectsApi";
 
 const Projects = props => {
   const { history } = props;

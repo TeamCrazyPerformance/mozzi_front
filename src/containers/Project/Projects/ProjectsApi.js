@@ -10,7 +10,7 @@ const getProjects = async ({
 }) => {
   const apiResponse = {
     success: true,
-    users: [
+    projects: [
       {
         projectId: "1",
         projectName: "mozzi_front",
