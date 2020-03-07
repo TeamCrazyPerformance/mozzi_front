@@ -1,9 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+
+const NickNameValueInputBoxStyles = makeStyles(() => ({
+  inputBoxClassName: {
+    paddingBottom: "10px"
+  }
+}));
 
 const NickNameValueInputBox = props => {
   const { value, setValue, valueErrMessage, setValueErrMessage } = props;
+  const { inputBoxClassName } = NickNameValueInputBoxStyles();
 
   const nickNameValueCheck = targetValue => {
     const nickNameValueIsEmpty = targetValue === "";
@@ -24,7 +32,7 @@ const NickNameValueInputBox = props => {
 
   return (
     <TextField
-      className="signup-form-component__form__input-box"
+      className={`${inputBoxClassName}`}
       label="Nickname"
       type="string"
       value={value}

@@ -1,6 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+
+const PasswordConfirmValueInputBoxStyles = makeStyles(() => ({
+  inputBoxClassName: {
+    paddingBottom: "10px"
+  }
+}));
 
 const PasswordConfirmValueInputBox = props => {
   const {
@@ -10,6 +17,7 @@ const PasswordConfirmValueInputBox = props => {
     setValueErrMessage,
     passwordValue
   } = props;
+  const { inputBoxClassName } = PasswordConfirmValueInputBoxStyles();
 
   const passwordConfirmValueCheck = targetValue => {
     const passwordConfirmValueIsEmpty = targetValue === "";
@@ -29,7 +37,7 @@ const PasswordConfirmValueInputBox = props => {
 
   return (
     <TextField
-      className="signup-form-component__form__input-box"
+      className={`${inputBoxClassName}`}
       label="Password confirm"
       type="password"
       value={value}

@@ -1,6 +1,13 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+
+const IdentityValueInputBoxStyles = makeStyles(() => ({
+  inputBoxClassName: {
+    paddingBottom: "10px"
+  }
+}));
 
 const IdentityValueInputBox = props => {
   const {
@@ -10,6 +17,7 @@ const IdentityValueInputBox = props => {
     setValueErrMessage,
     identityValueDuplicateCheck
   } = props;
+  const { inputBoxClassName } = IdentityValueInputBoxStyles();
 
   const identityValueCheck = async targetValue => {
     const identityValueIsEmpty = targetValue === "";
@@ -34,7 +42,7 @@ const IdentityValueInputBox = props => {
 
   return (
     <TextField
-      className="signup-form-component__form__input-box"
+      className={`${inputBoxClassName}`}
       label="ID"
       type="string"
       value={value}

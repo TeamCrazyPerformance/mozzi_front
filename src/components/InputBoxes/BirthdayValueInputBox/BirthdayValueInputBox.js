@@ -1,9 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import TextField from "@material-ui/core/TextField";
+import { makeStyles } from "@material-ui/core/styles";
+
+const BirthdayValueInputBoxStyles = makeStyles(() => ({
+  inputBoxClassName: {
+    paddingBottom: "10px"
+  }
+}));
 
 const BirthdayValueInputBox = props => {
   const { value, setValue, valueErrMessage, setValueErrMessage } = props;
+  const { inputBoxClassName } = BirthdayValueInputBoxStyles();
 
   const birthdayValueCheck = targetValue => {
     const birthdayValueIsEmpty = targetValue === "";
@@ -24,7 +32,7 @@ const BirthdayValueInputBox = props => {
 
   return (
     <TextField
-      className="signup-form-component__form__input-box"
+      className={`${inputBoxClassName}`}
       label="Birthday"
       type="string"
       value={value}
