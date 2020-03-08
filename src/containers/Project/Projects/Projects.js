@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import ProjectsTable from "../../../components/ProjectsTable/ProjectsTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Error from "../../../components/Error/Error";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import getProjects from "./projectsApi";
 
 const Projects = props => {
@@ -60,7 +60,7 @@ const Projects = props => {
       <div>Projects</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
           <ProjectsTable
             data={projects}

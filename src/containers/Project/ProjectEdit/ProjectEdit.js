@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import ProjectEditForm from "../../../components/ProjectEditForm/ProjectEditForm";
-import Error from "../../../components/Error/Error";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import * as projectEditApi from "./projectEditApi";
 
@@ -99,7 +99,7 @@ const ProjectEdit = props => {
   return (
     <LoadingSpinner loadingState={loadingState}>
       {error ? (
-        <Error />
+        <ErrorPage />
       ) : (
         <ProjectEditForm
           titleValue={title}

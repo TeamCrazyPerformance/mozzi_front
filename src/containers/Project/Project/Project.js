@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ProjectInformation from "../../../components/ProjectInformation/ProjectInformation";
 import ProjectIssueList from "../../../components/ProjectIssueList/ProjectIssueList";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Error from "../../../components/Error/Error";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import * as projectApi from "./projectApi";
 
 const Project = props => {
@@ -56,7 +56,7 @@ const Project = props => {
       <div>Project</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
           <>
             <ProjectInformation

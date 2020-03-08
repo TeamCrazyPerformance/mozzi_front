@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import FlexBox from "../../components/FlexBox/FlexBox";
 import SignUpForm from "../../components/SignUpForm/SignUpForm";
 import Logo from "../../components/Logo/Logo";
-import Error from "../../components/Error/Error";
+import ErrorPage from "../Pages/ErrorPage/ErrorPage";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import * as signUpApi from "./SignUpApi";
 
@@ -172,7 +172,7 @@ const SignUp = props => {
     <FlexBox wrap="wrap" column="column" align="center" maxHeight createWrapper>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
           <>
             <Logo />

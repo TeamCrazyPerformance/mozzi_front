@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Error from "../../../components/Error/Error";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import UserInformationEditForm from "../../../components/UserInformationEditForm/UserInformationEditForm";
 import UserPasswordEditForm from "../../../components/UserPasswordEditForm/UserPasswordEditForm";
 import UserWithdrawalForm from "../../../components/UserWithdrawalForm/UserWithdrawalForm";
@@ -172,7 +172,7 @@ const UserInformationEdit = ({
     <div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
           <>
             <UserInformationEditForm

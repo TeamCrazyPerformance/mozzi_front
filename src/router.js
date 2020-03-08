@@ -26,7 +26,7 @@ import JoinRequests from "./containers/Admin/JoinRequests/JoinRequests";
 import Users from "./containers/Admin/Users/Users";
 import UserInformation from "./containers/UserInformation/UserInformation/UserInformation";
 import UserInformationEdit from "./containers/UserInformation/UserInformationEdit/UserInformationEdit";
-import ErrorPage404 from "./containers/Pages/404";
+import ErrorPage404 from "./containers/Pages/404Page/404Page";
 
 const PublicRouter = () => (
   <Switch>

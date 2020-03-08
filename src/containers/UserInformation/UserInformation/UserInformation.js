@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import UserInformationList from "../../../components/UserInformationList/UserInformationList";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Error from "../../../components/Error/Error";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import * as userInformationApi from "./UserInformationApi";
 
 const UserInformation = props => {
@@ -61,7 +61,7 @@ const UserInformation = props => {
       <div>User information</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
           <UserInformationList userInformation={userInformation} />
         )}

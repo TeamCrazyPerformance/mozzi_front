@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import UsersTable from "../../../components/UsersTable/UsersTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Error from "../../../components/Error/Error";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import getUsers from "./usersApi";
 
 const Users = props => {
@@ -64,7 +64,7 @@ const Users = props => {
       <div>Users</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
           <UsersTable
             data={users}

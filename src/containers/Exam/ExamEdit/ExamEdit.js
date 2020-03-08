@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import ExamEditForm from "../../../components/ExamEditForm/ExamEditForm";
-import Error from "../../../components/Error/Error";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import * as examEditApi from "./ExamEditApi";
 
@@ -167,7 +167,7 @@ const ExamEdit = props => {
   return (
     <LoadingSpinner loadingState={loadingState}>
       {error ? (
-        <Error />
+        <ErrorPage />
       ) : (
         <ExamEditForm examFormData={examFormData} handleSubmit={handleSubmit} />
       )}

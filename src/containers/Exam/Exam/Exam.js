@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 import Button from "@material-ui/core/Button";
 import ExamInformationList from "../../../components/ExamInformationList/ExamInformationList";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Error from "../../../components/Error/Error";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import * as ExamApi from "./ExamApi";
 
 const Exam = props => {
@@ -69,7 +69,7 @@ const Exam = props => {
       <div>Exam</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
           <ExamInformationList examInformation={examInformation} />
         )}

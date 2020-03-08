@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import JoinRequestsTable from "../../../components/JoinRequestsTable/JoinRequestsTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Error from "../../../components/Error/Error";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import * as joinRequestsApi from "./joinRequestsApi";
 
 const JoinRequests = props => {
@@ -72,7 +72,7 @@ const JoinRequests = props => {
       <div>Join request</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
           <JoinRequestsTable
             data={joinRequests}
