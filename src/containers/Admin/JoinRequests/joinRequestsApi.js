@@ -50,12 +50,8 @@ export const postJoinRequestReview = async ({
 
   await apiCallStart();
 
-  if (joinRequestType === "approve" || joinRequestType === "reject") {
-    await fetchHelper
-      .put(`/admin/user/${joinRequestType}/${userId}/`, { userId }, apiResponse)
-      .then(() => apiCallSuccess(null, currentPage))
-      .catch(() => apiCallFailure());
-  } else {
-    console.log("POST: Join request review type error");
-  }
+  await fetchHelper
+    .put(`/admin/user/${joinRequestType}/${userId}/`, { userId }, apiResponse)
+    .then(() => apiCallSuccess(null, currentPage))
+    .catch(() => apiCallFailure());
 };
