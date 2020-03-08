@@ -64,6 +64,9 @@ const ExamsTableStyles = makeStyles(theme => ({
   },
   tableWrapperClassName: {
     overflowX: "auto"
+  },
+  tableRowClassName: {
+    cursor: "pointer"
   }
 }));
 
@@ -79,7 +82,8 @@ const ExamsTable = props => {
   const {
     rootClassName,
     tableClassName,
-    tableWrapperClassName
+    tableWrapperClassName,
+    tableRowClassName
   } = ExamsTableStyles();
   const emptyRows = rowsPerPage - data.length;
 
@@ -93,6 +97,7 @@ const ExamsTable = props => {
               <TableRow
                 hover
                 key={exam.examId}
+                className={tableRowClassName}
                 onClick={() => moveToEaxmPage(exam.examId)}
               >
                 <TableCell align="center">{exam.name}</TableCell>

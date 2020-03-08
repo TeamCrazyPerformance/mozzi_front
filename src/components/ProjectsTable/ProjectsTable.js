@@ -46,6 +46,9 @@ const ProjectsTableStyles = makeStyles(theme => ({
   },
   tableWrapperClassName: {
     overflowX: "auto"
+  },
+  tableRowClassName: {
+    cursor: "pointer"
   }
 }));
 
@@ -61,7 +64,8 @@ const ProjectsTable = props => {
   const {
     rootClassName,
     tableClassName,
-    tableWrapperClassName
+    tableWrapperClassName,
+    tableRowClassName
   } = ProjectsTableStyles();
   const emptyRows = rowsPerPage - data.length;
 
@@ -75,6 +79,7 @@ const ProjectsTable = props => {
               <TableRow
                 hover
                 key={project.projectId}
+                className={tableRowClassName}
                 onClick={() => moveToProjectPage(project.projectId)}
               >
                 <TableCell align="center">{project.projectName}</TableCell>
