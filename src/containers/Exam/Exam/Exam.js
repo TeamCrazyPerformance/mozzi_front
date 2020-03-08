@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Button from "@material-ui/core/Button";
 import ExamInformationList from "../../../components/ExamInformationList/ExamInformationList";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
@@ -32,9 +30,10 @@ const Exam = props => {
     setError(false);
   };
 
-  const setLoadingStateAndErrorWhenApiCallSuccess = responseExam => {
-    setExamInformation(responseExam);
-    if (responseExam.authorId === myId) setSelfIdentification(true);
+  const setLoadingStateAndErrorWhenApiCallSuccess = response => {
+    setExamInformation(response.exam);
+    // Check self identification for edit and delete button.
+    if (response.exam.authorId === myId) setSelfIdentification(true);
     setLoadingState(false);
     setError(false);
   };
@@ -45,7 +44,7 @@ const Exam = props => {
   };
 
   const deleteExam = () => {
-    ExamApi.deleteExams({
+    ExamApi.deleteExam({
       examId,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: () => history.push("/exam/exams"),
@@ -71,30 +70,12 @@ const Exam = props => {
         {error ? (
           <ErrorPage />
         ) : (
-          <ExamInformationList examInformation={examInformation} />
-        )}
-        {selfIdentification ? (
-          <div className="button-wrapper">
-            <Button
-              className="button-wrapper__edit-button"
-              variant="contained"
-              color="primary"
-              component={Link}
-              to={`/exam/exam/${examId}/edit`}
-            >
-              Edit
-            </Button>
-            <Button
-              className="button-wrapper__delete-button"
-              variant="contained"
-              color="primary"
-              onClick={() => deleteExam()}
-            >
-              Delete
-            </Button>
-          </div>
-        ) : (
-          <></>
+          <ExamInformationList
+            examInformation={examInformation}
+            selfIdentification={selfIdentification}
+            deleteExam={deleteExam}
+            examInformationEditPageUrl={`/exam/exam/${examId}/edit`}
+          />
         )}
       </LoadingSpinner>
     </div>

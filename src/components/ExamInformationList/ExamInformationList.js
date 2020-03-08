@@ -1,13 +1,26 @@
 import React, { Fragment } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import Divider from "@material-ui/core/Divider";
+import Button from "@material-ui/core/Button";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
-import { AccessibilityNew } from "@material-ui/icons";
+
+import {
+  AccessibilityNew,
+  CalendarToday,
+  Computer,
+  School,
+  Today,
+  TextFields,
+  MenuBook,
+  EmojiPeople,
+  LibraryBooks
+} from "@material-ui/icons";
 
 const createProjectInformationRow = (icon, dataName, data) => {
   return { icon, dataName, data };
@@ -19,30 +32,18 @@ const createTableRows = examInformation => [
     "Author id",
     examInformation.authorId
   ),
-  createProjectInformationRow(AccessibilityNew, "Year", examInformation.year),
-  createProjectInformationRow(AccessibilityNew, "Major", examInformation.major),
-  createProjectInformationRow(AccessibilityNew, "Grade", examInformation.grade),
+  createProjectInformationRow(CalendarToday, "Year", examInformation.year),
+  createProjectInformationRow(Computer, "Major", examInformation.major),
+  createProjectInformationRow(School, "Grade", examInformation.grade),
+  createProjectInformationRow(Today, "Semester", examInformation.semester),
+  createProjectInformationRow(TextFields, "Term", examInformation.term),
+  createProjectInformationRow(MenuBook, "Lecture name", examInformation.name),
   createProjectInformationRow(
-    AccessibilityNew,
-    "Semester",
-    examInformation.semester
-  ),
-  createProjectInformationRow(AccessibilityNew, "Term", examInformation.term),
-  createProjectInformationRow(
-    AccessibilityNew,
-    "Lecture name",
-    examInformation.name
-  ),
-  createProjectInformationRow(
-    AccessibilityNew,
+    EmojiPeople,
     "Professor",
     examInformation.professor
   ),
-  createProjectInformationRow(
-    AccessibilityNew,
-    "Content",
-    examInformation.content
-  )
+  createProjectInformationRow(LibraryBooks, "Content", examInformation.content)
 ];
 
 const projectInformationStyles = makeStyles(theme => ({
@@ -50,30 +51,70 @@ const projectInformationStyles = makeStyles(theme => ({
     width: "100%",
     backgroundColor: theme.palette.background.paper,
     marginBottom: "10px"
+  },
+  buttonWrapperClassName: {
+    float: "right"
+  },
+  deleteButtonClassName: {
+    marginRight: "10px"
   }
 }));
 
 const ExamInformationList = props => {
-  const { rootClassName } = projectInformationStyles();
-  const { examInformation } = props;
+  const {
+    rootClassName,
+    buttonWrapperClassName,
+    deleteButtonClassName
+  } = projectInformationStyles();
+  const {
+    examInformation,
+    selfIdentification,
+    deleteExam,
+    examInformationEditPageUrl
+  } = props;
   const tableRow = createTableRows(examInformation);
 
   return (
-    <List className={rootClassName}>
-      {tableRow.map(row => (
-        <Fragment key={row.dataName}>
-          <ListItem>
-            <ListItemAvatar>
-              <Avatar>
-                <row.icon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={row.dataName} secondary={row.data} />
-          </ListItem>
-          <Divider variant="inset" component="li" />
-        </Fragment>
-      ))}
-    </List>
+    <>
+      <List className={rootClassName}>
+        {tableRow.map(row => (
+          <Fragment key={row.dataName}>
+            <ListItem>
+              <ListItemAvatar>
+                <Avatar>
+                  <row.icon />
+                </Avatar>
+              </ListItemAvatar>
+              <ListItemText primary={row.dataName} secondary={row.data} />
+            </ListItem>
+            <Divider variant="inset" component="li" />
+          </Fragment>
+        ))}
+      </List>
+      {selfIdentification ? (
+        <div className={`button-wrapper ${buttonWrapperClassName}`}>
+          <Button
+            className={`button-wrapper__delete-button ${deleteButtonClassName}`}
+            variant="contained"
+            color="primary"
+            onClick={() => deleteExam()}
+          >
+            Delete
+          </Button>
+          <Button
+            className="button-wrapper__edit-button"
+            variant="contained"
+            color="primary"
+            component={Link}
+            to={examInformationEditPageUrl}
+          >
+            Edit
+          </Button>
+        </div>
+      ) : (
+        <></>
+      )}
+    </>
   );
 };
 
@@ -89,7 +130,10 @@ ExamInformationList.propTypes = {
     name: PropTypes.string.isRequired,
     professor: PropTypes.string.isRequired,
     content: PropTypes.string.isRequired
-  }).isRequired
+  }).isRequired,
+  selfIdentification: PropTypes.bool.isRequired,
+  deleteExam: PropTypes.func.isRequired,
+  examInformationEditPageUrl: PropTypes.string.isRequired
 };
 
 export default ExamInformationList;
