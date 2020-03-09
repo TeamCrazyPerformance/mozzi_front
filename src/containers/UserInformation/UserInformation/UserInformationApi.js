@@ -1,32 +1,34 @@
-// import fetchHelper from './../../../helpers/fetchHelper';
+import fetchHelper from "../../../helpers/fakeFetchHelper";
 
-export const getUserInformation = async ({
+const getUser = async ({
   userId,
   apiCallStart,
   apiCallSuccess,
   apiCallFailure
 }) => {
-  apiCallStart();
-
-  const getUserInformationResponse = {
+  const apiResponse = {
     success: true,
-    role: "admin",
-    id: userId,
-    name: "Kang Ji Hoon",
-    nickname: "KangJi",
-    major: "Computer science and engineering",
-    stdNumber: "16101340",
-    phoneNum: "01001010101",
-    email: "kangkang@gmail.com",
-    birthday: "19971221",
-    createAt: "20200202",
-    allow: []
+    user: {
+      role: "admin",
+      id: userId,
+      name: "강민준",
+      nickname: "Alianna",
+      major: "컴퓨터공학과",
+      stdNumber: "16101340",
+      phoneNum: "01020581720",
+      email: "kangji1610@naver.com",
+      birthday: "971226",
+      createAt: "200202",
+      allow: []
+    }
   };
 
-  if (getUserInformationResponse.success === true) {
-    delete getUserInformationResponse.success;
-    apiCallSuccess(getUserInformationResponse);
-  } else {
-    apiCallFailure();
-  }
+  await apiCallStart();
+
+  await fetchHelper
+    .get(`/user/${userId}`, null, apiResponse)
+    .then(response => apiCallSuccess(response))
+    .catch(() => apiCallFailure());
 };
+
+export default getUser;

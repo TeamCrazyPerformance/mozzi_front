@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import Button from "@material-ui/core/Button";
 import UserInformationList from "../../../components/UserInformationList/UserInformationList";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
 import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
-import * as userInformationApi from "./UserInformationApi";
+import getUser from "./UserInformationApi";
 
 const UserInformation = props => {
   const { myId, match } = props;
@@ -33,9 +31,10 @@ const UserInformation = props => {
     setError(false);
   };
 
-  const setLoadingStateAndErrorWhenApiCallSuccess = responseUserInformation => {
-    setUserInformation(responseUserInformation);
-    if (responseUserInformation.id === myId) setSelfIdentification(true);
+  const setLoadingStateAndErrorWhenApiCallSuccess = response => {
+    setUserInformation(response.user);
+    // Check self identification for edit and delete button.
+    if (response.user.id === myId) setSelfIdentification(true);
     setLoadingState(false);
     setError(false);
   };
@@ -46,7 +45,7 @@ const UserInformation = props => {
   };
 
   const getUserInformation = () => {
-    userInformationApi.getUserInformation({
+    getUser({
       userId,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
@@ -63,22 +62,11 @@ const UserInformation = props => {
         {error ? (
           <ErrorPage />
         ) : (
-          <UserInformationList userInformation={userInformation} />
-        )}
-        {selfIdentification ? (
-          <div className="edit-button-wrapper">
-            <Button
-              className="edit-button-wrapper__edit-button"
-              variant="contained"
-              color="primary"
-              component={Link}
-              to={`/user/${userId}/edit`}
-            >
-              Edit
-            </Button>
-          </div>
-        ) : (
-          <></>
+          <UserInformationList
+            userInformation={userInformation}
+            selfIdentification={selfIdentification}
+            userInformationEditPageUrl={`/user/${myId}/edit`}
+          />
         )}
       </LoadingSpinner>
     </div>
