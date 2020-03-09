@@ -93,14 +93,14 @@ const ExamEdit = props => {
   };
 
   const setStateGetExamInformationSuccess = examInformation => {
-    setYear(examInformation.year);
-    setMajor(examInformation.major);
-    setGrade(examInformation.grade);
-    setSemester(examInformation.semester);
-    setTerm(examInformation.term);
-    setName(examInformation.name);
-    setProfessor(examInformation.professor);
-    setContent(examInformation.content);
+    setYear(examInformation.exam.year);
+    setMajor(examInformation.exam.major);
+    setGrade(examInformation.exam.grade);
+    setSemester(examInformation.exam.semester);
+    setTerm(examInformation.exam.term);
+    setName(examInformation.exam.name);
+    setProfessor(examInformation.exam.professor);
+    setContent(examInformation.exam.content);
     setLoadingState(false);
     setError(false);
   };
@@ -145,14 +145,28 @@ const ExamEdit = props => {
     });
 
     if (!err) {
+      const examInformation = {
+        year,
+        major,
+        grade,
+        semester,
+        term,
+        name,
+        professor,
+        content
+      };
+
       if (examId) {
         examEditApi.putExam({
+          examId,
+          examInformation,
           apiCallStart: setStateApiCallStart,
           apiCallSuccess: setStateHandleSubmitSuccess,
           apiCallFailure: setStateHandleSubmitFailure
         });
       } else {
         examEditApi.postExam({
+          examInformation,
           apiCallStart: setStateApiCallStart,
           apiCallSuccess: setStateHandleSubmitSuccess,
           apiCallFailure: setStateHandleSubmitFailure

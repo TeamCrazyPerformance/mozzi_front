@@ -14,12 +14,18 @@ import ContentValueInputBox from "../InputBoxes/ContentValueInputBox/ContentValu
 const projectEditFormStyles = makeStyles(() => ({
   examEditFormWrapperClassName: {
     marginBottom: "20px"
+  },
+  buttonWrapperClassName: {
+    textAlign: "right"
   }
 }));
 
 const ProjectEditForm = props => {
   const { examFormData, handleSubmit } = props;
-  const { examEditFormWrapperClassName } = projectEditFormStyles();
+  const {
+    examEditFormWrapperClassName,
+    buttonWrapperClassName
+  } = projectEditFormStyles();
 
   const validationCheckAndHandleSubmit = event => {
     // Prevent browers refresh.
@@ -71,10 +77,10 @@ const ProjectEditForm = props => {
           label="Lecture name"
         />
         <NameValueInputBox
-          value={examFormData.name.value}
-          setValue={examFormData.name.setValue}
-          valueErrMessage={examFormData.name.valueErrMessage}
-          setValueErrMessage={examFormData.name.setValueErrMessage}
+          value={examFormData.professor.value}
+          setValue={examFormData.professor.setValue}
+          valueErrMessage={examFormData.professor.valueErrMessage}
+          setValueErrMessage={examFormData.professor.setValueErrMessage}
           label="Professor name"
         />
         <ContentValueInputBox
@@ -83,9 +89,9 @@ const ProjectEditForm = props => {
           valueErrMessage={examFormData.content.valueErrMessage}
           setValueErrMessage={examFormData.content.setValueErrMessage}
         />
-        <div className="project-edit-form__form__button-wrapper">
+        <div className={buttonWrapperClassName}>
           <Button
-            className="project-edit-form__form__button-wrapper__submit-button"
+            className="submit-button"
             variant="contained"
             color="primary"
             type="submit"
