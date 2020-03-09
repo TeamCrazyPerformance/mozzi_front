@@ -15,10 +15,10 @@ const GradeValueInputBox = props => {
 
   const gradeValueCheck = targetValue => {
     const gradeValueIsEmpty = targetValue === "";
-    if (gradeValueIsEmpty) return "Please fill name";
+    if (gradeValueIsEmpty) return "Please fill grade";
 
     const gradeRegex = /^[1-4]*$/.test(targetValue);
-    if (!gradeRegex) return "Use only numbers 1 or more than 4 or less.";
+    if (!gradeRegex) return "Use only numbers 1 or more than 4 or less";
 
     return "";
   };
