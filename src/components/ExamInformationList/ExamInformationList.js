@@ -53,7 +53,7 @@ const projectInformationStyles = makeStyles(theme => ({
     marginBottom: "10px"
   },
   buttonWrapperClassName: {
-    float: "right"
+    textAlign: "right"
   },
   deleteButtonClassName: {
     marginRight: "10px"
