@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+import { connect } from "react-redux";
 import ProjectInformation from "../../../components/ProjectInformation/ProjectInformation";
 import ProjectIssueList from "../../../components/ProjectIssueList/ProjectIssueList";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
@@ -7,16 +8,18 @@ import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import * as projectApi from "./projectApi";
 
 const Project = props => {
-  const { match, history } = props;
+  const { myId, match, history } = props;
   const { projectId } = match.params;
-
   const [project, setProject] = useState({
     projectId: "",
     projectName: "",
     projectLeader: "",
-    projectContent: "",
-    projectIssues: [{ issueId: "", issueName: "", issueContent: "" }]
+    projectContent: ""
   });
+  const [projectIssues, setProjectIssues] = useState([
+    { issueId: "", issueName: "", issueContent: "" }
+  ]);
+  const [selfIdentification, setSelfIdentification] = useState(false);
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
 
@@ -25,8 +28,11 @@ const Project = props => {
     setError(false);
   };
 
-  const setLoadingStateAndErrorWhenApiCallSuccess = projectInformation => {
-    setProject(projectInformation);
+  const setLoadingStateAndErrorWhenApiCallSuccess = response => {
+    setProject(response.project);
+    setProjectIssues([...response.project.projectIssues]);
+    // Check self identification for edit and delete button.
+    if (response.project.projectLeader === myId) setSelfIdentification(true);
     setLoadingState(false);
     setError(false);
   };
@@ -36,7 +42,7 @@ const Project = props => {
     setError(true);
   };
 
-  const getProjectInformation = () => {
+  const getProject = () => {
     projectApi.getProject({
       projectId,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
@@ -45,11 +51,25 @@ const Project = props => {
     });
   };
 
-  const moveToProjectEditPage = id => {
-    history.push(`/project/project/${id}`);
+  const deleteProject = () => {
+    projectApi.deleteProject({
+      projectId,
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: () => history.replace("/project/projects"),
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
+    });
   };
 
-  useEffect(getProjectInformation, []);
+  const deleteIssue = issueId => {
+    projectApi.deleteIssue({
+      issueId,
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: getProject,
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
+    });
+  };
+
+  useEffect(getProject, []);
 
   return (
     <div>
@@ -60,10 +80,16 @@ const Project = props => {
         ) : (
           <>
             <ProjectInformation
+              selfIdentification={selfIdentification}
               projectInformation={project}
-              moveToProjectEditPage={moveToProjectEditPage}
+              deleteProject={deleteProject}
+              projectInformationEditPageUrl={`/project/project/${projectId}/edit`}
             />
-            <ProjectIssueList projectIssues={project.projectIssues} />
+            <ProjectIssueList
+              selfIdentification={selfIdentification}
+              projectIssues={projectIssues}
+              deleteIssue={deleteIssue}
+            />
           </>
         )}
       </LoadingSpinner>
@@ -72,14 +98,20 @@ const Project = props => {
 };
 
 Project.propTypes = {
+  myId: PropTypes.string.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       projectId: PropTypes.string.isRequired
     }).isRequired
   }).isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired
+    replace: PropTypes.func.isRequired
   }).isRequired
 };
 
-export default Project;
+const mapStateToProps = state => {
+  const { auth } = state;
+  return { myId: auth.userId };
+};
+
+export default connect(mapStateToProps)(Project);

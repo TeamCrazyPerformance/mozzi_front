@@ -1,24 +1,17 @@
-// import fetchHelper from './../../../helpers/fetchHelper';
+import fetchHelper from "../../../helpers/fakeFetchHelper";
 
-// export const getProject = async ({
-export const getProject = ({
+export const getProject = async ({
   projectId,
   apiCallStart,
   apiCallSuccess,
   apiCallFailure
 }) => {
-  apiCallStart();
-
-  // const getJoinRequetsResponse = await fetchHelper.get(`/admin/user/${userId}`)
-  // .then(response => response)
-  // .catch(error => ({error: JSON.stringify(error)}))
-
-  const getProjectResponse = {
+  const apiResponse = {
     success: true,
     project: {
-      projectId: "888",
-      projectName: "Mozzi",
-      projectLeader: "Lee",
+      projectId: "13",
+      projectName: "mozzi_front",
+      projectLeader: "userAbc",
       projectContent:
         "Pellentesque consectetur, lorem nec lacinia tincidunt, mauris tortor suscipit tortor, quis molestie felis ipsum in ante. Fusce viverra tortor vitae ante tincidunt, eu scelerisque elit laoreet. Proin eu ligula sed neque porta dictum. Duis nec cursus leo. In sit amet lacus suscipit purus malesuada molestie sit amet nec urna. Quisque non accumsan odio. Mauris ut velit nec dui pulvinar sollicitudin. Nulla facilisi. Phasellus ac neque magna. Sed leo diam, rutrum nec aliquet at, aliquet non nisl. Integer tristique urna eget suscipit sollicitudin. Vivamus libero odio, dapibus vitae varius quis, varius vitae arcu. Aenean sed turpis et lacus placerat aliquet.",
       projectIssues: [
@@ -56,9 +49,42 @@ export const getProject = ({
     }
   };
 
-  if (getProjectResponse.success) {
-    apiCallSuccess(getProjectResponse.project);
-  } else {
-    apiCallFailure();
-  }
+  await apiCallStart();
+
+  await fetchHelper
+    .get(`/project/${projectId}`, null, apiResponse)
+    .then(response => apiCallSuccess(response))
+    .catch(() => apiCallFailure());
+};
+
+export const deleteProject = async ({
+  projectId,
+  apiCallStart,
+  apiCallSuccess,
+  apiCallFailure
+}) => {
+  const apiResponse = { success: true };
+
+  await apiCallStart();
+
+  await fetchHelper
+    .delete(`/project/${projectId}`, null, apiResponse)
+    .then(() => apiCallSuccess())
+    .catch(() => apiCallFailure());
+};
+
+export const deleteIssue = async ({
+  issueId,
+  apiCallStart,
+  apiCallSuccess,
+  apiCallFailure
+}) => {
+  const apiResponse = { success: true };
+
+  await apiCallStart();
+
+  await fetchHelper
+    .delete(`/project/issue/${issueId}`, null, apiResponse)
+    .then(() => apiCallSuccess())
+    .catch(() => apiCallFailure());
 };
