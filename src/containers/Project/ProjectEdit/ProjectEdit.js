@@ -88,27 +88,38 @@ const ProjectEdit = props => {
   };
 
   const handleSubmit = () => {
-    const projectInformation = {
-      projectId,
-      projectName,
-      projectLeader,
-      projectContent
-    };
+    let err = false;
 
-    if (projectId) {
-      projectEditApi.putProject({
-        projectInformation,
-        apiCallStart: setStateApiCallStart,
-        apiCallSuccess: setStateHandleSubmitSuccess,
-        apiCallFailure: setStateHandleSubmitFailure
-      });
-    } else {
-      projectEditApi.postProject({
-        projectInformation,
-        apiCallStart: setStateApiCallStart,
-        apiCallSuccess: setStateHandleSubmitSuccess,
-        apiCallFailure: setStateHandleSubmitFailure
-      });
+    Object.keys(projectFormData).forEach(key => {
+      if (
+        projectFormData[key].value === "" ||
+        projectFormData[key].valueErrMessage
+      )
+        err = true;
+    });
+
+    if (!err) {
+      const projectInformation = {
+        projectId,
+        projectName,
+        projectLeader,
+        projectContent
+      };
+      if (projectId) {
+        projectEditApi.putProject({
+          projectInformation,
+          apiCallStart: setStateApiCallStart,
+          apiCallSuccess: setStateHandleSubmitSuccess,
+          apiCallFailure: setStateHandleSubmitFailure
+        });
+      } else {
+        projectEditApi.postProject({
+          projectInformation,
+          apiCallStart: setStateApiCallStart,
+          apiCallSuccess: setStateHandleSubmitSuccess,
+          apiCallFailure: setStateHandleSubmitFailure
+        });
+      }
     }
   };
 
