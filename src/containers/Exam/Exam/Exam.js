@@ -47,7 +47,7 @@ const Exam = props => {
     ExamApi.deleteExam({
       examId,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
-      apiCallSuccess: () => history.push("/exam/exams"),
+      apiCallSuccess: () => history.replace("/exam/exams"),
       apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
     });
   };
@@ -90,7 +90,7 @@ Exam.propTypes = {
     }).isRequired
   }).isRequired,
   history: PropTypes.shape({
-    push: PropTypes.func.isRequired
+    replace: PropTypes.func.isRequired
   }).isRequired
 };
 
