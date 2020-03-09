@@ -151,16 +151,18 @@ const SignUp = props => {
 
     if (!err) {
       signUpApi.postSignUp({
-        id: identityValue,
-        password: passwordValue,
-        name: nameValue,
-        birthday: birthdayValue,
-        nickName: nickNameValue,
-        school: schoolValue,
-        studentNumber: stdNumValue,
-        major: majorValue,
-        email: emailValue,
-        phoneNumber: phoneNumValue,
+        userInformation: {
+          id: identityValue,
+          password: passwordValue,
+          name: nameValue,
+          birthday: birthdayValue,
+          nickName: nickNameValue,
+          school: schoolValue,
+          studentNumber: stdNumValue,
+          major: majorValue,
+          email: emailValue,
+          phoneNumber: phoneNumValue
+        },
         apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
         apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
         apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
