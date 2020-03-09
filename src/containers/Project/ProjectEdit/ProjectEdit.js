@@ -9,26 +9,52 @@ const ProjectEdit = props => {
   const { history, match } = props;
   const { projectId } = match.params;
 
-  const [title, setTitle] = useState("");
-  const [member, setMember] = useState("");
-  const [content, setContent] = useState("");
+  const [projectName, setProjectName] = useState("");
+  const [projectNameErrMessage, setProjectNameErrMessage] = useState("");
+
+  const [projectLeader, setProjectLeader] = useState("");
+  const [projectLeaderErrMessage, setProjectLeaderErrMessage] = useState("");
+
+  const [projectContent, setProjectContent] = useState("");
+  const [projectContentErrMessage, setProjectContentErrMessage] = useState("");
+
+  const projectFormData = {
+    projectName: {
+      value: projectName,
+      setValue: setProjectName,
+      valueErrMessage: projectNameErrMessage,
+      setValueErrMessage: setProjectNameErrMessage
+    },
+    projectLeader: {
+      value: projectLeader,
+      setValue: setProjectLeader,
+      valueErrMessage: projectLeaderErrMessage,
+      setValueErrMessage: setProjectLeaderErrMessage
+    },
+    projectContent: {
+      value: projectContent,
+      setValue: setProjectContent,
+      valueErrMessage: projectContentErrMessage,
+      setValueErrMessage: setProjectContentErrMessage
+    }
+  };
 
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
-
-  const handleTitleValue = event => setTitle(event.target.value);
-  const handleMemberValue = event => setMember(event.target.value);
-  const handleContentValue = event => setContent(event.target.value);
 
   const setStateApiCallStart = () => {
     setLoadingState(true);
     setError(false);
   };
 
-  const setStateGetProjectInformationSuccess = () => {
+  const setStateGetProjectInformationSuccess = response => {
+    setProjectName(response.project.projectName);
+    setProjectLeader(response.project.projectLeader);
+    setProjectContent(response.project.projectContent);
     setLoadingState(false);
     setError(false);
   };
+
   const setStateGetProjectInformationFailure = () => {
     setLoadingState(false);
     setError(true);
@@ -50,20 +76,13 @@ const ProjectEdit = props => {
     setError(true);
   };
 
-  const setProjectInformation = projectInformation => {
-    setTitle(projectInformation.title);
-    setMember(projectInformation.member);
-    setContent(projectInformation.content);
-  };
-
   const getProjectInformation = () => {
     if (projectId) {
       projectEditApi.getProject({
         projectId,
         apiCallStart: setStateApiCallStart,
         apiCallSuccess: setStateGetProjectInformationSuccess,
-        apiCallFailure: setStateGetProjectInformationFailure,
-        setResponseToState: setProjectInformation
+        apiCallFailure: setStateGetProjectInformationFailure
       });
     }
   };
@@ -71,9 +90,9 @@ const ProjectEdit = props => {
   const handleSubmit = () => {
     const projectInformation = {
       projectId,
-      title,
-      member,
-      content
+      projectName,
+      projectLeader,
+      projectContent
     };
 
     if (projectId) {
@@ -102,12 +121,7 @@ const ProjectEdit = props => {
         <ErrorPage />
       ) : (
         <ProjectEditForm
-          titleValue={title}
-          handleTitleValue={handleTitleValue}
-          memberValue={member}
-          handleMemberValue={handleMemberValue}
-          contentValue={content}
-          handleContentValue={handleContentValue}
+          projectFormData={projectFormData}
           handleSubmit={handleSubmit}
         />
       )}
