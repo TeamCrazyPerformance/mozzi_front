@@ -64,45 +64,49 @@ const UsersTableStyles = makeStyles(theme => ({
   },
   tableWrapperClassName: {
     overflowX: "auto"
+  },
+  tableRowClassName: {
+    cursor: "pointer"
   }
 }));
 
-const userPageRedirect = userId => {
-  const currentUrl = window.location.href;
-  const redirectUrl = currentUrl.split("/")[0];
-  window.location.href = `${redirectUrl}/user/${userId}`;
-};
-
-const UserTableRow = user => (
-  <TableRow
-    hover
-    key={user.stdNumber}
-    onClick={() => userPageRedirect(user.id)}
-  >
-    <TableCell align="center">{user.name}</TableCell>
-    <TableCell align="center">{user.nickname}</TableCell>
-    <TableCell align="center">{user.email}</TableCell>
-    <TableCell align="center">{user.stdNumber}</TableCell>
-    <TableCell align="center">{user.birthday}</TableCell>
-  </TableRow>
-);
-
 const UsersTable = props => {
-  const { data, page, count, total, handlePageChange } = props;
+  const {
+    data,
+    page,
+    count,
+    rowsPerPage,
+    handlePageChange,
+    moveToUserPage
+  } = props;
   const {
     rootClassName,
     tableClassName,
-    tableWrapperClassName
+    tableWrapperClassName,
+    tableRowClassName
   } = UsersTableStyles();
-  const emptyRows = count - data.length;
+  const emptyRows = rowsPerPage - data.length;
 
   return (
     <Paper className={rootClassName}>
       <div className={tableWrapperClassName}>
         <Table className={tableClassName} aria-labelledby="tableTitle">
-          <EnhancedTableHead rowCount={count} />
+          <EnhancedTableHead rowCount={rowsPerPage} />
           <TableBody>
-            {data.map(user => UserTableRow(user))}
+            {data.map(user => (
+              <TableRow
+                hover
+                key={user.stdNumber}
+                className={tableRowClassName}
+                onClick={() => moveToUserPage(user.id)}
+              >
+                <TableCell align="center">{user.name}</TableCell>
+                <TableCell align="center">{user.nickname}</TableCell>
+                <TableCell align="center">{user.email}</TableCell>
+                <TableCell align="center">{user.stdNumber}</TableCell>
+                <TableCell align="center">{user.birthday}</TableCell>
+              </TableRow>
+            ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -114,9 +118,9 @@ const UsersTable = props => {
       <TablePagination
         rowsPerPageOptions={[]}
         component="div"
-        count={total}
-        rowsPerPage={count}
+        count={count}
         page={page}
+        rowsPerPage={rowsPerPage}
         onChangePage={handlePageChange}
         backIconButtonProps={{ "aria-label": "Previous Page" }}
         nextIconButtonProps={{ "aria-label": "Next Page" }}
@@ -130,7 +134,6 @@ UsersTable.propTypes = {
     PropTypes.shape({
       id: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      password: PropTypes.string.isRequired,
       nickname: PropTypes.string.isRequired,
       stdNumber: PropTypes.string.isRequired,
       phoneNum: PropTypes.string.isRequired,
@@ -140,7 +143,8 @@ UsersTable.propTypes = {
   ).isRequired,
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+  moveToUserPage: PropTypes.func.isRequired,
   handlePageChange: PropTypes.func.isRequired
 };
 

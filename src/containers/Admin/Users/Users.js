@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import UsersTable from "../../../components/UsersTable/UsersTable";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Error from "../../../components/Error/Error";
-import * as usersApi from "./UsersApi";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
+import getUsers from "./usersApi";
 
-const Users = () => {
+const Users = props => {
+  const { history } = props;
   const [users, setUsers] = useState([
     {
       id: "",
       name: "",
-      password: "",
       nickname: "",
       stdNumber: "",
       phoneNum: "",
@@ -19,43 +20,39 @@ const Users = () => {
   ]);
   const [page, setPage] = useState(0);
   const [count, setCount] = useState(0);
-  const [total, setTotal] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(0);
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
 
-  const setGetUsersResponse = ({ getUsersResponse }) => {
-    setUsers([...getUsersResponse.users]);
-    setPage(getUsersResponse.page);
-    setCount(getUsersResponse.count);
-    setTotal(getUsersResponse.total);
-  };
-  const setLoadingStateToTrue = () => setLoadingState(true);
-  const setLoadingStateToFalse = () => setLoadingState(false);
-  const setErrorToTrue = () => setError(true);
-  const setErrorToFalse = () => setError(false);
-
   const setLoadingStateAndErrorWhenApiCallStart = () => {
-    setLoadingStateToTrue();
-    setErrorToFalse();
+    setLoadingState(true);
+    setError(false);
   };
 
-  const setLoadingStateAndErrorWhenApiCallSuccess = () => {
-    setLoadingStateToFalse();
-    setErrorToFalse();
+  const setLoadingStateAndErrorWhenApiCallSuccess = response => {
+    setUsers([...response.users]);
+    setPage(response.page);
+    setCount(response.total);
+    setRowsPerPage(response.count);
+    setLoadingState(false);
+    setError(false);
   };
 
   const setLoadingStateAndErrorWhenApiCallFailure = () => {
-    setLoadingStateToFalse();
-    setErrorToTrue();
+    setLoadingState(false);
+    setError(true);
+  };
+
+  const moveToUserPage = userId => {
+    history.push(`/user/${userId}`);
   };
 
   const handlePageChange = (event, newPage = 0) => {
-    usersApi.getUsers({
+    getUsers({
       page: newPage,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
-      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
-      setResponseToState: setGetUsersResponse
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
     });
   };
 
@@ -67,19 +64,26 @@ const Users = () => {
       <div>Users</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
           <UsersTable
             data={users}
             page={page}
             count={count}
-            total={total}
+            rowsPerPage={rowsPerPage}
+            moveToUserPage={moveToUserPage}
             handlePageChange={handlePageChange}
           />
         )}
       </LoadingSpinner>
     </div>
   );
+};
+
+Users.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired
+  }).isRequired
 };
 
 export default Users;

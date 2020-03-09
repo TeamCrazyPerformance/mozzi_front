@@ -1,26 +1,24 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
 import UserInformationList from "../../../components/UserInformationList/UserInformationList";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Error from "../../../components/Error/Error";
-import * as userInformationApi from "./UserInformationApi";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
+import getUser from "./UserInformationApi";
 
-const UserInformation = ({
-  match: {
-    params: { userId }
-  }
-}) => {
+const UserInformation = props => {
+  const { myId, match } = props;
+  const { userId } = match.params;
   const [userInformation, setUserInformation] = useState({
-    nickname: "",
     id: "",
-    email: "",
-    role: "",
     name: "",
-    birthday: "",
-    phoneNumber: "",
+    nickname: "",
+    role: "",
+    stdNumber: "",
+    phoneNum: "",
+    email: "",
     major: "",
-    studentNumber: "",
+    birthday: "",
     createAt: "",
     allow: []
   });
@@ -33,9 +31,10 @@ const UserInformation = ({
     setError(false);
   };
 
-  const setLoadingStateAndErrorWhenApiCallSuccess = responseUserInformation => {
-    setUserInformation(responseUserInformation);
-    if (responseUserInformation.id === userId) setSelfIdentification(true);
+  const setLoadingStateAndErrorWhenApiCallSuccess = response => {
+    setUserInformation(response.user);
+    // Check self identification for edit and delete button.
+    if (response.user.id === myId) setSelfIdentification(true);
     setLoadingState(false);
     setError(false);
   };
@@ -46,7 +45,7 @@ const UserInformation = ({
   };
 
   const getUserInformation = () => {
-    userInformationApi.getUserInformation({
+    getUser({
       userId,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
@@ -58,25 +57,16 @@ const UserInformation = ({
 
   return (
     <div>
-      <div>User</div>
+      <div>User information</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
-          <UserInformationList userInformation={userInformation} />
-        )}
-        {selfIdentification ? (
-          <div className="edit-button-wrapper">
-            <Button
-              className="edit-button-wrapper__edit-button"
-              variant="contained"
-              color="primary"
-            >
-              Edit
-            </Button>
-          </div>
-        ) : (
-          <></>
+          <UserInformationList
+            userInformation={userInformation}
+            selfIdentification={selfIdentification}
+            userInformationEditPageUrl={`/user/${myId}/edit`}
+          />
         )}
       </LoadingSpinner>
     </div>
@@ -84,6 +74,7 @@ const UserInformation = ({
 };
 
 UserInformation.propTypes = {
+  myId: PropTypes.string.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       userId: PropTypes.string.isRequired
@@ -91,4 +82,9 @@ UserInformation.propTypes = {
   }).isRequired
 };
 
-export default UserInformation;
+const mapStateToProps = state => {
+  const { auth } = state;
+  return { myId: auth.userId };
+};
+
+export default connect(mapStateToProps)(UserInformation);

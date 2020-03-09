@@ -12,7 +12,7 @@ import Build from "@material-ui/icons/Build";
 import Delete from "@material-ui/icons/Delete";
 
 const ProjectIssueList = props => {
-  const { projectIssues } = props;
+  const { projectIssues, selfIdentification, deleteIssue } = props;
 
   return (
     <>
@@ -21,7 +21,7 @@ const ProjectIssueList = props => {
         <div>
           <List dense>
             {projectIssues.map(element => (
-              <ListItem key={element.issueId} button>
+              <ListItem key={element.issueId}>
                 <ListItemAvatar>
                   <Avatar>
                     <Build />
@@ -31,11 +31,19 @@ const ProjectIssueList = props => {
                   primary={element.issueName}
                   secondary={element.issueContent}
                 />
-                <ListItemSecondaryAction>
-                  <IconButton edge="end" aria-label="delete">
-                    <Delete />
-                  </IconButton>
-                </ListItemSecondaryAction>
+                {selfIdentification ? (
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      onClick={() => deleteIssue(projectIssues.issueId)}
+                      edge="end"
+                      aria-label="delete"
+                    >
+                      <Delete />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                ) : (
+                  <></>
+                )}
               </ListItem>
             ))}
           </List>
@@ -54,11 +62,9 @@ ProjectIssueList.propTypes = {
       issueName: PropTypes.string.isRequired,
       issueContent: PropTypes.string.isRequired
     })
-  )
-};
-
-ProjectIssueList.defaultProps = {
-  projectIssues: [{ issueId: "1" }]
+  ).isRequired,
+  selfIdentification: PropTypes.bool.isRequired,
+  deleteIssue: PropTypes.func.isRequired
 };
 
 export default ProjectIssueList;

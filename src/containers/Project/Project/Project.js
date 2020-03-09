@@ -1,78 +1,95 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Button from "@material-ui/core/Button";
+import { connect } from "react-redux";
 import ProjectInformation from "../../../components/ProjectInformation/ProjectInformation";
 import ProjectIssueList from "../../../components/ProjectIssueList/ProjectIssueList";
 import LoadingSpinner from "../../../components/LoadingSpinner/LoadingSpinner";
-import Error from "../../../components/Error/Error";
+import ErrorPage from "../../Pages/ErrorPage/ErrorPage";
 import * as projectApi from "./projectApi";
 
-const Project = ({
-  match: {
-    params: { projectId }
-  }
-}) => {
+const Project = props => {
+  const { myId, match, history } = props;
+  const { projectId } = match.params;
   const [project, setProject] = useState({
     projectId: "",
     projectName: "",
     projectLeader: "",
-    projectContent: "",
-    projectIssues: [{ issueId: "", issueName: "", issueContent: "" }]
+    projectContent: ""
   });
+  const [projectIssues, setProjectIssues] = useState([
+    { issueId: "", issueName: "", issueContent: "" }
+  ]);
+  const [selfIdentification, setSelfIdentification] = useState(false);
   const [loadingState, setLoadingState] = useState(false);
   const [error, setError] = useState(false);
 
-  const setGetProjectResponse = ({ getProjectResponse }) =>
-    setProject({ ...getProjectResponse.project });
-  const setLoadingStateToTrue = () => setLoadingState(true);
-  const setLoadingStateToFalse = () => setLoadingState(false);
-  const setErrorToTrue = () => setError(true);
-  const setErrorToFalse = () => setError(false);
-
   const setLoadingStateAndErrorWhenApiCallStart = () => {
-    setLoadingStateToTrue();
-    setErrorToFalse();
+    setLoadingState(true);
+    setError(false);
   };
 
-  const setLoadingStateAndErrorWhenApiCallSuccess = () => {
-    setLoadingStateToFalse();
-    setErrorToFalse();
+  const setLoadingStateAndErrorWhenApiCallSuccess = response => {
+    setProject(response.project);
+    setProjectIssues([...response.project.projectIssues]);
+    // Check self identification for edit and delete button.
+    if (response.project.projectLeader === myId) setSelfIdentification(true);
+    setLoadingState(false);
+    setError(false);
   };
 
   const setLoadingStateAndErrorWhenApiCallFailure = () => {
-    setLoadingStateToFalse();
-    setErrorToTrue();
+    setLoadingState(false);
+    setError(true);
   };
 
-  const getProjectInformation = () => {
+  const getProject = () => {
     projectApi.getProject({
       projectId,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,
-      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure,
-      setResponseToState: setGetProjectResponse
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
     });
   };
 
-  useEffect(getProjectInformation, []);
+  const deleteProject = () => {
+    projectApi.deleteProject({
+      projectId,
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: () => history.replace("/project/projects"),
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
+    });
+  };
+
+  const deleteIssue = issueId => {
+    projectApi.deleteIssue({
+      issueId,
+      apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
+      apiCallSuccess: getProject,
+      apiCallFailure: setLoadingStateAndErrorWhenApiCallFailure
+    });
+  };
+
+  useEffect(getProject, []);
 
   return (
     <div>
-      <div>{projectId} project</div>
+      <div>Project</div>
       <LoadingSpinner loadingState={loadingState}>
         {error ? (
-          <Error />
+          <ErrorPage />
         ) : (
           <>
-            <ProjectInformation projectInformation={project} />
-            <ProjectIssueList projectIssues={project.projectIssues} />
-            <Button
-              variant="contained"
-              color="primary"
-              href={`/project/project/${projectId}/edit`}
-            >
-              Edit
-            </Button>
+            <ProjectInformation
+              selfIdentification={selfIdentification}
+              projectInformation={project}
+              deleteProject={deleteProject}
+              projectInformationEditPageUrl={`/project/project/${projectId}/edit`}
+            />
+            <ProjectIssueList
+              selfIdentification={selfIdentification}
+              projectIssues={projectIssues}
+              deleteIssue={deleteIssue}
+            />
           </>
         )}
       </LoadingSpinner>
@@ -81,11 +98,20 @@ const Project = ({
 };
 
 Project.propTypes = {
+  myId: PropTypes.string.isRequired,
   match: PropTypes.shape({
     params: PropTypes.shape({
       projectId: PropTypes.string.isRequired
     }).isRequired
+  }).isRequired,
+  history: PropTypes.shape({
+    replace: PropTypes.func.isRequired
   }).isRequired
 };
 
-export default Project;
+const mapStateToProps = state => {
+  const { auth } = state;
+  return { myId: auth.userId };
+};
+
+export default connect(mapStateToProps)(Project);

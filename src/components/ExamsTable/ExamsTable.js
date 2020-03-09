@@ -11,16 +11,34 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const examsTableRows = [
   {
-    id: "examName",
+    id: "name",
     numeric: false,
     disablePadding: true,
-    label: "Exam Name"
+    label: "Exam name"
   },
   {
-    id: "Professor",
+    id: "major",
+    numeric: true,
+    disablePadding: false,
+    label: "Major"
+  },
+  {
+    id: "year",
+    numeric: true,
+    disablePadding: false,
+    label: "year"
+  },
+  {
+    id: "professor",
     numeric: true,
     disablePadding: false,
     label: "Professor"
+  },
+  {
+    id: "authorId",
+    numeric: true,
+    disablePadding: false,
+    label: "Author id"
   }
 ];
 
@@ -46,32 +64,49 @@ const ExamsTableStyles = makeStyles(theme => ({
   },
   tableWrapperClassName: {
     overflowX: "auto"
+  },
+  tableRowClassName: {
+    cursor: "pointer"
   }
 }));
 
-const examTableRow = exam => (
-  <TableRow hover key={exam.examId} onClick={() => {}}>
-    <TableCell align="center">{exam.examName}</TableCell>
-    <TableCell align="center">{exam.professor}</TableCell>
-  </TableRow>
-);
-
 const ExamsTable = props => {
-  const { data, page, count, total, handlePageChange } = props;
+  const {
+    data,
+    page,
+    count,
+    rowsPerPage,
+    moveToEaxmPage,
+    handlePageChange
+  } = props;
   const {
     rootClassName,
     tableClassName,
-    tableWrapperClassName
+    tableWrapperClassName,
+    tableRowClassName
   } = ExamsTableStyles();
-  const emptyRows = count - data.length;
+  const emptyRows = rowsPerPage - data.length;
 
   return (
     <Paper className={rootClassName}>
       <div className={tableWrapperClassName}>
         <Table className={tableClassName} aria-labelledby="tableTitle">
-          <EnhancedTableHead rowCount={count} />
+          <EnhancedTableHead rowCount={rowsPerPage} />
           <TableBody>
-            {data.map(exam => examTableRow(exam))}
+            {data.map(exam => (
+              <TableRow
+                hover
+                key={exam.examId}
+                className={tableRowClassName}
+                onClick={() => moveToEaxmPage(exam.examId)}
+              >
+                <TableCell align="center">{exam.name}</TableCell>
+                <TableCell align="center">{exam.major}</TableCell>
+                <TableCell align="center">{exam.year}</TableCell>
+                <TableCell align="center">{exam.professor}</TableCell>
+                <TableCell align="center">{exam.authorId}</TableCell>
+              </TableRow>
+            ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -83,8 +118,8 @@ const ExamsTable = props => {
       <TablePagination
         rowsPerPageOptions={[]}
         component="div"
-        count={total}
-        rowsPerPage={count}
+        count={count}
+        rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handlePageChange}
         backIconButtonProps={{ "aria-label": "Previous Page" }}
@@ -97,20 +132,22 @@ const ExamsTable = props => {
 ExamsTable.propTypes = {
   data: PropTypes.arrayOf(
     PropTypes.shape({
-      examId: PropTypes.number.isRequired,
-      authorId: PropTypes.number.isRequired,
+      examId: PropTypes.string.isRequired,
+      authorId: PropTypes.string.isRequired,
       year: PropTypes.string.isRequired,
       major: PropTypes.string.isRequired,
-      garde: PropTypes.number.isRequired,
-      semeter: PropTypes.number.isRequired,
+      grade: PropTypes.string.isRequired,
+      semester: PropTypes.string.isRequired,
       term: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
-      professor: PropTypes.string.isRequired
+      professor: PropTypes.string.isRequired,
+      content: PropTypes.string.isRequired
     })
   ).isRequired,
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+  moveToEaxmPage: PropTypes.func.isRequired,
   handlePageChange: PropTypes.func.isRequired
 };
 

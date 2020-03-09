@@ -46,42 +46,46 @@ const ProjectsTableStyles = makeStyles(theme => ({
   },
   tableWrapperClassName: {
     overflowX: "auto"
+  },
+  tableRowClassName: {
+    cursor: "pointer"
   }
 }));
 
-const projectPageRedirect = projectId => {
-  const currentUrl = window.location.href;
-  const redirectUrl = currentUrl.split("/")[0];
-  window.location.href = `${redirectUrl}/project/project/${projectId}`;
-};
-
-const projectTableRow = project => (
-  <TableRow
-    hover
-    key={project.projectId}
-    onClick={() => projectPageRedirect(project.projectId)}
-  >
-    <TableCell align="center">{project.projectName}</TableCell>
-    <TableCell align="center">{project.projectLeader}</TableCell>
-  </TableRow>
-);
-
 const ProjectsTable = props => {
-  const { data, page, count, total, handlePageChange } = props;
+  const {
+    data,
+    page,
+    count,
+    rowsPerPage,
+    handlePageChange,
+    moveToProjectPage
+  } = props;
   const {
     rootClassName,
     tableClassName,
-    tableWrapperClassName
+    tableWrapperClassName,
+    tableRowClassName
   } = ProjectsTableStyles();
-  const emptyRows = count - data.length;
+  const emptyRows = rowsPerPage - data.length;
 
   return (
     <Paper className={rootClassName}>
       <div className={tableWrapperClassName}>
         <Table className={tableClassName} aria-labelledby="tableTitle">
-          <EnhancedTableHead rowCount={count} />
+          <EnhancedTableHead rowCount={rowsPerPage} />
           <TableBody>
-            {data.map(project => projectTableRow(project))}
+            {data.map(project => (
+              <TableRow
+                hover
+                key={project.projectId}
+                className={tableRowClassName}
+                onClick={() => moveToProjectPage(project.projectId)}
+              >
+                <TableCell align="center">{project.projectName}</TableCell>
+                <TableCell align="center">{project.projectLeader}</TableCell>
+              </TableRow>
+            ))}
             {emptyRows > 0 && (
               <TableRow style={{ height: 49 * emptyRows }}>
                 <TableCell colSpan={6} />
@@ -93,9 +97,9 @@ const ProjectsTable = props => {
       <TablePagination
         rowsPerPageOptions={[]}
         component="div"
-        count={total}
-        rowsPerPage={count}
+        count={count}
         page={page}
+        rowsPerPage={rowsPerPage}
         onChangePage={handlePageChange}
         backIconButtonProps={{ "aria-label": "Previous Page" }}
         nextIconButtonProps={{ "aria-label": "Next Page" }}
@@ -114,7 +118,8 @@ ProjectsTable.propTypes = {
   ).isRequired,
   page: PropTypes.number.isRequired,
   count: PropTypes.number.isRequired,
-  total: PropTypes.number.isRequired,
+  rowsPerPage: PropTypes.number.isRequired,
+  moveToProjectPage: PropTypes.func.isRequired,
   handlePageChange: PropTypes.func.isRequired
 };
 

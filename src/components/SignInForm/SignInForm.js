@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
@@ -84,7 +85,8 @@ const SignInForm = props => {
             <Button
               className="signin-form-component__form__button-box-wrapper__button-wrapper__signup-button"
               color="primary"
-              href={signupUrl || ""}
+              component={Link}
+              to={signupUrl || ""}
             >
               Sign-up in tcp
             </Button>

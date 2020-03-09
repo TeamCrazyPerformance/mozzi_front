@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
 import AppBar from "@material-ui/core/AppBar";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Drawer from "@material-ui/core/Drawer";
@@ -16,7 +14,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import MenuIcon from "@material-ui/icons/Menu";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import DrawerList from "../DrawerList/DrawerList";
-import * as authActions from "../../redux/auth/actions";
 
 const drawerWidth = 240;
 
@@ -52,11 +49,17 @@ const appBarStyles = makeStyles(theme => ({
   },
   titleClassName: {
     flexGrow: 1
-  }
+  },
+  menuItemClassName: () => ({
+    "&:visited": {
+      color: "black",
+      textDecoration: "none"
+    }
+  })
 }));
 
 const Header = props => {
-  const { children, signOut } = props;
+  const { children, signOut, userId, role } = props;
   const {
     rootClassName,
     drawerClassName,
@@ -65,7 +68,8 @@ const Header = props => {
     toolbarClassName,
     drawerPaperClassName,
     contentClassName,
-    titleClassName
+    titleClassName,
+    menuItemClassName
   } = appBarStyles();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -101,7 +105,7 @@ const Header = props => {
             className={`${titleClassName} app-bar-wrapper__app-bar__tool-bar__title`}
             noWrap
           >
-            TCP WEB PROJECT
+            TCP WEB
           </Typography>
           <div className="app-bar-wrapper__app-bar__tool-bar__account-circle">
             <IconButton
@@ -125,11 +129,24 @@ const Header = props => {
               open={accountCircleMenuOpen}
               onClose={handleAccountCircleMenuClose}
             >
-              <MenuItem onClick={handleAccountCircleMenuClose}>
-                Profile
+              <MenuItem
+                className={menuItemClassName}
+                component={Link}
+                to={`/user/${userId}`}
+                onClick={handleAccountCircleMenuClose}
+              >
+                My profile
               </MenuItem>
-              <MenuItem onClick={signOutHandler}>
-                <Link to="/">Logout</Link>
+              <MenuItem
+                className={menuItemClassName}
+                component={Link}
+                to="/"
+                onClick={() => {
+                  handleAccountCircleMenuClose();
+                  signOutHandler();
+                }}
+              >
+                Logout
               </MenuItem>
             </Menu>
           </div>
@@ -152,7 +169,7 @@ const Header = props => {
             // Better open performance on mobile.
             ModalProps={{ keepMounted: true }}
           >
-            <DrawerList />
+            <DrawerList role={role} />
           </Drawer>
         </Hidden>
         {/* Width is bigger then 1280px */}
@@ -166,7 +183,7 @@ const Header = props => {
             variant="permanent"
             open
           >
-            <DrawerList />
+            <DrawerList role={role} />
           </Drawer>
         </Hidden>
       </nav>
@@ -183,10 +200,9 @@ const Header = props => {
 Header.propTypes = {
   children: PropTypes.oneOfType([PropTypes.element, PropTypes.array])
     .isRequired,
-  signOut: PropTypes.func.isRequired
+  signOut: PropTypes.func.isRequired,
+  userId: PropTypes.string.isRequired,
+  role: PropTypes.string.isRequired
 };
 
-const mapDispatchToProps = dispatch =>
-  bindActionCreators(authActions, dispatch);
-
-export default connect(null, mapDispatchToProps)(Header);
+export default Header;

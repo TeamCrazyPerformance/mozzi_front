@@ -2,6 +2,7 @@ import { all, takeEvery, put, call, fork } from "redux-saga/effects";
 import * as AuthApi from "./api";
 import * as AuthActions from "./actionTypes";
 import * as jwtHelper from "../../helpers/jwtHelper";
+import * as userInformationHelper from "../../helpers/userInformationHelper";
 
 const postSignIn = function* postSignIn() {
   yield takeEvery(AuthActions.POST_SIGN_IN, function* postSignInSaga({
@@ -16,7 +17,11 @@ const postSignIn = function* postSignIn() {
 
     if (getResult.success === true && getResult.token) {
       yield call(() => jwtHelper.setJwt(getResult.token));
-
+      yield call(() => userInformationHelper.setUserId(id));
+      yield put({
+        type: AuthActions.UPDATE_USER_ID,
+        userId: id
+      });
       if (getResult.role === "admin") {
         yield put({
           type: AuthActions.POST_SIGN_IN_SUCCESS_ADMIN
@@ -37,17 +42,11 @@ const postSignIn = function* postSignIn() {
 
 const signOut = function* signOut() {
   yield takeEvery(AuthActions.SIGN_OUT, function* signOutSaga() {
-    const clearJwtResult = yield call(() => jwtHelper.clearJwt());
-
-    if (clearJwtResult === true) {
-      yield put({
-        type: AuthActions.SIGN_OUT_SUCCESS
-      });
-    } else {
-      yield put({
-        type: AuthActions.SIGN_OUT_FAILURE
-      });
-    }
+    yield call(() => jwtHelper.clearJwt());
+    yield call(() => userInformationHelper.clearUserId());
+    yield put({
+      type: AuthActions.SIGN_OUT_SUCCESS
+    });
   });
 };
 
@@ -81,10 +80,15 @@ const checkAuthorization = function* checkAuthorization() {
     AuthActions.CHECK_AUTHORIZATION,
     function* checkAuthorizationSaga() {
       const jwt = jwtHelper.getJwt();
+      const userId = userInformationHelper.getUserId();
       const isAuthorization = jwtHelper.checkExpirity(jwt);
 
       if (isAuthorization.success) {
         // Check login state when the page refreshes.
+        yield put({
+          type: AuthActions.UPDATE_USER_ID,
+          userId
+        });
         if (isAuthorization.role === "admin") {
           yield put({ type: AuthActions.POST_SIGN_IN_SUCCESS_ADMIN });
         } else if (isAuthorization.role === "user") {

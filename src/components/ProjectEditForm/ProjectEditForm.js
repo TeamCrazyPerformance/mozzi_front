@@ -1,112 +1,62 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
+
+import NameValueInputBox from "../InputBoxes/NameValueInputBox/NameValueInputBox";
+import ContentValueInputBox from "../InputBoxes/ContentValueInputBox/ContentValueInputBox";
 
 const projectEditFormStyles = makeStyles(() => ({
   inputBoxWrapperClassName: {
     marginBottom: "10px"
+  },
+  buttonWrapperClassName: {
+    textAlign: "right"
   }
 }));
 
 const ProjectEditForm = props => {
+  const { projectFormData, handleSubmit } = props;
   const {
-    titleValue,
-    handleTitleValue,
-    memberValue,
-    handleMemberValue,
-    contentValue,
-    handleContentValue,
-    handleSubmit
-  } = props;
-
-  const { inputBoxWrapperClassName } = projectEditFormStyles();
-
-  const [titleValueIsEmpty, setTitleValueIsEmpty] = useState(false);
-  const [memberValueIsEmpty, setMemberValueIsEmpty] = useState(false);
-  const [contentValueIsEmpty, setContentValueIsEmpty] = useState(false);
-
-  const validationCheck = () => {
-    let valueIsEmpty = false;
-
-    if (titleValue === "") {
-      setTitleValueIsEmpty(true);
-      valueIsEmpty = true;
-    } else setTitleValueIsEmpty(false);
-
-    if (memberValue === "") {
-      setMemberValueIsEmpty(true);
-      valueIsEmpty = true;
-    } else setMemberValueIsEmpty(false);
-
-    if (contentValue === "") {
-      setContentValueIsEmpty(true);
-      valueIsEmpty = true;
-    } else setContentValueIsEmpty(false);
-
-    return !valueIsEmpty;
-  };
+    inputBoxWrapperClassName,
+    buttonWrapperClassName
+  } = projectEditFormStyles();
 
   const validationCheckAndHandleSubmit = event => {
     // Prevent browers refresh.
     event.preventDefault();
-
-    const emptyValidation = validationCheck();
-
-    if (emptyValidation) handleSubmit();
+    handleSubmit();
   };
 
   return (
-    <div className="project-edit-form">
+    <div className={`project-edit-form ${inputBoxWrapperClassName}`}>
       <form
         className="project-edit-form__form"
         onSubmit={validationCheckAndHandleSubmit}
       >
-        <div
-          className={`project-edit-form__form__input-box-wrapper ${inputBoxWrapperClassName}`}
-        >
-          <TextField
-            className="project-edit-form__form__input-box-wrapper__title-input"
-            label="Title"
-            value={titleValue}
-            onChange={handleTitleValue}
-            error={titleValueIsEmpty}
-            helperText={titleValueIsEmpty ? "Please fill Title" : " "}
-            fullWidth
-          />
-        </div>
-        <div
-          className={`project-edit-form__form__input-box-wrapper ${inputBoxWrapperClassName}`}
-        >
-          <TextField
-            className="project-edit-form__form__input-box-wrapper__member-input"
-            label="Member"
-            value={memberValue}
-            onChange={handleMemberValue}
-            error={memberValueIsEmpty}
-            helperText={memberValueIsEmpty ? "Please fill Member" : " "}
-            fullWidth
-          />
-        </div>
-        <div
-          className={`project-edit-form__form__input-box-wrapper ${inputBoxWrapperClassName}`}
-        >
-          <TextField
-            className="project-edit-form__form__input-box-wrapper__content-input"
-            label="Content"
-            rows="20"
-            value={contentValue}
-            onChange={handleContentValue}
-            error={contentValueIsEmpty}
-            helperText={contentValueIsEmpty ? "Please fill Content" : " "}
-            multiline
-            fullWidth
-          />
-        </div>
-        <div className="project-edit-form__form__button-wrapper">
+        <NameValueInputBox
+          value={projectFormData.projectName.value}
+          setValue={projectFormData.projectName.setValue}
+          valueErrMessage={projectFormData.projectName.valueErrMessage}
+          setValueErrMessage={projectFormData.projectName.setValueErrMessage}
+          label="Project name"
+        />
+        <NameValueInputBox
+          value={projectFormData.projectLeader.value}
+          setValue={projectFormData.projectLeader.setValue}
+          valueErrMessage={projectFormData.projectLeader.valueErrMessage}
+          setValueErrMessage={projectFormData.projectLeader.setValueErrMessage}
+          label="Project leader"
+        />
+        <ContentValueInputBox
+          value={projectFormData.projectContent.value}
+          setValue={projectFormData.projectContent.setValue}
+          valueErrMessage={projectFormData.projectContent.valueErrMessage}
+          setValueErrMessage={projectFormData.projectContent.setValueErrMessage}
+        />
+        <div className={buttonWrapperClassName}>
           <Button
-            className="project-edit-form__form__button-wrapper__submit-button"
+            className="submit-button"
             variant="contained"
             color="primary"
             type="submit"
@@ -120,19 +70,27 @@ const ProjectEditForm = props => {
 };
 
 ProjectEditForm.propTypes = {
-  titleValue: PropTypes.string,
-  handleTitleValue: PropTypes.func.isRequired,
-  memberValue: PropTypes.string,
-  handleMemberValue: PropTypes.func.isRequired,
-  contentValue: PropTypes.string,
-  handleContentValue: PropTypes.func.isRequired,
+  projectFormData: PropTypes.shape({
+    projectName: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      setValue: PropTypes.func.isRequired,
+      valueErrMessage: PropTypes.string.isRequired,
+      setValueErrMessage: PropTypes.func.isRequired
+    }).isRequired,
+    projectLeader: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      setValue: PropTypes.func.isRequired,
+      valueErrMessage: PropTypes.string.isRequired,
+      setValueErrMessage: PropTypes.func.isRequired
+    }).isRequired,
+    projectContent: PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      setValue: PropTypes.func.isRequired,
+      valueErrMessage: PropTypes.string.isRequired,
+      setValueErrMessage: PropTypes.func.isRequired
+    }).isRequired
+  }).isRequired,
   handleSubmit: PropTypes.func.isRequired
-};
-
-ProjectEditForm.defaultProps = {
-  titleValue: "",
-  memberValue: "",
-  contentValue: ""
 };
 
 export default ProjectEditForm;

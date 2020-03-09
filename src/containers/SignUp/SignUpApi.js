@@ -1,46 +1,27 @@
-import fetchHelper from "../../helpers/fetchHelper";
+import fetchHelper from "../../helpers/fakeFetchHelper";
 
 export const postSignUp = async ({
-  id,
-  password,
-  name,
-  birthday,
-  nickName,
-  school,
-  studentNumber,
-  major,
-  email,
-  phoneNumber,
+  userInformation,
   apiCallStart,
   apiCallSuccess,
   apiCallFailure
 }) => {
   apiCallStart();
 
-  const postSignUpResponse = await fetchHelper
-    .post(`/user`, {
-      id,
-      password,
-      name,
-      birthday,
-      nickName,
-      school,
-      studentNumber,
-      major,
-      email,
-      phoneNumber
-    })
-    .then(response => response);
+  const apiResponse = { success: true };
 
-  if (postSignUpResponse.success === true) {
-    apiCallSuccess();
-  } else {
-    apiCallFailure();
-  }
+  await apiCallStart();
+
+  await fetchHelper
+    .post(`/user`, userInformation, apiResponse)
+    .then(response => apiCallSuccess(response))
+    .catch(() => apiCallFailure());
 };
 
-export const putIdCheck = ({ identityValue }) => {
+export const putIdCheck = async ({ identityValue }) => {
+  const apiResponse = { success: true, useable: true };
+
   return fetchHelper
-    .put(`/user/check`, { id: identityValue })
+    .put(`/user/check`, { id: identityValue }, apiResponse)
     .then(response => response.useable);
 };
