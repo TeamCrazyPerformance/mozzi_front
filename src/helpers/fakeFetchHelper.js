@@ -1,7 +1,10 @@
 const base = (method, url, requestData, responseData) => {
   return new Promise((resolve, reject) => {
-    if (responseData.success) resolve(responseData);
-    else reject(new Error());
+    setTimeout(() => {
+      console.log(url, method, requestData);
+      if (responseData.success) resolve(responseData);
+      else reject(new Error());
+    }, 500);
   });
 };
 
