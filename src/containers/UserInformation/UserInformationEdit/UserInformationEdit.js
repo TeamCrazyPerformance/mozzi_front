@@ -97,11 +97,11 @@ const UserInformationEdit = ({
     setError(false);
   };
 
-  const setLoadingStateAndErrorWhenApiCallSuccess = responseUserInformation => {
-    setAllow(responseUserInformation.allow);
-    setEmail(responseUserInformation.email);
-    setNickName(responseUserInformation.nickName);
-    setPhoneNum(responseUserInformation.phoneNum);
+  const setLoadingStateAndErrorWhenApiCallSuccess = response => {
+    setAllow(response.allow);
+    setEmail(response.email);
+    setNickName(response.nickName);
+    setPhoneNum(response.phoneNum);
     setLoadingState(false);
     setError(false);
   };
@@ -112,7 +112,7 @@ const UserInformationEdit = ({
   };
 
   const getUserInformation = () => {
-    userInformationEditApi.getUserInformation({
+    userInformationEditApi.getUser({
       userId,
       apiCallStart: setLoadingStateAndErrorWhenApiCallStart,
       apiCallSuccess: setLoadingStateAndErrorWhenApiCallSuccess,

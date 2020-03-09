@@ -11,13 +11,17 @@ const userInformationEditFormStyles = makeStyles(() => ({
   userInformationEditFormWrapperClassName: {
     width: "100%",
     marginBottom: "20px"
+  },
+  buttonWrapperClassName: {
+    textAlign: "right"
   }
 }));
 
 const UserInformationEditForm = props => {
   const { userInformationData, handleSubmit } = props;
   const {
-    userInformationEditFormWrapperClassName
+    userInformationEditFormWrapperClassName,
+    buttonWrapperClassName
   } = userInformationEditFormStyles();
 
   const handleUserInformationEditSubmit = event => {
@@ -47,8 +51,8 @@ const UserInformationEditForm = props => {
           valueErrMessage={userInformationData.phoneNum.valueErrMessage}
           setValueErrMessage={userInformationData.phoneNum.setValueErrMessage}
         />
-        <div>
-          <Button variant="contained" color="primary" type="submit" fullWidth>
+        <div className={buttonWrapperClassName}>
+          <Button variant="contained" color="primary" type="submit">
             Information Edit
           </Button>
         </div>

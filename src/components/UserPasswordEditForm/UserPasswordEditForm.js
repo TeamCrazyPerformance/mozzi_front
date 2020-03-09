@@ -10,12 +10,18 @@ const userPasswordEditFormStyles = makeStyles(() => ({
   userPasswordEditFormWrapperClassName: {
     width: "100%",
     marginBottom: "20px"
+  },
+  buttonWrapperClassName: {
+    textAlign: "right"
   }
 }));
 
 const UserPasswordEditForm = props => {
   const { userPasswordData, handleSubmit } = props;
-  const { userPasswordEditFormWrapperClassName } = userPasswordEditFormStyles();
+  const {
+    userPasswordEditFormWrapperClassName,
+    buttonWrapperClassName
+  } = userPasswordEditFormStyles();
 
   const handleUserInformationEditSubmit = event => {
     // Prevent browers refresh.
@@ -56,8 +62,8 @@ const UserPasswordEditForm = props => {
           }
           passwordValue={userPasswordData.newPasswordConfirm.newPassword}
         />
-        <div>
-          <Button variant="contained" color="primary" type="submit" fullWidth>
+        <div className={buttonWrapperClassName}>
+          <Button variant="contained" color="primary" type="submit">
             Password Edit
           </Button>
         </div>

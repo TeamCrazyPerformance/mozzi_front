@@ -1,14 +1,12 @@
-// import fetchHelper from './../../../helpers/fetchHelper';
+import fetchHelper from "../../../helpers/fakeFetchHelper";
 
-export const getUserInformation = async ({
+export const getUser = async ({
   userId,
   apiCallStart,
   apiCallSuccess,
   apiCallFailure
 }) => {
-  apiCallStart();
-
-  const getUserInformationResponse = {
+  const apiResponse = {
     success: true,
     role: "admin",
     id: userId,
@@ -20,57 +18,48 @@ export const getUserInformation = async ({
     email: "kangkang@gmail.com",
     birthday: "19971221",
     createAt: "20200202",
-    allow: "dummy"
+    allow: "allow"
   };
 
-  if (getUserInformationResponse.success === true) {
-    delete getUserInformationResponse.success;
-    apiCallSuccess(getUserInformationResponse);
-  } else {
-    apiCallFailure();
-  }
+  await apiCallStart();
+
+  await fetchHelper
+    .get(`/user/${userId}`, null, apiResponse)
+    .then(response => apiCallSuccess(response))
+    .catch(() => apiCallFailure());
 };
 
 export const putUser = async ({
-  nickName,
-  email,
-  phoneNum,
-  allow,
+  userId,
+  userInformation,
   apiCallStart,
   apiCallSuccess,
   apiCallFailure
 }) => {
-  apiCallStart();
+  const apiResponse = { success: true };
 
-  const putUserResponse = {
-    success: true
-  };
+  await apiCallStart();
 
-  if (putUserResponse.success === true) {
-    delete putUserResponse.success;
-    apiCallSuccess();
-  } else {
-    apiCallFailure();
-  }
+  await fetchHelper
+    .put(`/user/${userId}`, userInformation, apiResponse)
+    .then(() => apiCallSuccess())
+    .catch(() => apiCallFailure());
 };
 
 export const putUserPassword = async ({
+  userId,
   curPassword,
   newPassword,
   apiCallStart,
   apiCallSuccess,
   apiCallFailure
 }) => {
-  apiCallStart();
+  const apiResponse = { success: true };
 
-  const putUserPasswordResponse = {
-    success: true
-  };
+  await apiCallStart();
 
-  if (putUserPasswordResponse.success === true) {
-    delete putUserPasswordResponse.success;
-    apiCallSuccess();
-  } else {
-    apiCallFailure();
-  }
+  await fetchHelper
+    .put(`/user/${userId}/password`, { curPassword, newPassword }, apiResponse)
+    .then(() => apiCallSuccess())
+    .catch(() => apiCallFailure());
 };
