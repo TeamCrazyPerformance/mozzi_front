@@ -45,7 +45,8 @@ const appBarStyles = makeStyles(theme => ({
   },
   contentClassName: {
     flexGrow: 1,
-    padding: theme.spacing(3)
+    minWidth: 0,
+    margin: theme.spacing(3)
   },
   titleClassName: {
     flexGrow: 1
