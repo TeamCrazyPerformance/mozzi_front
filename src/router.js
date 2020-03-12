@@ -44,28 +44,74 @@ const PrivateRouter = ({ signOut, userId, role }) => (
   <Header signOut={signOut} userId={userId} role={role}>
     <Switch>
       {/* Main page */}
-      <Route exact path="/" component={Main} />
-      <Route exact path="/main" component={Main} />
+      <Route exact path="/" key="/" component={Main} />
+      <Route exact path="/main" key="/main" component={Main} />
       {/* Project page */}
-      <Route exact path="/project/projects" component={Projects} />
-      <Route exact path="/project/project/create" component={ProjectEdit} />
-      <Route exact path="/project/project/:projectId" component={Project} />
+      <Route
+        exact
+        path="/project/projects"
+        key="/project/projects"
+        component={Projects}
+      />
+      <Route
+        exact
+        path="/project/project/create"
+        key="/project/project/create"
+        component={ProjectEdit}
+      />
+      <Route
+        exact
+        path="/project/project/:projectId"
+        key="/project/project/:projectId"
+        component={Project}
+      />
       <Route
         exact
         path="/project/project/:projectId/edit"
+        key=""
         component={ProjectEdit}
       />
       {/* Exam page */}
-      <Route exact path="/exam/exams" component={Exams} />
-      <Route exact path="/exam/exam/create" component={ExamEdit} />
-      <Route exact path="/exam/exam/:examId" component={Exam} />
-      <Route exact path="/exam/exam/:examId/edit" component={ExamEdit} />
+      <Route exact path="/exam/exams" key="/exam/exams" component={Exams} />
+      <Route
+        exact
+        path="/exam/exam/create"
+        key="/exam/exam/create"
+        component={ExamEdit}
+      />
+      <Route
+        exact
+        path="/exam/exam/:examId"
+        key="/exam/exam/:examId"
+        component={Exam}
+      />
+      <Route
+        exact
+        path="/exam/exam/:examId/edit"
+        key="/exam/exam/:examId/edit"
+        component={ExamEdit}
+      />
       {/* Admin page */}
-      <Route exact path="/admin/joinrequests" component={JoinRequests} />
-      <Route exact path="/admin/users" component={Users} />
+      <Route
+        exact
+        path="/admin/joinrequests"
+        key="/admin/joinrequests"
+        component={JoinRequests}
+      />
+      <Route exact path="/admin/users" key="/admin/users" component={Users} />
       {/* User information page */}
-      <Route exact path="/user/:userId" component={UserInformation} />
-      <Route exact path="/user/:userId/edit" component={UserInformationEdit} />
+      <Route
+        exact
+        path="/user/:userId"
+        key="/user/:userId"
+        component={UserInformation}
+      />
+      <Route
+        exact
+        path="/user/:userId/edit"
+        key="/user/:userId/edit"
+        component={UserInformationEdit}
+      />
       {/* 404 Error page */}
       <Route component={ErrorPage404} />
     </Switch>
