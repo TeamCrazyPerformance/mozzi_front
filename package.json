@@ -49,6 +49,5 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-prettier": "^3.1.1",
     "prettier": "^1.19.1"
-  },
-  "proxy": "http://117.17.198.44:8080/"
+  }
 }
