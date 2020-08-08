@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/mozzi_front/static/css/main.26d49fbf.chunk.css",
+    "main.js": "/mozzi_front/static/js/main.e53d6297.chunk.js",
+    "main.js.map": "/mozzi_front/static/js/main.e53d6297.chunk.js.map",
+    "runtime-main.js": "/mozzi_front/static/js/runtime-main.afb1a5e5.js",
+    "runtime-main.js.map": "/mozzi_front/static/js/runtime-main.afb1a5e5.js.map",
+    "static/js/2.c0b770c7.chunk.js": "/mozzi_front/static/js/2.c0b770c7.chunk.js",
+    "static/js/2.c0b770c7.chunk.js.map": "/mozzi_front/static/js/2.c0b770c7.chunk.js.map",
+    "index.html": "/mozzi_front/index.html",
+    "precache-manifest.126a00b714dc9eda8fc4f63ac7b64156.js": "/mozzi_front/precache-manifest.126a00b714dc9eda8fc4f63ac7b64156.js",
+    "service-worker.js": "/mozzi_front/service-worker.js",
+    "static/css/main.26d49fbf.chunk.css.map": "/mozzi_front/static/css/main.26d49fbf.chunk.css.map",
+    "static/media/logo.png": "/mozzi_front/static/media/logo.6cfe430d.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.afb1a5e5.js",
+    "static/js/2.c0b770c7.chunk.js",
+    "static/css/main.26d49fbf.chunk.css",
+    "static/js/main.e53d6297.chunk.js"
+  ]
+}
