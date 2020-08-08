@@ -8,18 +8,18 @@ import Logo from "../../components/Logo/Logo";
 import LoadingSpinner from "../../components/LoadingSpinner/LoadingSpinner";
 import * as authActions from "../../redux/auth/actions";
 
-const SignIn = props => {
+const SignIn = (props) => {
   const { loadingState, postSignIn, idPasswordError } = props;
-  const [identityValue, setIdentityValue] = useState("userAbc");
-  const [passwordValue, setPasswordValue] = useState("1234");
+  const [identityValue, setIdentityValue] = useState("");
+  const [passwordValue, setPasswordValue] = useState("");
 
-  const handleIdentityValue = event => setIdentityValue(event.target.value);
-  const handlePasswordValue = event => setPasswordValue(event.target.value);
+  const handleIdentityValue = (event) => setIdentityValue(event.target.value);
+  const handlePasswordValue = (event) => setPasswordValue(event.target.value);
 
   const handleSubmit = () => {
     const userInformation = {
       id: identityValue,
-      password: passwordValue
+      password: passwordValue,
     };
 
     postSignIn(userInformation);
@@ -53,20 +53,20 @@ const SignIn = props => {
 SignIn.propTypes = {
   postSignIn: PropTypes.func.isRequired,
   loadingState: PropTypes.bool.isRequired,
-  idPasswordError: PropTypes.bool.isRequired
+  idPasswordError: PropTypes.bool.isRequired,
 };
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   const { auth } = state;
 
   return {
     isSignIn: auth.isSignIn,
     loadingState: auth.loadingState,
-    idPasswordError: auth.idPasswordError
+    idPasswordError: auth.idPasswordError,
   };
 };
 
-const mapDispatchToProps = dispatch =>
+const mapDispatchToProps = (dispatch) =>
   bindActionCreators(authActions, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
